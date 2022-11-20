@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { userRoutes } from "./user_routes";
+import {  } from "./services/users/router/user_rounter";
 
 const rootRouter = Router()
 
-rootRouter.use('/users',userRoutes )
+rootRouter.use('/_', )
 export {rootRouter}

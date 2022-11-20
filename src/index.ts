@@ -1,5 +1,5 @@
 import dotenv from 'dotenv'
-import {MongoInitialize} from  './util/monogoConnection'
+import {MongoInitialize} from  './utilities/monogoConnection'
 import { Server } from "./server";
 
 
