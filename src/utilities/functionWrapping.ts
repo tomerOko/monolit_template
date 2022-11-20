@@ -26,7 +26,7 @@ export const wrapSync = < T extends(...args: any[]) => any > (fn: T, params: Par
 };
 
 
-export const wrap = async < T extends (...args: any[]) => Promise<any> > (fn: T, params: Parameters < T > , fn_name: string, options ? : WrapOptions): Promise <ReturnType < T >> => {
+export const wrap = async <T extends (...args: any[]) => Promise<any>> (fn: T, params: Parameters < T > , fn_name: string, options ? : WrapOptions): Promise <ReturnType < T >> => {
     try {
         logger.info(`${fn_name} - start ${ options?.hide_params ? '': params }`)
         const result = await fn(...params)
