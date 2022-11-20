@@ -4,10 +4,12 @@
       {
         "type": "node",
         "request": "launch",
-        "name": "NPM start",
-        "program": "/app/index.ts",
-        "preLaunchTask": "tsc: build - tsconfig.json",
-        "outFiles": ["/app/out/**/*.js"]
+        "name": "nodemon",
+        "runtimeExecutable": "/usr/local/bin/nodemon",
+        "program": "/app/src/index.ts",
+        "restart": true,
+        "console": "integratedTerminal",
+        "internalConsoleOptions": "neverOpen"
       },
       {
         "type": "node",
