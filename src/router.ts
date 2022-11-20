@@ -1,7 +1,10 @@
 import { Router } from "express";
-import {  } from "./services/users/router/user_rounter";
+import { userRoutes } from "./services/users/router/user_rounter";
 
 const rootRouter = Router()
 
-rootRouter.use('/_', )
+rootRouter.use('/user',userRoutes)
+// rootRouter.use('/post',postRoutes)
+// rootRouter.use('/community',communityRoutes)
+
 export {rootRouter}

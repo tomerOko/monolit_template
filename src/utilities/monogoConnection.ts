@@ -10,22 +10,21 @@ const mongo: MongoActiveConnectionStore = {
   db: undefined
 }
 
-export class MongoInitialize {
+export class MongoInitializer {
 
   /**
    * @param connection_string - expected to specify a specific database
    * @summary if createConnection wasnt execute, this class will use process.env.MONGO_URI as connection string
    * if connections axist it dose not recreate
    */
-  //TODO: check DB type vs MongoActiveConnectionStore.db!!!!!!
   public static connectOrGetActiveConnection = async (connection_string ? : string): Promise < Db > => {
     if (mongo.connection == undefined)
-      await this.createConnection(connection_string)
+      await MongoInitializer.createConnection(connection_string)
     return mongo.db as Db
   }
 
   private static createConnection = async (connection_string ? : string) => {
-    connection_string = this.checkConnectionString(connection_string)
+    connection_string = MongoInitializer.checkConnectionString(connection_string)
     try {
       mongo.connection = await new MongoClient(connection_string).connect()
       mongo.db = await mongo.connection.db()
@@ -49,7 +48,7 @@ export class MongoInitialize {
    * 
    */
      public static createCollections = async (expected_collections: Array<string>, db:Db ): Promise < void > => {
-      const collections_to_create = await this.missingCollections(expected_collections, db)
+      const collections_to_create = await MongoInitializer.missingCollections(expected_collections, db)
       await Promise.all(collections_to_create.map(collection_name => db.createCollection(collection_name)))
     }
   

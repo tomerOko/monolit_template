@@ -7,11 +7,19 @@ export class UserController {
 
     constructor(){}
 
-    public static createUser(req: Request, res: Response):void{
-        const result = wrap<typeof UserController.createUser>((req: Request, res: Response):void=>{
+    
+    public createUsers(req: Request, res: Response):void{
+        const result = wrap<InstanceType<typeof UserController>['createUsers']>((req: Request, res: Response):void=>{
             const result = 0
             res.send(result)
         },[req, res], 'UserController/createUser')
+    }
+
+    public async createUser(req: Request, res: Response):Promise<void>{
+        //logic
+        //return
+        const result = 0
+        res.send(result)
     }
 
     public async getUserById(req: Request, res: Response):Promise<void>{

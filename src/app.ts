@@ -1,10 +1,8 @@
 
 import express, { Application, Request, Response, NextFunction } from "express";
-import {logger} from './middleware/logging';
 import cors from 'cors'
 import rateLimiter from './middleware/custom/rateLimiter'
-import {testConnection} from './models/UserModel'
-import { rootRouter } from "./services/community/routes/All_API";
+import { rootRouter } from "./router";
 
 //well.. :)
 export const app = express()
@@ -20,22 +18,18 @@ const corsConfig = {
 };
 app.use(cors(corsConfig));
 
-// //@desc Static Folder 
-// //'_dirname' means 'if the run command lunced from any directory other then the one containing this file, the use the absolute path of this file'
-// app.use(express.static(path.join(__dirname, 'dist')))
-
 //@desc json parser
 app.use(express.json())
 //@desc URLs matadata parser
 app.use(express.urlencoded({extended : false}))
 
 
-
-// @desc logging middleware (not for errors)
-const NAMESPACE = 'MAIN (SERVER)';
-app.use((req, res, next) => logger(req, res, next, NAMESPACE,"recived"))
-app.use((req, res, next) => logger(req, res, next, NAMESPACE,"error",))
-app.use((req, res, next) => logger(req, res, next, NAMESPACE,"finished",))
+//TODO: add logs
+// // @desc logging middleware (not for errors)
+// const NAMESPACE = 'MAIN (SERVER)';
+// app.use((req, res, next) => logger(req, res, next, NAMESPACE,"recived"))
+// app.use((req, res, next) => logger(req, res, next, NAMESPACE,"error",))
+// app.use((req, res, next) => logger(req, res, next, NAMESPACE,"finished",))
 
 // @desc routers tree 
 app.use('/' , rootRouter) 

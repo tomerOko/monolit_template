@@ -1,9 +1,9 @@
 import { Request, Response, Router } from "express";
-import {userControllers} from "../controllers/users_controller"
+import {UserController} from "../controllers/users_controller"
 
 const router:Router = Router()
 
-router.post('/createUser',userControllers.)
+router.post('/createUser',UserController.createUser)
 
 router.post('/getUserById',userControllers.)
 
