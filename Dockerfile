@@ -1,8 +1,16 @@
+# NODE DEV IMAGE:
+
 #a basic image to start from
 FROM node:17-alpine3.14
 
+# best practie is to update apk before instalations
+RUN apk update
+
 # install bash
-RUN apk add --no-cache --upgrade bash
+RUN apk add --no-cache --upgrade bash 
+
+# install git
+RUN apk add git
 
 # needed global packages for the project
 RUN npm i -g typescript nodemon ts-node

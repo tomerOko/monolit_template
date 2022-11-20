@@ -1,7 +1,4 @@
-import {
-  Db,
-  MongoClient
-} from 'mongodb'
+import {Db,MongoClient} from 'mongodb'
 
 interface MongoActiveConnectionStore {
   connection: MongoClient | undefined,
@@ -21,10 +18,10 @@ export class MongoInitialize {
    * if connections axist it dose not recreate
    */
   //TODO: check DB type vs MongoActiveConnectionStore.db!!!!!!
-  public static connectOrGetActiveConnection = async (connection_string ? : string): Promise < Db> => {
+  public static connectOrGetActiveConnection = async (connection_string ? : string): Promise < Db > => {
     if (mongo.connection == undefined)
       await this.createConnection(connection_string)
-    return mongo.db
+    return mongo.db as Db
   }
 
   private static createConnection = async (connection_string ? : string) => {
