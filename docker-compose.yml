@@ -2,23 +2,26 @@ version: "3.9"
 services:
   
   node_backend:
-      stdin_open: true # docker run -i
-      tty: true        # docker run -t
-      image: node_backend:latest
-      build: ./
-      container_name: node_backend.container
-      entrypoint: sh start_node.sh
-      hostname: 0.0.0.0
-      ports: 
-        - "3000:3000"
-      volumes: 
-        - ./:/app
-      depends_on: 
-        - mongo
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    image: backend:latest
+    build: ./
+    container_name: backend.container
+    entrypoint: sh ./scripts/start_node.sh
+    hostname: 0.0.0.0
+    ports: 
+      - "3000:3000"
+    volumes: 
+      - ./:/app
+    environment:
+      MONGO_URI : mongodb://root:example@mongo:27017
+    depends_on: 
+      - mongo
   
   mongo:
     image: mongo
     restart: always
+    container_name: mongo.container
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example

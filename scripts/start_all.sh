@@ -1,5 +1,5 @@
 sudo chown -R $USER:$(id -gn $USER) ./* # this give permission to windows to eddit the content of the folder this script runing from, so it lets vscode edit the content of this folder
 sudo docker-compose down
 sudo docker-compose up -d
-docker exec -it node_backend.container bash
+docker exec -it backend.container bash
 

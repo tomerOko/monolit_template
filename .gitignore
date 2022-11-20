@@ -23,5 +23,6 @@ testem.log
 /typings
 
 # repo specifics
-.mongodb
+/mongodb
+/node_modules
 config.env
