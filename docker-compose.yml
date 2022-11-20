@@ -14,7 +14,7 @@ services:
     volumes: 
       - ./:/app
     environment:
-      MONGO_URI : mongodb://root:example@mongo:27017
+      MONGO_URI : mongodb://root:example@mongo:27017/wisdo
       TEST: connection
     depends_on: 
       - mongo
@@ -26,10 +26,11 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_DATABASE: wisdo
     volumes:
       - './mongodb:/data/db'
     ports:
-      - 27017:27017
+      - "27017:27017"
     expose: 
       - 27017
 
