@@ -1,22 +1,19 @@
-FROM node:16.6.2-buster
-RUN apt-get update
-RUN apt-get -y install vim
+#a basic image to start from
+FROM node:17-alpine3.14
 
-RUN npm i -g pm2@5.1.0 
+# install bash
+RUN apk add --no-cache --upgrade bash
 
-ENV PATH=/app/node_modules/.bin:$PATH
-ENV NODE_ENV=development
+# needed global packages for the project
+RUN npm i -g typescript nodemon ts-node
 
-# the 'EXPOSE' is for internal network communication (docker-compose network). but i am not sure it is working
-EXPOSE 3000
+# make the binaries of the globaly installed packages avilable in the cli
+ENV PATH=/usr/local/bin:/app/node_modules/.bin:$PATH
+
+# defines where to run the 'ENTRYPOINT' command from
 WORKDIR /app
 
-#shuld be overide by the docker-compose ENTRYPOINT property
-ENTRYPOINT [ "bash" ]
+# set the default main command of the container to run 'nodemon src/index.ts'
+ENTRYPOINT ["/bin/bash" , "-c" ]
+CMD ["bash" ]
 
-
-#sudo docker-compose up -d 
-#sudo docker-compose up -d --build  
-#sudo docker-compose up -d --build --force-recreate
-
-# sudo chown -R $USER:$(id -gn $USER) ./*

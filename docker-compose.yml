@@ -5,14 +5,14 @@ services:
       stdin_open: true # docker run -i
       tty: true        # docker run -t
       image: node_backend:latest
-      build: ./node_backend
+      build: ./
       container_name: node_backend.container
       entrypoint: sh start_node.sh
       hostname: 0.0.0.0
       ports: 
         - "3000:3000"
       volumes: 
-        - ./node_backend/:/app
+        - ./:/app
       depends_on: 
         - mongo
   
