@@ -3,7 +3,7 @@ import express, { Application, Request, Response, NextFunction } from "express";
 import cors from 'cors'
 import rateLimiter from './middleware/custom/rateLimiter'
 import { rootRouter } from "./router";
-
+import { logger } from "./utilities/logger";
 //well.. :)
 export const app = express()
 
@@ -23,13 +23,10 @@ app.use(express.json())
 //@desc URLs matadata parser
 app.use(express.urlencoded({extended : false}))
 
-
-//TODO: add logs
-// // @desc logging middleware (not for errors)
-// const NAMESPACE = 'MAIN (SERVER)';
-// app.use((req, res, next) => logger(req, res, next, NAMESPACE,"recived"))
-// app.use((req, res, next) => logger(req, res, next, NAMESPACE,"error",))
-// app.use((req, res, next) => logger(req, res, next, NAMESPACE,"finished",))
+app.use((req, res, next) => {
+  logger.info(req.url + "recived");
+  next()
+})
 
 // @desc routers tree 
 app.use('/' , rootRouter) 
@@ -37,10 +34,10 @@ app.use('/' , rootRouter)
 
 // @desc logging middleware for errors
 app.use((req, res, next) => {
-  const error = new Error('Not found');
   res.status(404).json({
-      message: error.message
+      message: 'Not found'
   });
+  logger.error(req.url + '  Not found')
 });
 
 
