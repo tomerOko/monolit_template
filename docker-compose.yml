@@ -1,21 +1,5 @@
 version: "3.9"
 services:
-
-  react_frontend:
-    stdin_open: true # docker run -i
-    tty: true        # docker run -t
-    image: react_one:latest
-    build: ./react_frontend
-    container_name: react_frontend.container
-    entrypoint: sh start_react.sh
-    hostname: 0.0.0.0
-    environment: 
-      - PORT=4200
-    ports: 
-      - "4200:4200"
-      - "4205:4205" # documentations
-    volumes: 
-      - ./react_frontend/:/app
   
   node_backend:
       stdin_open: true # docker run -i

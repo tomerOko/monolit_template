@@ -1,8 +1,0 @@
-{
-  "recommendations": [
-    "johnpapa.angular2",
-    "ms-azuretools.vscode-docker",
-    "esbenp.prettier-vscode",
-    "dbaeumer.vscode-eslint"
-  ]
-}
