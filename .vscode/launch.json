@@ -1,0 +1,42 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "type": "node",
+        "request": "launch",
+        "name": "NPM start",
+        "program": "/app/index.ts",
+        "preLaunchTask": "tsc: build - tsconfig.json",
+        "outFiles": ["/app/out/**/*.js"]
+      },
+      {
+        "type": "node",
+        "request": "launch",
+        "name": "Jest run all tests (no watch)",
+        "program": "/app/node_modules/jest/bin/jest.js",
+        "args": [
+          "--verbose",
+          "-i",
+          "--no-cache"
+        ],
+        "console": "integratedTerminal",
+        "internalConsoleOptions": "neverOpen"
+      },
+      {
+        "type": "node",
+        "request": "launch",
+        "name": "Jest run & watch currently opened",
+        "program": "/app/node_modules/jest/bin/jest.js",
+        "args": [
+          "${fileBasenameNoExtension}",
+          "--verbose",
+          "-i",
+          "--no-cache",
+          "--watchAll"
+        ],
+        "console": "integratedTerminal",
+        "internalConsoleOptions": "neverOpen"
+      },
+  
+    ]
+}

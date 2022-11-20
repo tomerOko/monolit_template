@@ -1,0 +1,76 @@
+version: "3.9"
+services:
+
+  react_frontend:
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    image: react_one:latest
+    build: ./react_frontend
+    container_name: react_frontend.container
+    entrypoint: sh start_react.sh
+    hostname: 0.0.0.0
+    environment: 
+      - PORT=4200
+    ports: 
+      - "4200:4200"
+      - "4205:4205" # documentations
+    volumes: 
+      - ./react_frontend/:/app
+  
+  node_backend:
+      stdin_open: true # docker run -i
+      tty: true        # docker run -t
+      image: node_backend:latest
+      build: ./node_backend
+      container_name: node_backend.container
+      entrypoint: sh start_node.sh
+      hostname: 0.0.0.0
+      ports: 
+        - "3000:3000"
+      volumes: 
+        - ./node_backend/:/app
+      depends_on: 
+        - mysql_ab
+  
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+6x      - './mongodb:/data/db'
+    ports:
+      - 27017:27017
+    expose: 
+      - 27017
+
+  # mysql_ab:
+  #   # tty: true        # docker run -t
+  #   # stdin_open: true # docker run -i
+  #   image: mysql:5
+  #   restart: always
+  #   container_name: mysql_ab.container
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: artB_root
+  #     MYSQL_DATABASE: artbrain_chat
+  #     MYSQL_USER: artB
+  #     MYSQL_PASSWORD: artB
+    #   port: 3306 # default port, just to be sure
+    # expose: 
+    #   - 3306
+    # ports: 
+    #   - "3306:3306" # exposing the ports for localhost in order to connet to mysql workbanch - remove at production!!
+    # volumes:
+    #   - ./db/mysql_data/:/var/lib/mysql
+    #   # - ./db/mysql_backup/:/data_backup/data # as a start, no need for back up
+    #   # - ./db/mysql_configs/:/etc/mysql # becouse of running localy, no need to secure configs on different 
+
+
+networks: 
+  ernmy_stack:
+    driver: bridge
+
+
+
+# sudo chown -R $USER:$(id -gn $USER) ./*

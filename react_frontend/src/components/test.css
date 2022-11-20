@@ -1,0 +1,27 @@
+/* .container{
+    display: grid;
+    width: 100vw;
+    max-width: 100%;
+    grid-template-rows:  8vh 92vh;
+    grid-template-columns: 1fr repeat(2, minmax(min-content, 500px)) min-content min-content 1fr;
+}
+
+@media (max-width: 991.98px){
+    .container{
+        grid-template-rows:  10vh 92vh;
+    }
+
+    .side_nav{
+        display: none;
+    }
+
+    .menu_icon{
+        display: fixed;
+    }
+}
+
+@media (max-width: 767.98px){
+    .container{
+        grid-template-rows:  12vh 92vh;
+    }
+} */

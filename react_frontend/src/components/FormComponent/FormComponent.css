@@ -1,0 +1,48 @@
+.singleInputContainer{
+    height: 4vw;
+    width: 500px;
+    max-width: 700px;
+    padding-left: 5px;
+    margin: 4.5vh;
+    background-color: #f0dcc8 ;
+    border-radius: 10px;
+    display: grid;
+    align-content: center;
+    align-items: center;
+    overflow: visible;
+    position: relative;
+}
+
+.riggtSide{
+    align-self: end;
+    display: grid;
+    justify-content: end;
+}
+
+.putLableAbove{
+    position:absolute; 
+    top:-20px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: 700;
+    font-size: 18px ;
+    text-align: center;
+}
+
+.twoColumnsGrid{
+    display: grid;
+    align-content: center;
+    align-items: center;
+    grid-template-columns: 1fr 1fr;
+    max-width: 1000px;
+}
+
+.username{
+    
+}
+
+.statusText{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: 700;
+    font-size: 18px ;
+    text-align: center;
+}
