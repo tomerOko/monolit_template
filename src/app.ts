@@ -2,7 +2,7 @@
 import express, { Application, Request, Response, NextFunction } from "express";
 import cors from 'cors'
 import rateLimiter from './middleware/custom/rateLimiter'
-import { rootRouter } from "./router";
+// import { rootRouter } from "./router";
 import { logger } from "./utilities/logger";
 //well.. :)
 export const app = express()
@@ -29,7 +29,7 @@ app.use((req, res, next) => {
 })
 
 // @desc routers tree 
-app.use('/' , rootRouter) 
+// app.use('/' , rootRouter) 
 
 
 // @desc logging middleware for errors

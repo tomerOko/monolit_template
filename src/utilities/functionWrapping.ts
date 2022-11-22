@@ -43,18 +43,3 @@ export const wrap = async <T extends (...args: any[]) => Promise<any>> (fn: T, p
     }
 };
 
-// export const wrapS = async <T extends (...args: any[]) => any> (fn: T, args:Parameters<T>, fn_name:string, options?:WrapOptions): Promise<ReturnType<T>> => {
-//     try {
-//         console.log(fn_name, "start")
-//         const result = fn(...args)
-//         console.log(fn_name, "end")
-//         return result 
-//     } catch (error) {
-//         console.error(fn_name, error);
-//         if (options?.dont_trow_if_error) {
-//             return options?.error_return_value
-//         }else{
-//             throw error
-//         }
-//     }
-// };

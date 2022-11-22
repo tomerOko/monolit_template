@@ -8,42 +8,40 @@ export class UserController {
 
     constructor(){}
 
-
     public async createUser(req: Request, res: Response):Promise<void>{
-        const result =  await wrap<This['createUser']>(async(req, res) =>
-        { 
-            const result = 0
-            res.send(result)
-        }
-        ,[req, res], 'UserController/createUser')
-    }
+    await wrap<This['createUser']>(async(req, res) =>{
+
+        const result = 0
+        res.send(result)
+
+    },[req, res], 'UserController/createUser')}
 
 
     public async getUserById(req: Request, res: Response):Promise<void>{
-    return await wrap<This['getUserById']>(async(req, res) =>
-    { 
+    return await wrap<This['getUserById']>(async(req, res) =>{
+
         const result = 0
         res.send(result)
-    }
-    ,[req, res], 'UserController/getUserById')}
+
+    },[req, res], 'UserController/getUserById')}
 
 
     public async getAllUser(req: Request, res: Response):Promise<void>{
-    return await wrap<This['getAllUser']>(async(req, res) =>
-    { 
+    return await wrap<This['getAllUser']>(async(req, res) =>{ 
+
         const result = 0
         res.send(result)
-    }
-    ,[req, res], 'UserController/getAllUser')}
+
+    },[req, res], 'UserController/getAllUser')}
 
 
     public async updateUser(req: Request, res: Response):Promise<void>{
-    return await wrap<This['updateUser']>(async(req, res) =>
-    { 
+    return await wrap<This['updateUser']>(async(req, res) =>{ 
+
         const result = 0
         res.send(result)
-    }
-    ,[req, res], 'UserController/updateUser')}
+
+    },[req, res], 'UserController/updateUser')}
 
 
     public async deleteUserById(req: Request, res: Response):Promise<void>{
@@ -51,8 +49,8 @@ export class UserController {
     { 
         const result = 0
         res.send(result)
-    }
-    ,[req, res], 'UserController/deleteUserById')}
+
+    },[req, res], 'UserController/deleteUserById')}
 
 
 }
