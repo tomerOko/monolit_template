@@ -20,15 +20,17 @@ export class MongoInitializer {
   public static connectOrGetActiveConnection = async (connection_string ? : string): Promise < Db > => {
     if (mongo.connection == undefined)
       await MongoInitializer.createConnection(connection_string)
+    
     return mongo.db as Db
   }
 
   private static createConnection = async (connection_string ? : string) => {
     connection_string = MongoInitializer.checkConnectionString(connection_string)
     try {
-      mongo.connection = await new MongoClient(connection_string).connect()
+      mongo.connection = await new MongoClient(connection_string, {connectTimeoutMS:1000}).connect()
       mongo.db = await mongo.connection.db()
     } catch (error) {
+      console.log(error)
       throw new Error()
     }
   }

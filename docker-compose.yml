@@ -2,43 +2,89 @@ version: "3.9"
 services:
   
   node_backend:
-    stdin_open: true # docker run -i
-    tty: true        # docker run -t
+    # docker run -i
+    stdin_open: true 
+    # docker run -t
+    tty: true        
+    #image name
     image: backend:latest
+    #location of docker file
     build: ./
+    #container bame for 'docker exec -it <container name>' as an example
     container_name: backend.container
+    #location of initizalization file
     entrypoint: sh ./scripts/start_node.sh
+    #some times 'localhost' is mostly set to 127.0.0.1. but sometimes 0.0.0.0, and some times complitly custom ip. so for clearity the host is set to 0.0.0.0
     hostname: 0.0.0.0
+    #ports to expose to the host network <host port>:<container port>
     ports: 
-      - "3000:3000"
+      - "0.0.0.0:3000:3000"
+    #create a two way data sync from this folder to the 'app' folder inside the container file system
     volumes: 
       - ./:/app
+    #environment variables
     environment:
-      MONGO_URI : mongodb://root:example@mongo:27017/wisdo
-      TEST: connection
+      #this mongo user is created on the 'mongo-init.js' file (a file that the mongodb docker image run on the first initialization by its name and location)
+      - MONGO_URI=mongodb://user:pass@0.0.0.0:27017
+    # boot this server only ofter mongodb is running
     depends_on: 
       - mongo
+    networks:
+      - MONGO
   
   mongo:
+    # pool the latest mongodb image from dokcerhub
     image: mongo
+    #container bame for 'docker exec -it <container name>' as an example
+    container_name: mongo
+    #TODO: what is that?
     restart: always
-    container_name: mongo.container
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
-      MONGO_INITDB_DATABASE: wisdo
-    volumes:
-      - './mongodb:/data/db'
+    #ports to expose to the host network <host port>:<container port>
     ports:
-      - "27017:27017"
-    expose: 
+      - "0.0.0.0:27017:27017"
+    volumes:
+      # mount a local directory to the file system of the mongo container in order to not loose the data each time the container stops
+      - ./mongodb/data:/data/db
+    environment:
+      # administrator cradentials
+      - MONGO_INITDB_ROOT_USERNAME=user
+      - MONGO_INITDB_ROOT_PASSWORD=pass
+      # a database to create on initizalization
+      - MONGO_INITDB_DATABASE=wisdo
+    # expose port to other containers inside the docker compose default network
+    expose:
       - 27017
+    # TODO: what is this?
+    command: --quiet
+    networks:
+      - MONGO
 
 
-networks: 
-  ernmy_stack:
+  #mongo express is a web GUI for mongodb. open localhost:8081 to use it (have nothing to do with express.js)
+  mongo-express:
+    # pool the latest mongo-express image from dokcerhub
+    image: mongo-express
+    #container bame for 'docker exec -it <container name>' as an example
+    container_name: mongo-express
+    restart: always
+    #ports to expose to the host network <host port>:<container port>
+    ports:
+      # mongo-express 
+      - "0.0.0.0:8081:8081"
+    environment:
+      # administrator cradentials
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=user
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=pass
+      # TODO: what is that?
+      - ME_CONFIG_MONGODB_SERVER=mongo
+      - ME_CONFIG_MONGODB_PORT=27017
+    networks:
+      - MONGO
+    depends_on:
+      - mongo
+
+networks:
+  MONGO:
+    name: MONGO
     driver: bridge
 
-
-
-# sudo chown -R $USER:$(id -gn $USER) ./*

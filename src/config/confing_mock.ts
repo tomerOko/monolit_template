@@ -1,7 +1,8 @@
 export const config = {
     port: 3000,
     mongo:{
-        MONGO_URI: "mongodb://root:example@mongo:27017",
+        //TODO: the connection string shuld come from procces.env
+        MONGO_URI: "mongodb://user:pass@mongo:27017",
         expected_collections: ['members', 'posts', 'communities']
     }
 }
