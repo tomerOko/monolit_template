@@ -1,5 +1,5 @@
 import { wrap } from "./functionWrapping";
-import { Filter, OptionalId, WithId } from "mongodb";
+import { Filter, OptionalId, Sort, WithId } from "mongodb";
 import { MongoInitializer } from "./monogoConnection";
 
 
@@ -27,6 +27,8 @@ export type QueryValues<T> = Array<OptionalId<T>>
 export type FilterQuery<T> = {
   collection_name: QueryCollection,
   filter: Filter<T>
+  sort?: Sort,
+  limit?: number
 }
 export type ValuesQuery<T> = {
   collection_name: QueryCollection,
