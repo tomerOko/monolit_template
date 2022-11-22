@@ -2,7 +2,7 @@
 import express, { Application, Request, Response, NextFunction } from "express";
 import cors from 'cors'
 import rateLimiter from './middleware/custom/rateLimiter'
-// import { rootRouter } from "./router";
+import { rootRouter } from "./router";
 import { logger } from "./utilities/logger";
 //well.. :)
 export const app = express()
@@ -11,7 +11,7 @@ export const app = express()
 app.use(rateLimiter);
 
 //@desc cros env to make the browser not block requerst from diffrent port (domain = protocol+host+port. cors = diffrent domains)
-//if serving the client as a static folder from the server, or if using nginx (or any other reverse proxy) thi part can be removed as well
+//if serving the client as a static folder from the server, or if using nginx (or any other reverse proxy) that part can be removed as well
 const corsConfig = {
   origin: true,
   credentials: true,
@@ -24,12 +24,12 @@ app.use(express.json())
 app.use(express.urlencoded({extended : false}))
 
 app.use((req, res, next) => {
-  logger.info(req.url + "recived");
+  logger.info(`request url: '${req.url}' request type: '${req.method}'`);
   next()
 })
 
 // @desc routers tree 
-// app.use('/' , rootRouter) 
+app.use('/' , rootRouter) 
 
 
 // @desc logging middleware for errors
