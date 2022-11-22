@@ -11,8 +11,9 @@ export class UserController {
     public async createUser(req: Request, res: Response):Promise<void>{
     await wrap<This['createUser']>(async(req, res) =>{
 
-        const result = 0
-        res.send(result)
+        //validate params
+        //do logic
+        //use service
 
     },[req, res], 'UserController/createUser')}
 

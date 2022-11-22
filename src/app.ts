@@ -1,7 +1,7 @@
 
 import express, { Application, Request, Response, NextFunction } from "express";
 import cors from 'cors'
-import rateLimiter from './middleware/custom/rateLimiter'
+import rateLimiter from './middleware/packages/rateLimiter'
 import { rootRouter } from "./router";
 import { logger } from "./utilities/logger";
 import { http_logger } from "./middleware/custom/httpLogger";
