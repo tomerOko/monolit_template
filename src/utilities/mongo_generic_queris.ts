@@ -1,146 +1,159 @@
 import { wrap } from "./functionWrapping";
-import { Filter, OptionalId, Sort, WithId } from "mongodb";
+import { Filter, FindOneAndUpdateOptions, ModifyResult, OptionalId, Sort, UpdateFilter, WithId } from "mongodb";
 import { MongoInitializer } from "./monogoConnection";
 
 
-export type InsertResult = {
+export type CreateManyResult = {
   inserted:number,
   blocked_by_index: number
 }
 
-export type upsertResult = {
-  inserted:number,
-  updated: number,
-  blocked_by_index: number
-}
-export type updateResult = {
+export type ReadResult<T> = Array<T>
+
+export type UpdateManyResult = {
+  mutched:number,
   updated:number,
-  blocked_by_index: number
 }
-export type readResult<T> = Array<WithId<T>>
+
+export type UpdateOneResult = {
+  matched:boolean,
+  action: 'insert' | 'update' | 'none'
+}
+
 export type DeleteResult = {
   deleted:number
 } 
 
+
+
 export type QueryCollection = string
-export type QueryValues<T> = Array<OptionalId<T>> 
-export type FilterQuery<T> = {
-  collection_name: QueryCollection,
-  filter: Filter<T>
+export type Documents<T> = Array<OptionalId<T>> 
+
+export type CreateQuery<T> = {
+  collection_name:string,
+  values:T[]
+}
+
+export type BasicQuery<T> = {
+  collection_name:string,
+  filter: Filter<T>,
+}
+
+export type ReadQuery<T> = BasicQuery<T> & {
   sort?: Sort,
   limit?: number
 }
-export type ValuesQuery<T> = {
-  collection_name: QueryCollection,
-  values: QueryValues<T>
+
+export type UpdateManyQuery<T> = BasicQuery<T> & {
+  update_properties: UpdateFilter<any>
 }
-export type CompleteQuery<T> = FilterQuery <T> & ValuesQuery <T>
+
+export type UpdateOneQuery<T> = BasicQuery<T> & {
+  upsert:boolean,
+  update_properties: UpdateFilter<any>
+}
+
+export type DeleteQuery<T> = BasicQuery<T> & {
+  delete_many: boolean
+}
 
 
 
 type This = typeof MongoGenericQueris
 export class MongoGenericQueris{
 
+    //TODO: any shuld be 'T'
+    public static async createMany<T>(query: CreateQuery<T>):Promise<CreateManyResult>{
+      return await wrap<This['createMany']>(async(query)=>{
+    
+          const collection = await MongoInitializer.getCollection<T>(query.collection_name);
+          const query_result = await collection.insertMany(query.values);
+          const inserted = query_result.insertedCount
+          const blocked_by_index = query.values.length - inserted
+          return {blocked_by_index,inserted}
+    
+    },[query],'MongoGenericQueris/createMany')}
 
 
-  public static async readAll<T> (collection_name:QueryCollection): Promise<any>{
+  //TODO: any shuld be 'T'
+  public static async readBy<T>(query:ReadQuery<T>):Promise<ReadResult<any>> {
+  return await wrap<This["readBy"]>(async(query)=>{
+
+      const collection = await MongoInitializer.getCollection<T>(query.collection_name)
+      if (!query.limit) query.limit = 0;
+      if (!query.sort) query.sort = {}
+      const result = await collection.find<T>({}).toArray()
+      return result 
+
+  },[query],'MongoGenericQueris/getBy')}
+
+
+  //TODO: any shuld be 'T'
+  public static async readAll<T> (collection_name:QueryCollection): Promise<ReadResult<any>>{
     return await wrap<This["readAll"]>(async(collection_name) => {
   
-      const db = await MongoInitializer.connectOrGetActiveConnection()
-      const collection = db.collection<T>(collection_name);
+      const collection = await MongoInitializer.getCollection<T>(collection_name);
       const result = await collection.find().toArray();
       return result;
 
-    },[collection_name],'')}
+  },[collection_name],'MongoGenericQueris/readAll')}
+
+  
+  public static async updateMany<T>(query:UpdateManyQuery<T>):Promise<UpdateManyResult>{
+  return await wrap<This['updateMany']>(async (query) => {
+
+    const collection = await MongoInitializer.getCollection<T>(query.collection_name);
+    const query_result = await collection.updateMany(query.filter, query.update_properties)
+    const result:UpdateManyResult = {
+      mutched : query_result.matchedCount,
+      updated : query_result.modifiedCount,
+
+    }
+    return result
+
+  },[query],'MongoGenericQueris/updateMany')}
 
 
-  public static async deleteMany<T> (query:FilterQuery<T>): Promise<DeleteResult>{
-  return await wrap<This["deleteMany"]>(async (query) => {
+  public static async updateOne<T>(query:UpdateOneQuery<T>):Promise<UpdateOneResult>{
+  wrap<This['updateOne']>(async(query)=>{
+    
+    const collection = await MongoInitializer.getCollection<T>(query.collection_name);
+    const options: FindOneAndUpdateOptions = {upsert: query.upsert}
+    const query_result = await collection.findOneAndUpdate(query.filter,query.update_properties, options)
+    
+    const result: UpdateOneResult = {
+      matched: query_result.value
+    }
+
+    if (result.ok === 1) return result.value;
+
+  },[query],'MongoGenericQueris/updateOne')}
+
+
+  public static async delete<T> (query:DeleteQuery<T>): Promise<DeleteResult>{
+  return await wrap<This["delete"]>(async (query) => {
 
     const db = await MongoInitializer.connectOrGetActiveConnection()
     const collection = db.collection<T>(query.collection_name);
-    const deleteResult = await collection.deleteMany(query.filter);
-    const delete_result: DeleteResult = {deleted:deleteResult.deletedCount}
+    let query_result;
+    if (query.delete_many) {
+      query_result = await collection.deleteMany(query.filter)
+    }else{
+      query_result = await collection.deleteOne(query.filter)
+    }
+    const delete_result: DeleteResult = {deleted:query_result.deletedCount}
     return delete_result
 
-  },[query],'')}
-
-
-  public static async deleteOne<T> (query:FilterQuery<T>): Promise<DeleteResult>{
-  return await wrap<This["deleteMany"]>(async (query) => {
-
-      const db = await MongoInitializer.connectOrGetActiveConnection()
-      const collection = db.collection<T>(query.collection_name);
-      const deleteResult = await collection.deleteOne(query.filter as Filter<T>);
-      const delete_result: DeleteResult = {deleted:deleteResult.deletedCount}
-      return delete_result
-
-    },[query],'')}
-
-
-
-
-
+  },[query],'MongoGenericQueris/deleteMany')}
 
 }
 
 
 
 
-export const createOrUpdate = async <T>(
-  collectionName: string,
-  term: object,
-  value: OptionalId<T>
-): Promise<T | undefined> => {
-  const { client, database } = await dbConnect();
-
-  try {
-    const db = client.db(database);
-    const collection = db.collection<T>(collectionName);
-
-    // nb : upsert either
-    // + Creates a new document if no documents match the filter. Returns null after inserting the new document, unless returnNewDocument is true.
-    // + Updates a single document that matches the filter.
-
-    const result = await collection.findOneAndUpdate(
-      term,
-      { $set: value as MatchKeysAndValues<T> },
-      { upsert: true, returnOriginal: false }
-    );
-    if (result.ok === 1) return result.value;
-
-    return undefined;
-  } catch (err) {
-    throw { ...err, message: err.message };
-  } finally {
-    await client.close();
-  }
-};
 
 
 
 
-
-
-export const create = async <T>(
-  collectionName: string,
-  value: OptionalId<T>
-): Promise<ObjectId | undefined> => {
-  const { client, database } = await dbConnect();
-
-  try {
-    const db = client.db(database);
-    const collection = db.collection<T>(collectionName);
-
-    const result = await collection.insertOne(value);
-    if (result.insertedCount === 1) return result.insertedId as ObjectId;
-
-    return undefined;
-  } catch (err) {
-    throw { ...err, message: err.message };
-  } finally {
-    await client.close();
-  }
-};
 
 

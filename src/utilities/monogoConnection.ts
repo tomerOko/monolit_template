@@ -33,17 +33,15 @@ export class MongoInitializer {
   },[connection_string], 'MongoInitializer/connectOrGetActiveConnection',{hide_params: true, hide_result: true})}
 
 
-  public static async getCollection<T>(collection_name: string): Promise <Collection<T>> {
-    const db = await MongoInitializer.connectOrGetActiveConnection()
-    const collection = db.collection<T>(collection_name);
-    return collection 
-  }
-
-  // return await wrap<This['getCollection']>(async(collection_name) => { 
+  //TODO: any shuld be 'T'
+  public static async getCollection<T>(collection_name: string): Promise <Collection<any>> {
+  return await wrap<This['getCollection']>(async(collection_name) => { 
       
-      
+      const db = await MongoInitializer.connectOrGetActiveConnection()
+      const collection = db.collection<T>(collection_name);
+      return collection as Collection<T>
 
-  // },[collection_name], 'MongoInitializer/getCollection',{hide_params: true, hide_result: true})}
+  },[collection_name], 'MongoInitializer/getCollection',{hide_params: true, hide_result: true})}
 
 
   private static async createConnection (connection_string ? : string): Promise<void> {
