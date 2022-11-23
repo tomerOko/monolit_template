@@ -17,7 +17,6 @@ export type UpdateManyResult = {
 
 export type UpdateOneResult = {
   matched:boolean,
-  action: 'insert' | 'update' | 'none'
 }
 
 export type DeleteResult = {
@@ -107,7 +106,6 @@ export class MongoGenericQueris{
     const result:UpdateManyResult = {
       mutched : query_result.matchedCount,
       updated : query_result.modifiedCount,
-
     }
     return result
 
@@ -115,18 +113,14 @@ export class MongoGenericQueris{
 
 
   public static async updateOne<T>(query:UpdateOneQuery<T>):Promise<UpdateOneResult>{
-  wrap<This['updateOne']>(async(query)=>{
-    
+  return await wrap<This['updateOne']>(async(query)=>{
     const collection = await MongoInitializer.getCollection<T>(query.collection_name);
     const options: FindOneAndUpdateOptions = {upsert: query.upsert}
-    const query_result = await collection.findOneAndUpdate(query.filter,query.update_properties, options)
-    
+    const query_result = await collection.findOneAndUpdate(query.filter,{$set:query.update_properties}, options)
     const result: UpdateOneResult = {
-      matched: query_result.value
+      matched: query_result.ok === 1
     }
-
-    if (result.ok === 1) return result.value;
-
+    return result
   },[query],'MongoGenericQueris/updateOne')}
 
 
