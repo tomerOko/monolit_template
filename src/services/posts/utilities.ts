@@ -1,4 +1,4 @@
-import { Post } from "../../test/types";
+import { Post } from "./types"
 
 export class Utilities {
 

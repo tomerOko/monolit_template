@@ -5,11 +5,19 @@ export const config = {
             corsConfig: {
                 origin: true,
                 credentials: true,
+            },
+            rate_limiter:{
+                windowMs: 5 * 60 * 1000, // 5 minutes in milliseconds
+                max: 100,
+                message: "You have exceeded the 1000 requests in 10 minutes limit!", 
+                headers: false,
             }
         },
         mongo:{
-            //TODO: the connection string shuld come from procces.env
-            MONGO_URI: "mongodb://user:pass@mongo:27017",
+            connection_props:{
+                connection_string: "mongodb://user:pass@mongo:27017",
+                databse_name: "wisdo"
+            },
             expected_collections: ['members', 'posts', 'communities']
         },
     },

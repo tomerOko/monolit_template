@@ -1,6 +1,5 @@
-import { dir } from "console";
-import { wrap, wrapSync } from "../../../utilities/functionWrapping";
-import { logger } from "../../../utilities/logger";
+import { wrap, wrapSync } from "../../../utilities/function_wrapping";
+import { CreateManyResult } from "../../../utilities/mongo_generic_queris";
 import { UserDAL } from "../dal/users_dal";
 import { User } from "../types/users_types";
 
@@ -10,19 +9,9 @@ export class UserService {
     constructor(private user_dal = new UserDAL()) {}
 
 
-    public async createUser(user: User):Promise<>{
-    return await wrap<This["createUser"]>(async()=>{
-
-        //todo: update any other services
-        //bussines logic validations
-
-        const result = await this.user_dal.createUser(user)
-        if (result.inserted>0) {
-            
-        }
-
-        //do logic
-        //return reuslt
-
-    },[user],"UserService/createUser")}
+    public async createUser(user: User):Promise<CreateManyResult>{
+    return await wrap<This["createUser"]>({name:"UserService/createUser"}, async()=>{
+        const query_result = await this.user_dal.createUser(user)
+        return query_result
+    })}
 }
