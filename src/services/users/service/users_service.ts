@@ -4,14 +4,17 @@ import { UserDAL } from "../dal/users_dal";
 import { User } from "../types/users_types";
 
 type This = InstanceType<typeof UserService>
+
 export class UserService {
 
     constructor(private user_dal = new UserDAL()) {}
 
 
-    public async createUser(user: User):Promise<CreateManyResult>{
+    public async createUser(user: User):Promise<void>{
     return await wrap<This["createUser"]>({name:"UserService/createUser"}, async()=>{
-        const query_result = await this.user_dal.createUser(user)
-        return query_result
+        console.log("a")
+        console.log("b")
+        // const query_result = await this.user_dal.createUser(user)
+        // return query_result
     })}
 }

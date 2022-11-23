@@ -1,8 +1,8 @@
+import { logger } from "./utilities/logger";
+import {wrap} from './utilities/function_wrapping'
 import { MongoInitializer } from "./utilities/monogo_connection";
 import { Server } from "./server";
 import { config } from "./config/confing_mock";
-import {wrap} from './utilities/function_wrapping'
-import { logger } from "./utilities/logger";
 
 
 type This = typeof Index

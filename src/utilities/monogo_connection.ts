@@ -1,5 +1,5 @@
 import { wrap , wrapSync} from './function_wrapping'
-import {Collection, Db ,MongoClient} from 'mongodb'
+import {Collection, Db ,Document,MongoClient} from 'mongodb'
 
 type MongoActiveConnectionStore = {
   connection: MongoClient | undefined,
@@ -37,7 +37,7 @@ export class MongoInitializer {
 
 
   //TODO: any shuld be 'T'
-  public static async getCollection<T>(collection_name: string): Promise <Collection<any>> {
+  public static async getCollection<T extends Document>(collection_name: string): Promise <Collection<any>> {
   return await wrap<This['getCollection']>({name:'MongoInitializer/getCollection', options: {hide_result: true}}, async() => { 
       const db = await MongoInitializer.connectOrGetActiveConnection()
       const collection = db.collection<T>(collection_name);

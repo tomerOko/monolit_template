@@ -1,5 +1,5 @@
 import { wrap } from "./function_wrapping";
-import { Filter, FindOneAndUpdateOptions, OptionalId, Sort, UpdateFilter } from "mongodb";
+import { Filter, FindOneAndUpdateOptions, OptionalId, Sort, UpdateFilter, Document } from "mongodb";
 import { MongoInitializer } from "./monogo_connection";
 
 
@@ -61,7 +61,7 @@ export type DeleteQuery<T> = BasicQuery<T> & {
 type This = typeof MongoGenericQueris
 export class MongoGenericQueris{
 
-    public static async createMany<T>(query: CreateQuery<T>):Promise<CreateManyResult>{
+    public static async createMany<T extends Document>(query: CreateQuery<T>):Promise<CreateManyResult>{
       return await wrap<This['createMany']>({name: "MongoGenericQueris/createMany"}, async()=>{
     
           const collection = await MongoInitializer.getCollection<T>(query.collection_name);
@@ -121,7 +121,7 @@ export class MongoGenericQueris{
   })}
 
 
-  public static async delete<T> (query:DeleteQuery<T>): Promise<DeleteResult>{
+  public static async delete<T extends> (query:DeleteQuery<T>): Promise<DeleteResult>{
   return await wrap<This["delete"]>({name: "MongoGenericQueris/delete"}, async () => {
     const db = await MongoInitializer.connectOrGetActiveConnection()
     const collection = db.collection<T>(query.collection_name);

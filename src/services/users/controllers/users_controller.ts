@@ -7,13 +7,15 @@ import { User } from "../types/users_types"
 type This = InstanceType<typeof UserController>
 
 export class UserController {
+    
+    private user_serivce;
 
-    constructor(
-        private user_serivce = new UserService()
-    ){}
+    constructor(){
+        this.user_serivce = new UserService()
+    }
 
     public async createUser(req: Request, res: Response):Promise<void>{
-    await wrap<This['createUser']>({name: 'UserController/createUser'}, async() =>{
+    // await wrap<This['createUser']>({name: 'UserController/createUser'}, async() =>{
 
         const user:User={
             token: genereateID(),
@@ -24,11 +26,13 @@ export class UserController {
             image: req.body.image,
             role: req.body.role
         }
-        //todo: validate params
-        this.user_serivce.createUser(user)
+        console.log("byee", this.user_serivce)
+        // await this.user_serivce.createUser(user)
         //todo: build some pre-sending response parsing mechanism
 
-    })}
+    // })
+}
+
 
 
     public async getUserById(req: Request, res: Response):Promise<void>{
