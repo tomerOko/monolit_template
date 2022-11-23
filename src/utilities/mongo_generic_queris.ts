@@ -1,5 +1,5 @@
 import { wrap } from "./function_wrapping";
-import { Filter, FindOneAndUpdateOptions, OptionalId, Sort, UpdateFilter, Document } from "mongodb";
+import { Document, Filter, FindOneAndUpdateOptions, OptionalId, Sort, UpdateFilter } from "mongodb";
 import { MongoInitializer } from "./monogo_connection";
 
 
@@ -73,7 +73,7 @@ export class MongoGenericQueris{
     })}
 
 
-  public static async readBy<T>(query:ReadQuery<T>):Promise<ReadResult<any>> { //the use of any is because know issue with typescript compiler (@see: https://stackoverflow.com/questions/72627255/t-could-be-instantiated-with-an-arbitrary-type-which-could-be-unrelated-to-t)
+  public static async readBy<T extends Document>(query:ReadQuery<T>):Promise<ReadResult<any>> { //the use of any is because know issue with typescript compiler (@see: https://stackoverflow.com/questions/72627255/t-could-be-instantiated-with-an-arbitrary-type-which-could-be-unrelated-to-t)
   return await wrap<This["readBy"]>({name: "MongoGenericQueris/readBy"}, async()=>{
 
       const collection = await MongoInitializer.getCollection<T>(query.collection_name)
@@ -85,7 +85,7 @@ export class MongoGenericQueris{
   })}
 
 
-  public static async readAll<T> (collection_name:QueryCollection): Promise<ReadResult<any>>{ //the use of any is because know issue with typescript compiler (@see: https://stackoverflow.com/questions/72627255/t-could-be-instantiated-with-an-arbitrary-type-which-could-be-unrelated-to-t)
+  public static async readAll<T extends Document> (collection_name:QueryCollection): Promise<ReadResult<any>>{ //the use of any is because know issue with typescript compiler (@see: https://stackoverflow.com/questions/72627255/t-could-be-instantiated-with-an-arbitrary-type-which-could-be-unrelated-to-t)
     return await wrap<This["readAll"]>({name: "MongoGenericQueris/readAll"}, async() => {
   
       const collection = await MongoInitializer.getCollection<T>(collection_name);
@@ -95,7 +95,7 @@ export class MongoGenericQueris{
   })}
 
   
-  public static async updateMany<T>(query:UpdateManyQuery<T>):Promise<UpdateManyResult>{
+  public static async updateMany<T extends Document>(query:UpdateManyQuery<T>):Promise<UpdateManyResult>{
   return await wrap<This['updateMany']>({name: "MongoGenericQueris/updateMany"}, async () => {
 
     const collection = await MongoInitializer.getCollection<T>(query.collection_name);
@@ -109,7 +109,7 @@ export class MongoGenericQueris{
   })}
 
 
-  public static async updateOne<T>(query:UpdateOneQuery<T>):Promise<UpdateOneResult>{
+  public static async updateOne<T extends Document>(query:UpdateOneQuery<T>):Promise<UpdateOneResult>{
   return await wrap<This['updateOne']>({name: "MongoGenericQueris/updateOne"}, async()=>{
     const collection = await MongoInitializer.getCollection<T>(query.collection_name);
     const options: FindOneAndUpdateOptions = {upsert: query.upsert}
@@ -121,7 +121,7 @@ export class MongoGenericQueris{
   })}
 
 
-  public static async delete<T extends> (query:DeleteQuery<T>): Promise<DeleteResult>{
+  public static async delete<T extends Document> (query:DeleteQuery<T>): Promise<DeleteResult>{
   return await wrap<This["delete"]>({name: "MongoGenericQueris/delete"}, async () => {
     const db = await MongoInitializer.connectOrGetActiveConnection()
     const collection = db.collection<T>(query.collection_name);

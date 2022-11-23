@@ -1,4 +1,4 @@
-import { Request, Response } from "express"
+import { Request, Response, Router } from "express"
 import {v4 as genereateID,} from 'uuid'
 import { wrap } from "../../../utilities/function_wrapping"
 import { UserService } from "../service/users_service"
@@ -26,7 +26,9 @@ export class UserController {
             image: req.body.image,
             role: req.body.role
         }
-        console.log("byee", this.user_serivce)
+        console.log("byee")
+        // const user_serivce = new UserService()
+        console.log(this.user_serivce)
         // await this.user_serivce.createUser(user)
         //todo: build some pre-sending response parsing mechanism
 
