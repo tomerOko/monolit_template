@@ -6,9 +6,14 @@ export class UserService {
 
     constructor(parameters) {}
 
+
     public async createUser():Promise<void>{
-        return await wrap<This["createUser"]>(async()=>{
-            const user = {first_name:"jhon", secon_name:"doe"}
-        },[],"UserService/createUser")
-    }
+    return await wrap<This["createUser"]>(async()=>{
+
+        //do logic
+        //call db service
+        //do logic
+        //return reuslt
+
+    },[],"UserService/createUser")}
 }

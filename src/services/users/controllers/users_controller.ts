@@ -12,8 +12,8 @@ export class UserController {
     await wrap<This['createUser']>(async(req, res) =>{
 
         //validate params
-        //do logic
-        //use service
+        //call service
+        //parse response to respose format
 
     },[req, res], 'UserController/createUser')}
 
