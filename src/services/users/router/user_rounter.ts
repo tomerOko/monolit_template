@@ -1,12 +1,13 @@
 import { Request, Response, Router } from "express";
+import { private_routes } from "../../../middleware/custom/auth";
 import {UserController} from "../controllers/users_controller"
 
 const router:Router = Router()
 const user_controller = new UserController()
 
-router.post('/createUser',user_controller.createUser)
+router.post('/createUser',private_routes,user_controller.createUser)
 
-router.post('/getUserById',user_controller.getUserById)
+router.get('/getUserById',user_controller.getUserById)
 
 router.get('/getAllUser', user_controller.getAllUser)
 

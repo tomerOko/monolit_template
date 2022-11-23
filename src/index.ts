@@ -1,4 +1,4 @@
-import {MongoInitializer} from  './utilities/monogo_connection'
+import { MongoInitializer } from "./utilities/monogo_connection";
 import { Server } from "./server";
 import { config } from "./config/confing_mock";
 import {wrap} from './utilities/function_wrapping'

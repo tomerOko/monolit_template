@@ -1,5 +1,5 @@
 import { wrap , wrapSync} from './function_wrapping'
-import {Collection, Db,MongoClient} from 'mongodb'
+import {Collection, Db ,MongoClient} from 'mongodb'
 
 type MongoActiveConnectionStore = {
   connection: MongoClient | undefined,

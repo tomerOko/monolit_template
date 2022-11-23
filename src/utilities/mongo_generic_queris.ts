@@ -1,5 +1,5 @@
 import { wrap } from "./function_wrapping";
-import { Filter, FindOneAndUpdateOptions, OptionalId, Sort, UpdateFilter, WithId } from "mongodb";
+import { Filter, FindOneAndUpdateOptions, OptionalId, Sort, UpdateFilter } from "mongodb";
 import { MongoInitializer } from "./monogo_connection";
 
 
