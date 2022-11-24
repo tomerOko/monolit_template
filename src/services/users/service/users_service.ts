@@ -1,5 +1,5 @@
-import { wrap, wrapSync } from "../../../utilities/function_wrapping";
-import { CreateManyResult } from "../../../utilities/mongo_generic_queris";
+import { wrap } from "../../../utilities/function_wrapping";
+import { CreateManyResult, ReadResult } from "../../../utilities/mongo_generic_queris";
 import { UserDAL } from "../dal/users_dal";
 import { User } from "../types/users_types";
 
@@ -7,14 +7,22 @@ type This = InstanceType<typeof UserService>
 
 export class UserService {
 
-    constructor(private user_dal = new UserDAL()) {}
+    constructor( private user_dal: UserDAL = new UserDAL()) {}
 
-
-    public async createUser(user: User):Promise<void>{
+    public createUser = async (user: User):Promise<void> => {
     return await wrap<This["createUser"]>({name:"UserService/createUser"}, async()=>{
-        console.log("a")
-        console.log("b")
-        // const query_result = await this.user_dal.createUser(user)
-        // return query_result
+        if(user.email) await this.validateMailNotExist(user.email)
+        const query_result = await this.user_dal.createUser(user)
     })}
+
+    public validateMailNotExist = async (email: string):Promise<void> => {
+    return await wrap<This["validateMailNotExist"]>({name:"UserService/validateMailNotExist"}, async()=>{
+        const email_exist = await this.user_dal.getUserBy({email})
+        if (email_exist.length>0) {
+            throw new Error("email allready exist in the system");
+        }
+    })}
+
+
+    
 }

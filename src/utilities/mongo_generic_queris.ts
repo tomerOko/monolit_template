@@ -79,7 +79,7 @@ export class MongoGenericQueris{
       const collection = await MongoInitializer.getCollection<T>(query.collection_name)
       if (!query.limit) query.limit = 0;
       if (!query.sort) query.sort = {}
-      const result = await collection.find<T>({}).toArray()
+      const result = await collection.find<T>(query.filter).toArray()
       return result 
 
   })}

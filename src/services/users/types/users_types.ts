@@ -18,3 +18,8 @@ export type Role = keyof {super_moderator, moderator}
     country: CountryCodes// assume this is always defined.
     communities: Community["token"][]
 }
+
+export type CreateUserRespose = {
+    user?: User,
+    error?: any
+}

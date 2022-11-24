@@ -2,37 +2,36 @@ import { Request, Response, Router } from "express"
 import {v4 as genereateID,} from 'uuid'
 import { wrap } from "../../../utilities/function_wrapping"
 import { UserService } from "../service/users_service"
-import { User } from "../types/users_types"
+import { CreateUserRespose, User } from "../types/users_types"
 
 type This = InstanceType<typeof UserController>
 
 export class UserController {
     
-    private user_serivce;
+    constructor(private user_serivce = new UserService()){}
 
-    constructor(){
-        this.user_serivce = new UserService()
-    }
-
-    public async createUser(req: Request, res: Response):Promise<void>{
-    // await wrap<This['createUser']>({name: 'UserController/createUser'}, async() =>{
-
-        const user:User={
-            token: genereateID(),
-            communities: [],
-            country: req.body.country,
-            name: req.body.name,
-            email: req.body.email,
-            image: req.body.image,
-            role: req.body.role
+    public createUser = async (req: Request, res: Response):Promise<void>=>{
+    await wrap<This['createUser']>({name: 'UserController/createUser'}, async() =>{
+        let respose_data: CreateUserRespose
+        try {
+            const user:User={
+                token: genereateID(),
+                communities: [],
+                country: req.body.country,
+                name: req.body.name,
+                email: req.body.email,
+                image: req.body.image,
+                role: req.body.role
+            }
+            await this.user_serivce.createUser(user)
+            respose_data={user}
+            res.status(200)
+        } catch (error) {
+            respose_data={error}
+            res.status(500)
         }
-        console.log("byee")
-        // const user_serivce = new UserService()
-        console.log(this.user_serivce)
-        // await this.user_serivce.createUser(user)
-        //todo: build some pre-sending response parsing mechanism
-
-    // })
+        res.send(respose_data)
+    })
 }
 
 

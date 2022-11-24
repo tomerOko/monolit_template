@@ -18,7 +18,11 @@ export const config = {
                 connection_string: "mongodb://user:pass@mongo:27017",
                 databse_name: "wisdo"
             },
-            expected_collections: ['members', 'posts', 'communities']
+            collections: {
+                users:'users',
+                posts: 'posts',
+                communities: 'communities'
+            }
         },
     },
     bussines:{

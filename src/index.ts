@@ -19,7 +19,7 @@ class Index {
     static async initizalizeMongo():Promise<void>{
     await wrap<This['initizalizeMongo']>({name: 'Index/initizalizeMongo'},async() =>{ 
         const db = await MongoInitializer.connectOrGetActiveConnection(config.system.mongo.connection_props);
-        await MongoInitializer.createCollections(config.system.mongo.expected_collections, db);
+        await MongoInitializer.createCollections(Object.values(config.system.mongo.collections), db);
     })}
 }
 
