@@ -12,6 +12,8 @@ RUN apk add --no-cache --upgrade bash
 # install git
 RUN apk add git
 
+RUN apk add openssh-client
+
 # needed global packages for the project
 RUN npm i -g typescript nodemon ts-node
 
