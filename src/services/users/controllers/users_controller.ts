@@ -2,7 +2,7 @@ import { Request, Response, Router } from "express"
 import {v4 as genereateID,} from 'uuid'
 import { wrap } from "../../../utilities/function_wrapping"
 import { UserService } from "../service/users_service"
-import { CreateUserRespose, User } from "../types/users_types"
+import { SingleUserRespose, User, UserIdFilter } from "../types/users_types"
 
 type This = InstanceType<typeof UserController>
 
@@ -12,7 +12,7 @@ export class UserController {
 
     public createUser = async (req: Request, res: Response):Promise<void>=>{
     await wrap<This['createUser']>({name: 'UserController/createUser'}, async() =>{
-        let respose_data: CreateUserRespose
+        let respose_data: SingleUserRespose
         try {
             const user:User={
                 token: genereateID(),
@@ -36,12 +36,21 @@ export class UserController {
 
 
 
-    public async getUserById(req: Request, res: Response):Promise<void>{
+    public getUserById = async (req: Request, res: Response):Promise<void> => {
     return await wrap<This['getUserById']>({name: 'UserController/getUserById'}, async() =>{
-
-        const result = 0
-        res.send(result)
-
+        let respose_data: SingleUserRespose
+        try {
+            const user_id_filter:UserIdFilter={
+                token: req.params.user_id
+            }
+            const user = await this.user_serivce.getUserById(user_id_filter)
+            respose_data={user}
+            res.status(200)
+        } catch (error) {
+            respose_data={error}
+            res.status(500)
+        }
+        res.send(respose_data)
     })}
 
 

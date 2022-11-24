@@ -19,7 +19,10 @@ export type Role = keyof {super_moderator, moderator}
     communities: Community["token"][]
 }
 
-export type CreateUserRespose = {
+export type UserFilter = Partial<User>
+export type UserIdFilter = {token: string}
+
+export type SingleUserRespose = {
     user?: User,
     error?: any
 }

@@ -10,7 +10,7 @@ const router:Router  = Router()
 router.use(user_authentication)
 
 router.post('/createUser',validate(create_user_schema),user_controller.createUser)
-router.get('/getUserById',user_controller.getUserById)
+router.get('/getUserById/:user_id',user_controller.getUserById)
 router.get('/getAllUser', user_controller.getAllUser)
 router.post('/updateUser',user_controller.updateUser)
 router.delete('/deleteUserById',user_controller.deleteUserById)
