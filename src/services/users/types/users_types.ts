@@ -1,5 +1,5 @@
 import { CountryCodes } from "../../../types/coutries"
-import { Community } from "../../commuties/types"
+import { Community } from "../../commuties_/types"
 
 export const super_moderator = "super_moderator" as const
 export const moderator = "moderator" as const

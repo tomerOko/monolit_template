@@ -20,7 +20,7 @@ export const config = {
             },
             collections: {
                 users:'users',
-                posts: 'posts',
+                post: 'post',
                 communities: 'communities'
             }
         },
@@ -32,7 +32,7 @@ export const config = {
         communities:{
 
         },
-        posts:{
+        post:{
             feed: {
                 post_chank_size: 20
             },

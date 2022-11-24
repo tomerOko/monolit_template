@@ -1,5 +1,5 @@
-import { User } from "../users/types/users_types"
-import { Post } from "./types"
+import { User } from "../../users/types/users_types"
+import { Post } from "../../post_/types"
 
 /**
  * A list of “problematic” words that should trigger an alert when a user writes 1+ of them in a certain post(see Features to implement) 

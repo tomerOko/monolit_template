@@ -1,13 +1,13 @@
-import { config } from "../../config/confing_mock";
-import { User } from "../users/types/users_types";
-import { Post } from "./types";
+import { config } from "../../../config/confing_mock";
+import { User } from "../../users/types/users_types";
+import { Post } from "../../post_/types";
 
 
 export class feed {
 
 
     constructor(
-        private post_chank_size:number = config.bussines.posts.feed.post_chank_size
+        private post_chank_size:number = config.bussines.post.feed.post_chank_size
     ){}
 
     buildUserFeed(user:User): Post[]{
@@ -18,7 +18,7 @@ export class feed {
 
     getCurrentFeedState(){}
 
-    private getAllPostsFromUserComunities(): Post[]{
+    private getAllPostFromUserComunities(): Post[]{
         //todo:
     }
 

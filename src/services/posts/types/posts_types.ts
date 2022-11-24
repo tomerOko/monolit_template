@@ -1,5 +1,3 @@
-import { Community } from "../commuties_/types"
-import { User } from "../users/types/users_types"
 
 export const approved = "approved" as const
 export const pending_approval = "apprpending_approvaloved" as const
@@ -9,8 +7,8 @@ export type Status = keyof {approved, pending_approval, rejected}
 
 /**
  * A post is in pending state until it’s approved by a moderator/super moderator. 
- * approved post becomes publicly open (see Viewing + approving posts).
- * the system needs to support tens of thousands of posts in the foreseeable future.  
+ * approved post becomes publicly open (see Viewing + approving post).
+ * the system needs to support tens of thousands of post in the foreseeable future.  
  * post belongs to a certain community  
  */
 export type Post = {
@@ -33,6 +31,13 @@ export type UserFeed = {
     token: User["token"], // identifier key
     upadated_at: Date,
     day_paginations: number,
-    posts:Post[]
+    post:Post[]
 }
 
+export type PostFilter = Partial<Post>
+export type UserIdFilter = {token: string}
+
+export type SingleUserRespose = {
+    user?: User,
+    error?: any
+}
