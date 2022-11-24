@@ -30,7 +30,7 @@ export const config = {
 
         },
         communities:{
-
+            max_title_length:60
         },
         post:{
             feed: {
