@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const create_post_schema = z .object({
+export const create_post_schema = z.object({
     // body: z.object({
     //   fullName: z.string({
     //     required_error: "Full name is required",

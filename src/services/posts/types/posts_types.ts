@@ -1,4 +1,4 @@
-import { Community } from "../../commuties_/types"
+import { Community } from "../../communities/types/community_types"
 import { User } from "../../users/types/users_types"
 
 export const approved = "approved" as const

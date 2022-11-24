@@ -14,10 +14,14 @@ export class CommunityController {
     await wrap<This['createCommunity']>({name: 'CommunityController/createCommunity'}, async() =>{
         let respose_data: SingleCommunityRespose
         try {
+            const now = new Date()
             const community:Community={
                 token: genereateID(),
                 users: [],
-
+                image: req.body.image,
+                title: req.body.image,
+                user_count: 0,
+                date_created: now
             }
             await this.community_serivce.createCommunity(community)
             respose_data={community}

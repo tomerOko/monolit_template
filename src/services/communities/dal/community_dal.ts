@@ -6,7 +6,7 @@ import { Community } from "../types/community_types";
 type This = InstanceType<typeof CommunityDAL>
 export class CommunityDAL {
 
-    private collection_name = config.system.mongo.collections.communitys
+    private collection_name = config.system.mongo.collections.communities
 
     public createCommunity = async (community: Community):Promise<CreateManyResult> => {
     return await wrap<This["createCommunity"]>({name: "CommunityService/createCommunity"}, async()=>{
