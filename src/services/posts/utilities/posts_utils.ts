@@ -1,5 +1,6 @@
 import { wrap, wrapSync } from "../../../utilities/function_wrapping";
 import { logger } from "../../../utilities/logger";
+import { Post } from "../types/posts_types";
 
 type This = typeof PostUtils
 export class PostUtils {
@@ -11,7 +12,7 @@ export class PostUtils {
         
     })}
 
-    public static generatePostSummary(post: Post): Post{
+    public static generatePostSummaryIfMissing(post: Post): Post{
         if(!post.summary) post.summary = post.body.substring(0,100)
         return post
     }
