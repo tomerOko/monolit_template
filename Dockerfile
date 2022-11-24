@@ -12,7 +12,13 @@ RUN apk add --no-cache --upgrade bash
 # install git
 RUN apk add git
 
+# needed for git opperations
 RUN apk add openssh-client
+
+# needed for git opperations
+RUN cd/
+RUN mkdir .ssh
+RUN ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
 
 # needed global packages for the project
 RUN npm i -g typescript nodemon ts-node
