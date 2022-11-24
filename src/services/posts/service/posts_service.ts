@@ -1,7 +1,8 @@
 import { wrap } from "../../../utilities/function_wrapping";
 import { CreateManyResult, ReadResult } from "../../../utilities/mongo_generic_queris";
-import { PostDAL } from "../dal/post_dal";
-import { Post, PostIdFilter } from "../types/post_types";
+import { PostDAL } from "../dal/posts_dal";
+import { Post, PostIdFilter } from "../types/posts_types";
+import { PostUtils } from "../utilities/posts_utils";
 
 type This = InstanceType<typeof PostService>
 
@@ -11,17 +12,8 @@ export class PostService {
 
     public createPost = async (post: Post):Promise<void> => {
     return await wrap<This["createPost"]>({name:"PostService/createPost"}, async()=>{
-        if(post.email) await this.validateMailNotExist(post.email)
+        PostUtils.generatePostSummaryIfMissing(post)
         const query_result = await this.post_dal.createPost(post)
-    })}
-
-
-    public validateMailNotExist = async (email: string):Promise<void> => {
-    return await wrap<This["validateMailNotExist"]>({name:"PostService/validateMailNotExist"}, async()=>{
-        const email_exist = await this.post_dal.getPostBy({email})
-        if (email_exist.length>0) {
-            throw new Error("email allready exist in the system");
-        }
     })}
 
     public getPostById = async (filter: PostIdFilter):Promise<Post> => {
@@ -32,9 +24,4 @@ export class PostService {
         return post[0]
     })}
 
-
-
-
-
-    
 }

@@ -1,8 +1,8 @@
 import { Request, Response, Router } from "express"
 import {v4 as genereateID,} from 'uuid'
 import { wrap } from "../../../utilities/function_wrapping"
-import { PostService } from "../service/post_service"
-import { SinglePostRespose, Post, PostIdFilter } from "../types/post_types"
+import { PostService } from "../service/posts_service"
+import { SinglePostRespose, Post, PostIdFilter, post_statuses } from "../types/posts_types"
 
 type This = InstanceType<typeof PostController>
 
@@ -14,14 +14,20 @@ export class PostController {
     await wrap<This['createPost']>({name: 'PostController/createPost'}, async() =>{
         let respose_data: SinglePostRespose
         try {
+            const now = new Date()
             const post:Post={
                 token: genereateID(),
-                communities: [],
-                country: req.body.country,
-                name: req.body.name,
-                email: req.body.email,
-                image: req.body.image,
-                role: req.body.role
+                author: req.body.author,
+                body: req.body.body,
+                community: req.body.community,
+                date_created: now,
+                date_updated: now,
+                date_verified: null,
+                likes: 0,
+                likes_from: [],
+                status: post_statuses.pending_approval,
+                summary: req.body.summary,
+                title: req.body.title
             }
             await this.post_serivce.createPost(post)
             respose_data={post}
@@ -82,3 +88,10 @@ export class PostController {
 
 
 }
+
+
+// router.post('/createPost',validate(create_post_schema),post_controller.createPost)
+// router.get('/getPostById/:post_id',post_controller.getPostById)
+// router.get('/getAllPost', post_controller.getAllPost)
+// router.post('/updatePost',post_controller.updatePost)
+// router.delete('/deletePostById',post_controller.deletePostById)

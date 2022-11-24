@@ -1,8 +1,11 @@
+import { Community } from "../../commuties_/types"
+import { User } from "../../users/types/users_types"
 
 export const approved = "approved" as const
-export const pending_approval = "apprpending_approvaloved" as const
+export const pending_approval = "pending_approval" as const
 export const rejected = "rejected" as const 
 export type Status = keyof {approved, pending_approval, rejected}
+export const post_statuses = {approved, pending_approval, rejected}
 
 
 /**
@@ -35,9 +38,9 @@ export type UserFeed = {
 }
 
 export type PostFilter = Partial<Post>
-export type UserIdFilter = {token: string}
+export type PostIdFilter = {token: string}
 
-export type SingleUserRespose = {
-    user?: User,
+export type SinglePostRespose = {
+    post?: Post,
     error?: any
 }

@@ -1,13 +1,13 @@
 import { Router } from "express";
-import { post_authentication } from "../../../middleware/custom/auth";
+import { user_authentication } from "../../../middleware/custom/auth";
 import { validate } from "../../../middleware/packages/zod";
-import {PostController} from "../controllers/post_controller"
-import { create_post_schema } from "../validations/post_validations";
+import {PostController} from "../controllers/posts_controller"
+import { create_post_schema } from "../validations/posts_validations";
 
 const post_controller: PostController = new PostController()
 const router:Router  = Router()
 
-router.use(post_authentication)
+router.use(user_authentication)
 
 router.post('/createPost',validate(create_post_schema),post_controller.createPost)
 router.get('/getPostById/:post_id',post_controller.getPostById)
