@@ -14,9 +14,15 @@ export class UserDAL {
         return reslut
     })}
 
-    public getUserBy = async (user_props: Partial<User>):Promise<ReadResult<User>> => {
-    return await wrap<This["getUserBy"]>({name: "UserService/createUser"}, async()=>{
+    public getUsersBy = async (user_props: Partial<User>):Promise<ReadResult<User>> => {
+    return await wrap<This["getUsersBy"]>({name: "UserService/getUsersBy"}, async()=>{
         const reslut = await MongoGenericQueris.readBy<User>({collection_name:this.collection_name, filter:user_props})
         return reslut
     })}
+
+    public getSinlgeUserBy = async (user_props: Partial<User>):Promise<ReadResult<User>> => {
+        return await wrap<This["getSinlgeUserBy"]>({name: "UserService/getSinlgeUserBy"}, async()=>{
+            const reslut = await MongoGenericQueris.readBy<User>({collection_name:this.collection_name, filter:user_props})
+            return reslut
+        })}
 }

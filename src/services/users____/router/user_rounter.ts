@@ -9,11 +9,17 @@ const router:Router  = Router()
 
 router.use(user_authentication)
 
+// classic CRUDS
 router.post('/createUser',validate(create_user_schema),user_controller.createUser)
 router.get('/getUserById/:user_id',user_controller.getUserById)
-router.get('/getAllUser', user_controller.getAllUser)
-router.post('/updateUser',user_controller.updateUser)
+router.post('/updateUserChangableProperties',user_controller.updateUserChangableProperties)
 router.delete('/deleteUserById',user_controller.deleteUserById)
+
+// specific flows (mostly updates)
+router.post('/changeUserRole',user_controller.changeUserRole)
+router.post('/addUserToComunity',user_controller.addUserToComunity)
+
+
 
 
 export {router as user_router}

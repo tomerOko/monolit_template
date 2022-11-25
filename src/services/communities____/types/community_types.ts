@@ -1,4 +1,4 @@
-import { User } from "../../users/types/users_types"
+import { User } from "../../users____/types/users_types"
 
 /**
  * the system needs to support hundreds of communities in the foreseeable future.
@@ -9,7 +9,8 @@ import { User } from "../../users/types/users_types"
     image: URL, // For the purpose of this exercise, you don’t have to support image uploading and can assume it was already uploaded using a different system
     user_count: number, // number of users who joined this community
     users: User["token"][], //user list of the Communtiy
-    date_created: Date
+    date_created: Date,
+    date_updated: Date
 }
 
 

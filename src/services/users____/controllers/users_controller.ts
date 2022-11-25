@@ -1,8 +1,10 @@
 import { Request, Response, Router } from "express"
 import {v4 as genereateID,} from 'uuid'
+import { CountryCode } from "../../../types/coutries"
 import { wrap } from "../../../utilities/function_wrapping"
-import { UserService } from "../service/users_service"
+import { UserService } from "../services/users_service"
 import { SingleUserRespose, User, UserIdFilter } from "../types/users_types"
+import { CreateUserRequest } from "../validations/users_validations"
 
 type This = InstanceType<typeof UserController>
 
@@ -12,16 +14,17 @@ export class UserController {
 
     public createUser = async (req: Request, res: Response):Promise<void>=>{
     await wrap<This['createUser']>({name: 'UserController/createUser'}, async() =>{
+        const req_body:CreateUserRequest["body"] = req.body
         let respose_data: SingleUserRespose
         try {
             const user:User={
                 token: genereateID(),
                 communities: [],
-                country: req.body.country,
-                name: req.body.name,
-                email: req.body.email,
-                image: req.body.image,
-                role: req.body.role
+                country: req_body.country as CountryCode ,
+                name: req_body.name,
+                email: req_body.email,
+                image: req_body.image as URL | undefined,
+                role: req_body.role
             }
             await this.user_serivce.createUser(user)
             respose_data={user}
