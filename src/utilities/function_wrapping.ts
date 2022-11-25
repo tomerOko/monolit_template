@@ -13,7 +13,7 @@ export type WrapProps = {
     options?: WrapOptions
 }
 
-export const wrapSync = < T extends(...args: any[]) => any > (props: WrapProps, fn: ()=> ReturnType < T >): ReturnType < T > => {
+export const wrapSync = < Z extends(...args: any[]) => any , X = ReturnType < Z > > (props: WrapProps, fn: ()=> X): X=> {
     try {
         logger.info(`${props.name} - start ${ props.options?.start_log_addition ? props.options.start_log_addition: '' }`)
         const result = fn()
@@ -30,8 +30,7 @@ export const wrapSync = < T extends(...args: any[]) => any > (props: WrapProps, 
     }
 };
 
-
-export const wrap = async <T extends (...args: any[]) => Promise<any>, X = ReturnType < T > > (props: WrapProps, fn: ()=> X): Promise<X> => {
+export const wrap = async <Z extends (...args: any[]) => Promise<any>, X = ReturnType < Z > > (props: WrapProps, fn: ()=> X): Promise<X> => {
     try {
         logger.info(`${props.name} - start ${ props.options?.start_log_addition ? props.options.start_log_addition: '' }`)
         const result = await fn()
@@ -46,5 +45,6 @@ export const wrap = async <T extends (...args: any[]) => Promise<any>, X = Retur
             throw error
         }
     }
+
 };
 

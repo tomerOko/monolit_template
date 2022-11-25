@@ -1,18 +1,16 @@
-import { wrap } from "../../../utilities/function_wrapping";
-import { CreateManyResult, ReadResult } from "../../../utilities/mongo_generic_queris";
-import { UserDAL } from "../../users____/dal/users_dal";
-import { PostDAL } from "../dal/posts_dal";
-import { Post, PostIdFilter } from "../types/posts_types";
-import { PostUtils } from "../utilities/posts_utils";
+import { wrap } from "../../../../utilities/function_wrapping";
+import { UserDAL } from "../../../users____/dal/users_dal";
+import { Post, PostIdFilter } from "../../types/posts_types";
+import { PostUtils } from "../../utilities/posts_utils";
+import { PostsLogic } from "../basic_posts_logic_class";
 
 type This = InstanceType<typeof PostService>
 
-export class PostService {
+export class PostService extends PostsLogic {
 
     constructor( 
-        private post_dal: PostDAL = new PostDAL(),
         private user_dal: UserDAL = new UserDAL()
-    ) {}
+    ) {super()}
 
     public createPost = async (post: Post):Promise<void> => {
         /**

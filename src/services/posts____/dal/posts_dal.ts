@@ -1,10 +1,10 @@
 import { config } from "../../../config/confing_mock";
 import { wrap, wrapSync } from "../../../utilities/function_wrapping";
-import { CreateManyResult, MongoGenericQueris, ReadResult } from "../../../utilities/mongo_generic_queris";
+import { CreateManyResult, MongoGenericQueris } from "../../../utilities/mongo_generic_queris";
 import { Post } from "../types/posts_types";
 
-type This = InstanceType<typeof PostDAL>
-export class PostDAL {
+type This = InstanceType<typeof PostsDAL>
+export class PostsDAL {
 
     private collection_name = config.system.mongo.collections.post
 

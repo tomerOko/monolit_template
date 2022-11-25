@@ -76,23 +76,20 @@ export class MongoGenericQueris{
     })}
 
 
-  public static async readManyBy<T extends Document>(query:ReadManyQuery<T>):Promise<ReadManyResult<T>> {
+  public static async readManyBy<T extends Document>(query:ReadManyQuery<T>):Promise<ReadManyResult<Document>> {
   return await wrap<This["readManyBy"]>({name: "MongoGenericQueris/readManyBy"}, async()=>{
       const collection = await MongoInitializer.getCollection<T>(query.collection_name)
       if (!query.limit) query.limit = 0;
       if (!query.sort) query.sort = {}
       const result = await collection.find<T>(query.filter).toArray()
       return result 
-
   })}
 
-  public static async readSingleBy<T extends DocumentFragment>(query:ReadSingleQuery<T>):Promise<T> { 
+  public static async readSingleBy<T extends Document>(query:ReadSingleQuery<T>):Promise<Document | null> { 
     return await wrap<This["readSingleBy"]>({name: "MongoGenericQueris/readSingleBy"}, async()=>{
-  
         const collection = await MongoInitializer.getCollection<T>(query.collection_name)
         const result = await collection.findOne<T>(query.filter)
         return result
-  
     })
   }
 
