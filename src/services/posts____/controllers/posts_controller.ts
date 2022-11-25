@@ -1,6 +1,7 @@
 import { Request, Response, Router } from "express"
 import {v4 as genereateID,} from 'uuid'
 import { wrap } from "../../../utilities/function_wrapping"
+import { Role, roles } from "../../users____/types/users_types"
 import { PostService } from "../service/posts_service"
 import { SinglePostRespose, Post, PostIdFilter, post_statuses } from "../types/posts_types"
 
@@ -58,33 +59,14 @@ export class PostController {
         }
         res.send(respose_data)
     })}
-
-
-    public async getAllPost(req: Request, res: Response):Promise<void>{
-    return await wrap<This['getAllPost']>({name: 'PostController/getAllPost'}, async() =>{ 
-
-        const result = 0
-        res.send(result)
-
-    })}
-
-
-    public async updatePost(req: Request, res: Response):Promise<void>{
-    return await wrap<This['updatePost']>({name: 'PostController/updatePost'}, async() =>{ 
-
-        const result = 0
-        res.send(result)
-
-    })}
-
-
-    public async deletePostById(req: Request, res: Response):Promise<void>{
-    return await wrap<This['deletePostById']>({name: 'PostController/deletePostById'}, async() =>
-    { 
-        const result = 0
-        res.send(result)
-
-    })}
+   
+    //clean this function code
+    public validateModerator = async (role: Role, user_token: string) => {
+        if (role == roles.basic) {
+            throw new Error("not a moderator");
+        }
+        const user = await this.getPostById
+    }
 
 
 }

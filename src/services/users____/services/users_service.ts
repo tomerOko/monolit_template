@@ -11,6 +11,8 @@ export class UserService {
 
     public createUser = async (user: User):Promise<void> => {
     return await wrap<This["createUser"]>({name:"UserService/createUser"}, async()=>{
+        //if this user i
+
         if(user.email) await this.validateMailNotExist(user.email)
         const query_result = await this.user_dal.createUser(user)
     })}

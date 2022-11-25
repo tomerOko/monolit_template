@@ -8,7 +8,7 @@ export type CreateManyResult = {
   blocked_by_index: number
 }
 
-export type ReadResult<T> = Array<T>
+export type ReadManyResult<T> = Array<T>
 
 export type UpdateManyResult = {
   mutched:number,
@@ -38,10 +38,13 @@ export type BasicQuery<T> = {
   filter: Filter<T>,
 }
 
-export type ReadQuery<T> = BasicQuery<T> & {
+export type ReadManyQuery<T> = BasicQuery<T> & {
   sort?: Sort,
   limit?: number
 }
+
+//todo: rename 'ReadSingleQuery' 
+export type ReadSingleQuery<T> = BasicQuery<T>
 
 export type UpdateManyQuery<T> = BasicQuery<T> & {
   update_properties: UpdateFilter<T>
@@ -73,9 +76,8 @@ export class MongoGenericQueris{
     })}
 
 
-  public static async readBy<T extends Document>(query:ReadQuery<T>):Promise<ReadResult<any>> { //the use of any is because know issue with typescript compiler (@see: https://stackoverflow.com/questions/72627255/t-could-be-instantiated-with-an-arbitrary-type-which-could-be-unrelated-to-t)
-  return await wrap<This["readBy"]>({name: "MongoGenericQueris/readBy"}, async()=>{
-
+  public static async readManyBy<T extends Document>(query:ReadManyQuery<T>):Promise<ReadManyResult<T>> {
+  return await wrap<This["readManyBy"]>({name: "MongoGenericQueris/readManyBy"}, async()=>{
       const collection = await MongoInitializer.getCollection<T>(query.collection_name)
       if (!query.limit) query.limit = 0;
       if (!query.sort) query.sort = {}
@@ -84,8 +86,17 @@ export class MongoGenericQueris{
 
   })}
 
+  public static async readSingleBy<T extends DocumentFragment>(query:ReadSingleQuery<T>):Promise<T> { 
+    return await wrap<This["readSingleBy"]>({name: "MongoGenericQueris/readSingleBy"}, async()=>{
+  
+        const collection = await MongoInitializer.getCollection<T>(query.collection_name)
+        const result = await collection.findOne<T>(query.filter)
+        return result
+  
+    })
+  }
 
-  public static async readAll<T extends Document> (collection_name:QueryCollection): Promise<ReadResult<any>>{ //the use of any is because know issue with typescript compiler (@see: https://stackoverflow.com/questions/72627255/t-could-be-instantiated-with-an-arbitrary-type-which-could-be-unrelated-to-t)
+  public static async readAll<T extends Document> (collection_name:QueryCollection): Promise<Rea<T>>{ 
     return await wrap<This["readAll"]>({name: "MongoGenericQueris/readAll"}, async() => {
   
       const collection = await MongoInitializer.getCollection<T>(collection_name);

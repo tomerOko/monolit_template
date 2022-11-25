@@ -9,11 +9,22 @@ const router:Router  = Router()
 
 router.use(user_authentication)
 
+// classic CRUDS
+
 router.post('/createCommunity',validate(create_community_schema),community_controller.createCommunity)
 router.get('/getCommunityById/:community_id',community_controller.getCommunityById)
-router.get('/getAllCommunity', community_controller.getAllCommunity)
-router.post('/updateCommunity',validate(update_community_schema),community_controller.updateCommunity)
+router.post('/updateCommunityChangableProperties',validate(update_community_schema),community_controller.updateCommunityChangableProperties)
 router.delete('/deleteCommunityById',community_controller.deleteCommunityById)
+
+
+// specific flows (mostly updates)
+router.get('/getAllCommunities', community_controller.getAllCommunities)
+router.get('/getCommunitiesPosts', community_controller.getAllCommunities)
+router.post('/addUserToCommunity',validate(create_community_schema),community_controller.addUserToCommunity)
+router.post('/removeUserFromCommunity',validate(create_community_schema),community_controller.removeUserFromCommunity)
+
+
+
 
 
 export {router as community_router}

@@ -31,7 +31,7 @@ export const wrapSync = < T extends(...args: any[]) => any > (props: WrapProps, 
 };
 
 
-export const wrap = async <T extends (...args: any[]) => Promise<any>> (props: WrapProps, fn: ()=>ReturnType < T >): Promise <ReturnType < T >> => {
+export const wrap = async <T extends (...args: any[]) => Promise<any>, X = ReturnType < T > > (props: WrapProps, fn: ()=> X): Promise<X> => {
     try {
         logger.info(`${props.name} - start ${ props.options?.start_log_addition ? props.options.start_log_addition: '' }`)
         const result = await fn()

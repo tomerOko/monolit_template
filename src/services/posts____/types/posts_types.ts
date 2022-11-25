@@ -1,10 +1,10 @@
-import { Community } from "../../communities/types/community_types"
-import { User } from "../../users/types/users_types"
+import { Community } from "../../communities____/types/community_types"
+import { User } from "../../users____/types/users_types"
 
 export const approved = "approved" as const
 export const pending_approval = "pending_approval" as const
 export const rejected = "rejected" as const 
-export type Status = keyof {approved, pending_approval, rejected}
+export type PostStatus = keyof {approved, pending_approval, rejected}
 export const post_statuses = {approved, pending_approval, rejected}
 
 
@@ -23,7 +23,7 @@ export type Post = {
     community: Community["token"], //the community this post belongs to 
     likes: number, //a number representing the number of likes this post got
     likes_from: User["token"][],
-    status: Status 
+    status: PostStatus 
     date_created: Date,
     date_updated: Date,
     date_verified: Date | null // the date the post been approved / rejected
