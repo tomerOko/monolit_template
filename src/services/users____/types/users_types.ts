@@ -6,6 +6,7 @@ export const moderator = "moderator"
 export const basic = "basic"
 export const roles = {super_moderator, moderator, basic}
 export type Role = keyof typeof roles
+export const roles_array = [super_moderator, moderator, basic] as const
 
 /**
  * A user in the system

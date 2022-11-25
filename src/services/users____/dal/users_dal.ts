@@ -1,6 +1,6 @@
 import { config } from "../../../config/confing_mock";
 import { wrap, wrapSync } from "../../../utilities/function_wrapping";
-import { CreateManyResult, MongoGenericQueris, ReadResult } from "../../../utilities/mongo_generic_queris";
+import { CreateManyResult, MongoGenericQueris, ReadManyResult } from "../../../utilities/mongo_generic_queris";
 import { User } from "../types/users_types";
 
 type This = InstanceType<typeof UserDAL>
@@ -14,15 +14,16 @@ export class UserDAL {
         return reslut
     })}
 
-    public getUsersBy = async (user_props: Partial<User>):Promise<ReadResult<User>> => {
+    public getUsersBy = async (user_props: Partial<User>):Promise<ReadManyResult<User>> => {
     return await wrap<This["getUsersBy"]>({name: "UserService/getUsersBy"}, async()=>{
-        const reslut = await MongoGenericQueris.readBy<User>({collection_name:this.collection_name, filter:user_props})
-        return reslut
+        const reslut = await MongoGenericQueris.readManyBy<User>({collection_name:this.collection_name, filter:user_props})
+        return reslut as ReadManyResult<User>
     })}
 
-    public getSinlgeUserBy = async (user_props: Partial<User>):Promise<ReadResult<User>> => {
+    public getSinlgeUserBy = async (user_props: Partial<User>):Promise<User | null> => {
         return await wrap<This["getSinlgeUserBy"]>({name: "UserService/getSinlgeUserBy"}, async()=>{
-            const reslut = await MongoGenericQueris.readBy<User>({collection_name:this.collection_name, filter:user_props})
-            return reslut
-        })}
+            const reslut = await MongoGenericQueris.readSingleBy<User>({collection_name:this.collection_name, filter:user_props})
+            return reslut as User | null
+        })
+    }
 }

@@ -2,7 +2,7 @@ import { Request, Response, Router } from "express"
 import {v4 as genereateID,} from 'uuid'
 import { CountryCode } from "../../../types/coutries"
 import { wrap } from "../../../utilities/function_wrapping"
-import { UserService } from "../services/users_service"
+import { CreateUser } from "../logic/services/create_user"
 import { SingleUserRespose, User, UserIdFilter } from "../types/users_types"
 import { CreateUserRequest } from "../validations/users_validations"
 
@@ -10,7 +10,9 @@ type This = InstanceType<typeof UserController>
 
 export class UserController {
     
-    constructor(private user_serivce = new UserService()){}
+    constructor(
+        private create_user = new CreateUser()
+    ){}
 
     public createUser = async (req: Request, res: Response):Promise<void>=>{
     await wrap<This['createUser']>({name: 'UserController/createUser'}, async() =>{
@@ -26,7 +28,7 @@ export class UserController {
                 image: req_body.image as URL | undefined,
                 role: req_body.role
             }
-            await this.user_serivce.createUser(user)
+            await this.create_user.createUser(user)
             respose_data={user}
             res.status(200)
         } catch (error) {

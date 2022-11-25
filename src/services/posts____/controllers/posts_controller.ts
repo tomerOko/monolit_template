@@ -2,7 +2,7 @@ import { Request, Response, Router } from "express"
 import {v4 as genereateID,} from 'uuid'
 import { wrap } from "../../../utilities/function_wrapping"
 import { Role, roles } from "../../users____/types/users_types"
-import { PostService } from "../service/posts_service"
+import { PostService } from "../logic/services/posts_service"
 import { SinglePostRespose, Post, PostIdFilter, post_statuses } from "../types/posts_types"
 
 type This = InstanceType<typeof PostController>

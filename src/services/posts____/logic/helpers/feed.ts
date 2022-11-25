@@ -1,5 +1,5 @@
-import { config } from "../../../config/confing_mock";
-import { User } from "../../users____/types/users_types";
+import { config } from "../../../../config/confing_mock";
+import { User } from "../../../users____/types/users_types";
 import { Post } from "../../post_/types";
 
 
