@@ -9,21 +9,20 @@ export class UserDAL {
     private collection_name = config.system.mongo.collections.users
 
     public createUser = async (user: User):Promise<CreateManyResult> => {
-    return await wrap<This["createUser"]>({name: "UserService/createUser"}, async()=>{
+    return await wrap<This["createUser"]>({name: "UserDAL/createUser"}, async()=>{
         const reslut = await MongoGenericQueris.createMany<User>({collection_name:this.collection_name, values:[user]})
         return reslut
     })}
 
     public getUsersBy = async (user_props: Partial<User>):Promise<ReadManyResult<User>> => {
-    return await wrap<This["getUsersBy"]>({name: "UserService/getUsersBy"}, async()=>{
+    return await wrap<This["getUsersBy"]>({name: "UserDAL/getUsersBy"}, async()=>{
         const reslut = await MongoGenericQueris.readManyBy<User>({collection_name:this.collection_name, filter:user_props})
         return reslut as ReadManyResult<User>
     })}
 
     public getSinlgeUserBy = async (user_props: Partial<User>):Promise<User | null> => {
-        return await wrap<This["getSinlgeUserBy"]>({name: "UserService/getSinlgeUserBy"}, async()=>{
-            const reslut = await MongoGenericQueris.readSingleBy<User>({collection_name:this.collection_name, filter:user_props})
-            return reslut as User | null
-        })
-    }
+    return await wrap<This["getSinlgeUserBy"]>({name: "UserDAL/getSinlgeUserBy"}, async()=>{
+        const reslut = await MongoGenericQueris.readSingleBy<User>({collection_name:this.collection_name, filter:user_props})
+        return reslut as User | null
+    })}
 }

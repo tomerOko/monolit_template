@@ -9,17 +9,23 @@ const user_request_object = z.object({
   role: z.enum(roles_array).optional()
 })
 
+
 export const create_user_schema = z.object({
   body: user_request_object
 });
-export type CreateUserRequest = z.infer<typeof create_user_schema>;
+export type CreateUserRequestValidated = z.infer<typeof create_user_schema>;
 
 
-export const update_user_schema = z.object({
-  body: user_request_object.partial(),
-  params: z.object({
-    token: z.string().uuid()
+export const get_user_by_id_schema = z.object({
+  body: z.object({
+    user_id: z.string().uuid()
   })
+});
+export type getUserByIdValidated = z.infer<typeof get_user_by_id_schema>;
+
+
+export const update_user_changable_properties_schema = z.object({
+  body: user_request_object.omit({role: true}),
 })
-export type UpdateUserRequest = z.infer<typeof update_user_schema>;
+export type UpdateUserChangablePropertiesRequest = z.infer<typeof update_user_changable_properties_schema>;
 

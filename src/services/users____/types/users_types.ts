@@ -23,9 +23,23 @@ export const roles_array = [super_moderator, moderator, basic] as const
 }
 
 export type UserFilter = Partial<User>
-export type UserIdFilter = {token: string}
 
-export type SingleUserRespose = {
+export type CreateUserRespose = {
+    created?: User,
+    error?: any
+}
+
+export type GetUserResponse= {
     user?: User,
     error?: any
 }
+
+export type UpdateUserResponse= {
+    updated_user?: User,
+    error?: any
+}
+
+
+export type Update
+
+export type UpdateUser
