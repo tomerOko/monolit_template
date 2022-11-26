@@ -25,7 +25,8 @@ export const get_user_by_id_schema = z.object({
 
 
 export const update_user_changable_properties_schema = z.object({
-  body: user_request_object.omit({role: true}),
+  body: user_request_object.omit({role: true}).partial(),
+  params: user_id_filter 
 })
 
 

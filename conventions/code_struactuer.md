@@ -10,8 +10,12 @@ Middlewares: logging, authentication, authorization, system-wide information suc
 
 
 
-Controllers: the controller is the first station for a request, and it trusform the request to an object that entrers the flow. because of that, each controller generaly shuld have validation (for the data that came with the requser in the headers/ url / body), and two interfaces, one to describe the object that shuld start the flow, and  another one to descripbe the object that supposed to get out of that flow and about to be sent to the client.
-one more responsability of the controller is to enforce conventions about the stracture of responses the server sends. for example remove properties that not relevant to the user of hash/encrypt data that shuldt be visible to the client (data that the server need to be kept at the client but not for the client )
+Controllers: the controller is the first station for a request, and it trusform the request to an object that entrers the flow. 
+one more responsability of the controller is to enforce conventions about the stracture of responses the server sends. for example remove properties that not relevant to the user of hash/encrypt data that shuldt be visible
+each controller generaly uses one to three interfaces:
+1. interfeace that describe the request object after validation
+2. describe the object it sends to the service to start the flow (not mendatory if the data is very simple)
+3. user the return type of the service, becouse this is the type of data the controller shuld transform to 'client-friendly' data
 
 
 

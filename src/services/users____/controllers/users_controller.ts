@@ -4,8 +4,7 @@ import { CountryCode } from "../../../types/coutries"
 import { wrap, wrapSync } from "../../../utilities/function_wrapping"
 import { CreateUser } from "../logic/services/create_user"
 import { GetUsers } from "../logic/services/get_users"
-import { CreateUserRespose, GetUserResponse, UpdateUserResponse, User } from "../types/users_types"
-import { CreateUserRequestValidated, getUserByIdValidated, UpdateUserChangablePropertiesRequest } from "../validations/users_validations"
+import { CreateUserRequestValidated, CreateUserRespose, getUserByIdValidated, GetUserResponse, UpdateUserChangablePropertiesRequest, UpdateUserResponse, User } from "../types/users_types"
 
 type This = InstanceType<typeof UserController>
 
