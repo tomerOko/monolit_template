@@ -13,7 +13,7 @@ router.use(user_authentication)
 router.post('/createUser',validate(create_user_schema),user_controller.createUser)
 router.get('/getUserById/:user_id',validate(get_user_by_id_schema),user_controller.getUserById)
 router.post('/updateUserChangableProperties',validate(update_user_changable_properties_schema), user_controller.updateUserChangableProperties)
-router.delete('/deleteUserById',user_controller.deleteUserById)
+router.delete('/deleteUserById',validate(create_user_schema), user_controller.deleteUserById)
 
 // specific flows (mostly updates)
 router.post('/changeUserRole',user_controller.changeUserRole)

@@ -1,8 +1,8 @@
 import { z } from "zod"
 import { CountryCode } from "../../../types/coutries"
-import { CreateManyResult, DeleteResult, ReadManyResult } from "../../../utilities/mongo_generic_queris"
+import { CreateManyResult, DeleteResult, ReadManyResult, UpdateManyQuery, UpdateOneQuery } from "../../../utilities/mongo_generic_queris"
 import { Community } from "../../communities____/types/community_types"
-import { create_user_schema, get_user_by_id_schema, update_user_changable_properties_schema } from "../validations/users_validations"
+import { create_user_schema, delete_user_by_id_schema, get_user_by_id_schema, update_user_changable_properties_schema } from "../validations/users_validations"
 
 
 //BASE types:
@@ -29,45 +29,42 @@ export const roles_array = [super_moderator, moderator, basic] as const
 }
 
 
-
-
-//DB types
-
-export type UserFilter = Partial<User>
-export type UserFilterByID = {token: string}
-export type DeleteUsersResult = DeleteResult
-export type CreateManyUsersResult = CreateManyResult
-export type GetUsersResult = ReadManyResult<User>
-
-
-
-//todo:: use this?
-// export type userFilterByID = {token: string}
-
-
-
-//HTTP REQUESTS types:
-
+//HTTP types:
+//requests:
 export type CreateUserRequestValidated = z.infer<typeof create_user_schema>;
 export type getUserByIdValidated = z.infer<typeof get_user_by_id_schema>;
 export type UpdateUserChangablePropertiesRequest = z.infer<typeof update_user_changable_properties_schema>;
-
-
-
-//HTTP RESPONSE types:
+export type deleteUserByIdValidated = z.infer<typeof delete_user_by_id_schema>;
+//responses:
 export type CreateUserRespose = {
     created?: User,
     error?: any
 }
-
 export type GetUserResponse= {
     user?: User,
     error?: any
 }
-
 export type UpdateUserResponse= {
     updated_user?: User,
     error?: any
 }
 
+
+//Logic types
+export type UserChangableProperties = UpdateUserChangablePropertiesRequest["body"]
+// export type UserUpdate  מה הסרביס מחזיר
+
+
+
+
+//DB types - an customization of the generic types
+//queries:
+export type UserFilter = Partial<User>
+export type UserFilterByID = {token: string}
+export type UpdateSingleUserQuery = UpdateOneQuery<User>
+export type UpdateManyUserQuery = UpdateManyQuery<User>
+
+//results:
+export type DeleteUsersResult = DeleteResult
+export type CreateManyUsersResult = CreateManyResult
 
