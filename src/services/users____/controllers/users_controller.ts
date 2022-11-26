@@ -16,6 +16,7 @@ export class UserController {
         private get_users = new GetUsers()
     ){}
 
+
     public createUser = async (req: Request, res: Response):Promise<void>=>{
     await wrap<This['createUser']>({name: 'UserController/createUser'}, async() =>{    
         const req_body:CreateUserRequestValidated["body"] = req.body
@@ -31,7 +32,6 @@ export class UserController {
         }
         res.send(respose_data)
     })}
-
 
 
     public getUserById = async (req: Request, res: Response):Promise<void> => {
@@ -70,8 +70,8 @@ export class UserController {
         const req_body:UpdateUserChangablePropertiesRequest["body"] = req.body
         let respose_data:UpdateUserResponse = {}
         try {
-            const user:User=this.buildUserObjectBeforeCreate(req_body)
-            await this.create_user.createUser(user)
+            //create update object
+            //update with the dal
             respose_data={ updated_user: user }
             res.status(200)
         } catch (error) {
