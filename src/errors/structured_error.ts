@@ -15,10 +15,10 @@ export class StructuedError extends Error {
             status_code: this.status_code,
             error_description : this.description
         }
-        if (config.system.error_handling.return_error_stack_to_user){
+        if (config.system.error_handling.return_error_stack_to_client){
             data_relevant_to_user["stack"] = this.stack
         }
-        if (config.system.error_handling.return_native_error_to_user){
+        if (config.system.error_handling.return_native_error_to_client){
             data_relevant_to_user["base_error"] = this.base_error
         }
         

@@ -11,7 +11,7 @@ export const config = {
                 max: 100,
                 message: "You have exceeded the 1000 requests in 10 minutes limit!", 
                 headers: false,
-            }
+            },
         },
         mongo:{
             connection_props:{
@@ -24,9 +24,10 @@ export const config = {
                 communities: 'communities'
             }
         },
-        error_handling:{
-            return_error_stack_to_user: false,
-            return_native_error_to_user: false
+        error_handling:{ //used in development
+            return_error_stack_to_client: true, 
+            return_native_error_to_client: true, 
+            report_unhandled_errors_to_client: true 
         }
     },
     bussines:{

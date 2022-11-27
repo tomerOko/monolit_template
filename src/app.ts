@@ -4,8 +4,9 @@ import cors from 'cors'
 import rateLimiter from './middleware/packages/rate_limiter'
 import { rootRouter } from "./router";
 import { http_logger } from "./middleware/custom/http_logger";
-import { route_not_found } from "./middleware/custom/http_error_handler";
 import { config } from "./config/confing_mock";
+import { http_error_handler } from "./middleware/custom/http_error_handler";
+import { route_not_found } from "./middleware/custom/route_not_found";
 
 export const app = express()
 app.use(rateLimiter);
