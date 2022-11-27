@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { moderator, super_moderator } from "../../services/users____/types/users_types";
+import { create_error } from "../../errors/error_factory";
 import { wrap } from "../../utilities/function_wrapping";
 
 export const user_authentication = async (req:Request, res: Response, next: NextFunction) => {
@@ -8,7 +8,8 @@ export const user_authentication = async (req:Request, res: Response, next: Next
         if (is_authenticated) {
             next()
         }else{
-            res.status(401).end("this route is only allowed for registered users")
+            const error = create_error("authentication error")
+            next(error)
         }
     })
 }
@@ -19,7 +20,8 @@ export const admin_authentication = async (req:Request, res: Response, next: Nex
         if (is_authenticated) {
             next()
         }else{
-            res.status(401).end(`this route is only allowed for registered users of type '${super_moderator}' or ${moderator} `)
+            const error = create_error("rounte for moderators only")
+            next(error)        
         }
     })
 }
