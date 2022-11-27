@@ -37,11 +37,11 @@ export class MongoInitializer {
 
 
   //TODO: any shuld be 'T'
-  public static async getCollection<T extends Document>(collection_name: string): Promise <Collection<any>> {
-  return await wrap<This['getCollection']>({name:'MongoInitializer/getCollection', options: {hide_result: true}}, async() => { 
+  public static async getCollection<T extends Document>(collection_name: string): Promise <Collection<T>> {
+  return await wrap<This['getCollection'], Promise <Collection<T>>>({name:'MongoInitializer/getCollection', options: {hide_result: true}}, async() => { 
       const db = await MongoInitializer.connectOrGetActiveConnection()
       const collection = db.collection<T>(collection_name);
-      return collection 
+      return collection as Collection<T>
   })}
 
 

@@ -35,7 +35,7 @@ export const wrap = async <Z extends (...args: any[]) => Promise<any>, X = Retur
         logger.info(`${props.name} - start ${ props.options?.start_log_addition ? props.options.start_log_addition: '' }`)
         const result = await fn()
         logger.info(`${props.name} - end ${ props.options?.hide_result ? '': result }`)
-        return result
+        return result as X
     } catch (error) {
         logger.error(`${props.name} - error ${ props.options?.hide_error ? '' : error }`)
         if (props.options?.dont_trow_if_error) {
