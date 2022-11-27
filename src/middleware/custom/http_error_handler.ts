@@ -1,8 +1,13 @@
-import { logger } from "../../utilities/logger";
+import { NextFunction, Request, Response } from "express";
+import { create_error } from "../../errors/error_factory";
+import { StructuedError } from "../../errors/structured_error";
 
-export const http_error_handler = (req, res, next) => {
-    res.status(404).json({
-        message: 'Not found'
-    });
-    logger.error(req.url + '  Not found')
+export const http_error_handler = (error: StructuedError | unknown, req: Request, res: Response, next: NextFunction) => {
+    let structued_error:StructuedError
+    if ((error as StructuedError).is_structured_error) {
+        structued_error = error as StructuedError
+    }else{
+        structued_error = create_error("internal error")
+    }
+    res.status(structued_error.status_code).send(structued_error.toString())
 }

@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { z, AnyZodObject, ZodRawShape, ZodTypeAny, ZodObject } from "zod";
+import { create_error } from "../../errors/error_factory";
 
 
 export const validate =
@@ -13,7 +14,8 @@ export const validate =
       });
       return next();
     } catch (error) {
-      return res.status(400).json(error);
+      const structued_error = create_error("bad request properties error", error)
+      return next(structued_error)
     }
   };
 

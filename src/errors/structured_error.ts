@@ -1,17 +1,19 @@
 import { config } from "../config/confing_mock";
+import { StructuedErrorTypes } from "./error_factory";
 
-export abstract class AbstractError extends Error {
+export class StructuedError extends Error {
 
-    public readonly is_structured = true
+    public readonly is_structured_error = true
 
-    constructor(private description: string, private status_code: number, private base_error?: Error) {
+    constructor(public readonly type:StructuedErrorTypes, public readonly status_code: number, public readonly description: string, public readonly base_error?: unknown) {
         super(description);
     }
 
     public toString(): string {
         const data_relevant_to_user = {
+            error_type: this.type,
             status_code: this.status_code,
-            message : this.description
+            error_description : this.description
         }
         if (config.system.error_handling.return_error_stack_to_user){
             data_relevant_to_user["stack"] = this.stack

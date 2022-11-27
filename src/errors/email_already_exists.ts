@@ -1,4 +1,4 @@
-import { AbstractError } from "../abstract_error";
+import { AbstractError } from "./structured_error";
 
 class EmailAlreadyExists extends AbstractError {
 
