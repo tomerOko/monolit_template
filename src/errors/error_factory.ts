@@ -1,8 +1,7 @@
 /**
  * dev note - no reason for that to happan, but make sure not to create an equal key in @general_structued_status_codes and in @custom_structued_status_codes
  */
-
-import { object } from "zod"
+import { config } from "../config/confing_mock"
 import { StructuedError } from "./structured_error"
 
 const general_structured_status_codes = {
@@ -27,7 +26,7 @@ export const structued_error_codes = {
 
 
 export type StructuedErrorTypes = keyof typeof structued_error_codes
-
+export const default_error_structure_type:StructuedErrorTypes = "internal error"
 
 
 export const create_error = (error_type: StructuedErrorTypes, base_error?: unknown) : StructuedError => {
@@ -35,7 +34,18 @@ export const create_error = (error_type: StructuedErrorTypes, base_error?: unkno
     return new StructuedError (error_type, status_code, error_description, base_error )
 }
 
+export const stuctureErrorIfNotStructuredYet = (error: unknown, error_structure?: StructuedErrorTypes): StructuedError => {
+    if ((error as StructuedError).is_structured_error) {
+        const structued_error = error as StructuedError;
+        return structued_error
+    } else {
+        error_structure = error_structure ? error_structure : default_error_structure_type
+        const structued_error = create_error(error_structure);
+        return structued_error
+    }
+}
 
+    
 
 
 
