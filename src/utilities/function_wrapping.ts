@@ -1,3 +1,4 @@
+import { StructuedErrorTypes } from "../errors/error_factory";
 import { logger } from "./logger";
 
 export type WrapOptions = {
@@ -10,7 +11,8 @@ export type WrapOptions = {
 
 export type WrapProps = {
     name: string,
-    options?: WrapOptions
+    options?: WrapOptions,
+    default_error_structure?: StructuedErrorTypes
 }
 
 export const wrapSync = < Z extends(...args: any[]) => any , X = ReturnType < Z > > (props: WrapProps, fn: ()=> X): X=> {
@@ -20,13 +22,7 @@ export const wrapSync = < Z extends(...args: any[]) => any , X = ReturnType < Z 
         logger.info(`${props.name} - end ${ props.options?.hide_result ? '': result }`)
         return result
     } catch (error) {
-        logger.error(`${props.name} - error ${ props.options?.hide_error ? '' : error }`)
-        if (props.options?.dont_trow_if_error) {
-            const error_return_value = props.options?.error_return_value ? props.options.error_return_value : null
-            return error_return_value
-        } else {
-            throw error
-        }
+        hanle_error(props, error)
     }
 };
 
@@ -45,6 +41,15 @@ export const wrap = async <Z extends (...args: any[]) => Promise<any>, X = Retur
             throw error
         }
     }
-
 };
+
+const hanle_error = (props: WrapProps, error: any) => {
+    logger.error(`${props.name} - error ${ props.options?.hide_error ? '' : error }`)
+        if (props.options?.dont_trow_if_error) {
+            const error_return_value = props.options?.error_return_value ? props.options.error_return_value : null
+            return error_return_value
+        } else {
+            throw error
+        }
+}
 
