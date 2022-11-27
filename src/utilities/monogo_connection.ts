@@ -36,7 +36,6 @@ export class MongoInitializer {
   })}
 
 
-  //TODO: any shuld be 'T'
   public static async getCollection<T extends Document>(collection_name: string): Promise <Collection<T>> {
   return await wrap<This['getCollection'], Promise <Collection<T>>>({name:'MongoInitializer/getCollection', options: {hide_result: true}}, async() => { 
       const db = await MongoInitializer.connectOrGetActiveConnection()

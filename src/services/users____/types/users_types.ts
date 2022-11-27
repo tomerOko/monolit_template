@@ -1,6 +1,5 @@
 import { z } from "zod"
 import { CountryCode } from "../../../types/coutries"
-import { CreateManyResult, DeleteResult, ReadManyResult, UpdateManyQuery, UpdateOneQuery } from "../../../utilities/mongo_generic_queris"
 import { Community } from "../../communities____/types/community_types"
 import { create_user_schema, delete_user_by_id_schema, get_user_by_id_schema, update_user_changable_properties_schema } from "../validations/users_validations"
 
@@ -29,7 +28,7 @@ export const roles_array = [super_moderator, moderator, basic] as const
 }
 
 
-//HTTP types:
+//HTTP types (controller level):
 //requests:
 export type CreateUserRequestValidated = z.infer<typeof create_user_schema>;
 export type getUserByIdValidated = z.infer<typeof get_user_by_id_schema>;
@@ -38,15 +37,26 @@ export type deleteUserByIdValidated = z.infer<typeof delete_user_by_id_schema>;
 //responses:
 export type CreateUserRespose = {
     created?: User,
-    error?: any
 }
 export type GetUserResponse= {
     user?: User,
-    error?: any
+}
+export type GetUsersResponse = {
+    users: User[]
 }
 export type UpdateUserResponse= {
     updated_user?: User,
-    error?: any
+}
+export type UpdateUsersResponse= {
+    found: number,
+    updated: number,
+    upserted: number
+}
+export type DeleteUserResponse= {
+    updated_user?: User,
+}
+export type DeleteUsersResponse= {
+    deleted: number,
 }
 
 
@@ -61,7 +71,7 @@ export type UserChangableProperties = UpdateUserChangablePropertiesRequest["body
 //queries:
 export type UserFilter = Partial<User>
 export type UserFilterByID = {token: string}
-export type UpdateSingleUserQuery = UpdateOneQuery<User>
+export type UpdateSingleUserQuery = UpdateOneQuer<User>
 export type UpdateManyUserQuery = UpdateManyQuery<User>
 
 //results:

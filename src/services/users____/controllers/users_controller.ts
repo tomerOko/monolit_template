@@ -16,23 +16,25 @@ export class UserController {
     ){}
 
 
+    /**
+     * sends @type CreateUserRespose
+     */
     public createUser = async (req: Request, res: Response):Promise<void>=>{
     await wrap<This['createUser']>({name: 'UserController/createUser'}, async() =>{    
         const req_body:CreateUserRequestValidated["body"] = req.body
-        let respose_data: CreateUserRespose
         try {
             const user:User=this.buildUserObjectBeforeCreate(req_body)
             await this.create_user.createUser(user)
-            respose_data={ created: user }
-            res.status(200)
+            const respose_data: CreateUserRespose = { created: user }
+            res.status(200).send(respose_data)
         } catch (error) {
-            respose_data={error}
-            res.status(500)
+            res.status(500).send(error)
         }
-        res.send(respose_data)
     })}
 
-
+    /**
+     * sends @type CreateUserRespose
+     */
     public getUserById = async (req: Request, res: Response):Promise<void> => {
     return await wrap<This['getUserById']>({name: 'UserController/getUserById'}, async() =>{
         const req_params = req.params as getUserByIdValidated["params"]

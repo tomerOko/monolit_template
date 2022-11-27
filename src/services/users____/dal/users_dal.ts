@@ -10,7 +10,7 @@ export class UserDAL {
 
     public createUser = async (user: User):Promise<CreateManyUsersResult> => {
     return await wrap<This["createUser"]>({name: "UserDAL/createUser"}, async()=>{
-        const reslut = await MongoGenericQueris.createMany<User>({collection_name:this.collection_name, values:[user]})
+        const reslut = await MongoGenericQueris.createSinlge<User>({collection_name:this.collection_name, value:user})
         return reslut
     })}
 

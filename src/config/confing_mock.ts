@@ -24,6 +24,10 @@ export const config = {
                 communities: 'communities'
             }
         },
+        error_handling:{
+            return_error_stack_to_user: false,
+            return_native_error_to_user: false
+        }
     },
     bussines:{
         users:{
