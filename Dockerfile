@@ -16,7 +16,7 @@ RUN apk add git
 RUN apk add openssh-client
 
 # needed for git opperations
-RUN cd/
+RUN cd /
 RUN mkdir .ssh
 RUN ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
 
