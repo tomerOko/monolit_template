@@ -53,6 +53,10 @@ export class CommunityController {
         res.send(respose_data)
     })}
 
+    updateCommunityChangableProperties = async () => {
+        
+    }
+
 
     public async getAllCommunity(req: Request, res: Response):Promise<void>{
     return await wrap<This['getAllCommunity']>({name: 'CommunityController/getAllCommunity'}, async() =>{ 
