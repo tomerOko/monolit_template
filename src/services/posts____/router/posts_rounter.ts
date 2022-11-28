@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { admin_authentication, user_authentication } from "../../../middleware/custom/auth";
+import { admin_authentication, user_authentication } from "../../../middleware/custom/authentication";
 import { validate } from "../../../middleware/packages/zod";
 import {PostController} from "../controllers/posts_controller"
 import { create_post_schema } from "../validations/posts_validations";

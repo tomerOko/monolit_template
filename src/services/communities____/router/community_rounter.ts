@@ -1,5 +1,6 @@
 import { Router } from "express";
-import { user_authentication } from "../../../middleware/custom/auth";
+import { user_authentication } from "../../../middleware/custom/authentication";
+import { validate_moderator } from "../../../middleware/custom/authorization";
 import { validate } from "../../../middleware/packages/zod";
 import {CommunityController} from "../controllers/community_controller"
 import { create_community_schema, update_community_schema } from "../validations/community_validations";
@@ -11,7 +12,7 @@ router.use(user_authentication)
 
 // classic CRUDS
 
-router.post('/createCommunity',validate(create_community_schema),community_controller.createCommunity)
+router.post('/createCommunity',user_authentication,validate_moderator,validate(create_community_schema),community_controller.createCommunity)
 router.get('/getCommunityById/:community_id',community_controller.getCommunityById)
 router.post('/updateCommunityChangableProperties',validate(update_community_schema),community_controller.updateCommunityChangableProperties)
 router.delete('/deleteCommunityById',community_controller.deleteCommunityById)

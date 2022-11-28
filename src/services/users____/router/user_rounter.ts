@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { user_authentication } from "../../../middleware/custom/auth";
+import { user_authentication } from "../../../middleware/custom/authentication";
 import { validate } from "../../../middleware/packages/zod";
 import {UserController} from "../controllers/users_controller"
 import { create_user_schema, get_user_by_id_schema, update_user_changable_properties_schema } from "../validations/users_validations";

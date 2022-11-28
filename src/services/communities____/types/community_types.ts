@@ -7,6 +7,7 @@ import { User } from "../../users____/types/users_types"
     token: string, // identifier key
     title: string, // text with up to 60 chars
     image: URL, // For the purpose of this exercise, you don’t have to support image uploading and can assume it was already uploaded using a different system
+    description: string,
     user_count: number, // number of users who joined this community
     users: User["token"][], //user list of the Communtiy
     date_created: Date,
