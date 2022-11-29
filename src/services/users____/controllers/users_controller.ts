@@ -1,18 +1,18 @@
 import { Request, Response, Router } from "express"
-import {v4 as genereateID,} from 'uuid'
-import { CountryCode } from "../../../types/coutries"
 import { wrap, wrapSync } from "../../../utilities/function_wrapping"
-import { CreateUser } from "../logic/services/create_user"
-import { GetUsers } from "../logic/services/get_users"
-import { CreateUserRequestValidated, CreateUserRespose, getUserByIdValidated, GetUserResponse, UpdateUserChangablePropertiesRequest, UpdateUserResponse, User } from "../types/users_types"
+import { CreateUserService } from "../logic/services/create_user"
+import { GetUsersService } from "../logic/services/get_users"
+import { UpdateUserChangeblePropertiesService } from "../logic/services/update_user_changable_properties"
+import { CreateUserRequest, CreateUserRespose, getUserByIdRequest, GetUserResponse, UpdateUserChangablePropertiesRequest, UpdateUserResponse, User } from "../types/users_types"
 
 type This = InstanceType<typeof UserController>
 
 export class UserController {
     
     constructor(
-        private create_user = new CreateUser(),
-        private get_users = new GetUsers()
+        private create_user_service = new CreateUserService(),
+        private get_users_service = new GetUsersService(),
+        private update_user_changeble_properties_service = new UpdateUserChangeblePropertiesService()
     ){}
 
 
@@ -21,9 +21,9 @@ export class UserController {
      */
     public createUser = async (req: Request, res: Response):Promise<void>=>{
     await wrap<This['createUser']>({name: 'UserController/createUser'}, async() =>{    
-        const create_user_params:CreateUserRequestValidated["body"] = req.body
+        const create_user_request:CreateUserRequest = req.body
         try {
-            const user = await this.create_user.createUser(create_user_params)
+            const user = await this.create_user_service.createUser(create_user_request)
             const respose_data: CreateUserRespose = { created: user }
             res.status(200).send(respose_data)
         } catch (error) {
@@ -32,39 +32,32 @@ export class UserController {
     })}
 
     /**
-     * sends @type CreateUserRespose
+     * sends @type GetUserResponse
      */
     public getUserById = async (req: Request, res: Response):Promise<void> => {
     return await wrap<This['getUserById']>({name: 'UserController/getUserById'}, async() =>{
-        const req_params = req.params as getUserByIdValidated["params"]
+        const get_user_by_id_requst = req.params as getUserByIdRequest
         let respose_data: GetUserResponse
         try {
-            const user = await this.get_users.getSingleUserById(req_params.user_id)
+            const user = await this.get_users_service.getSingleUserById(get_user_by_id_requst)
             respose_data={user}
             res.status(200)
         } catch (error) {
-            respose_data={error}
-            res.status(500)
+            res.status(500).send(error)
         }
-        res.send(respose_data)
     })}
 
     public async updateUserChangableProperties(req: Request, res: Response):Promise<void>{
     return await wrap<This['updateUserChangableProperties']>({name: 'UserController/updateUserChangableProperties'}, async() =>{ 
-
-        const req_body:UpdateUserChangablePropertiesRequest["body"] = req.body
-        let respose_data:UpdateUserResponse = {}
+        const update_user_changable_properties_request:UpdateUserChangablePropertiesRequest = {params: req.params as {user_id: string}, body: req.body }
         try {
-            //create update object
-            //update with the dal
-            respose_data={ updated_user: user }
-            res.status(200)
+            this.update_user_changeble_properties_service.UpdateUserChangebleProperties(update_user_changable_properties_request)
+            const user = await this.get_users_service.getSingleUserById(update_user_changable_properties_request.params)
+            const respose_data: UpdateUserResponse ={ updated_user: user }
+            res.status(200).send(respose_data)
         } catch (error) {
-            respose_data={error}
-            res.status(500)
+            res.status(500).send(error)
         }
-        res.send(respose_data)
-
     })}
 
 

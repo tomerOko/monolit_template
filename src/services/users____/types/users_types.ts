@@ -1,6 +1,6 @@
 import { z } from "zod"
 import { CountryCode } from "../../../types/coutries"
-import { CreateManyResult, CreateSinleResult, DeleteSingleResult, UpdateQuery } from "../../../types/mongo_generic_types"
+import { CreateManyQuery, CreateManyResult, CreateSingleQuery, CreateSinleResult, DeleteQuery, DeleteSingleResult, ReadManyQuery, ReadManyResult, ReadSingleQuery, UpdateManyResult, UpdateQuery, UpdateSinleResult } from "../../../types/mongo_generic_types"
 import { Community } from "../../communities____/types/community_types"
 import { create_user_schema, delete_user_by_id_schema, get_user_by_id_schema, update_user_changable_properties_schema } from "../validations/users_validations"
 
@@ -26,15 +26,17 @@ export const roles_array = [super_moderator, moderator, basic] as const
     image?: URL, 
     name: string,
     role?: Role,
+    created_at: Date,
+    updated_at: Date
 }
 
 
 //HTTP types (controller level):
 //requests:
-export type CreateUserRequestValidated = z.infer<typeof create_user_schema>;
-export type getUserByIdValidated = z.infer<typeof get_user_by_id_schema>;
+export type CreateUserRequest = z.infer<typeof create_user_schema>["body"]
+export type getUserByIdRequest = z.infer<typeof get_user_by_id_schema>["params"]
 export type UpdateUserChangablePropertiesRequest = z.infer<typeof update_user_changable_properties_schema>;
-export type deleteUserByIdValidated = z.infer<typeof delete_user_by_id_schema>;
+export type deleteUserByIdRequest = z.infer<typeof delete_user_by_id_schema>;["params"]
 //responses:
 export type CreateUserRespose = {
     created: User,
@@ -72,11 +74,22 @@ export type UserChangableProperties = UpdateUserChangablePropertiesRequest["body
 //queries:
 export type UserFilter = Partial<User>
 export type UserFilterByID = {token: string}
+
+export type CreateSingleUserQuery = CreateSingleQuery<User>
+export type CreateManyUsersQuery = CreateManyQuery<User>
+export type ReadSingleUserQuery = ReadSingleQuery<User>
+export type ReadManyUserQuery = ReadManyQuery<User>
 export type UpdateSingleUserQuery = UpdateQuery<User>
 export type UpdateManyUserQuery = UpdateQuery<User>
+export type DeleteSingleUserQuery = DeleteQuery<User>
+export type DeleteManyUserQuery = DeleteQuery<User>
+
 
 //results:
-export type CreateSingleUserResult = CreateSinleResult<User>
+//there are no types for single document createion and deletion because it will work correctly or throw error
 export type CreateManyUsersResult = CreateManyResult
+export type ReadSingleUserResult = User
+export type ReadManyUsersResult = ReadManyResult<User>
+export type UpdateSingleUserResult = UpdateSinleResult
+export type UpdatedManyUsersResult = UpdateManyResult
 export type DeleteUsersResult = DeleteSingleResult
-

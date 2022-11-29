@@ -27,15 +27,12 @@ export type DeleteQuery<T> = BasicQuery<T>
 
 
 //generic results
-export type CreateSinleResult<T> = {
-  inserted:boolean
-}
 export type CreateManyResult = {
   inserted:number
 }
 export type ReadManyResult<T> = Array<T>
-export type ReadSinleResult<T> = T | null
-export type UpdateSinleResult = {
+export type ReadSinleResult<T> = T
+export type UpdateSinleResult = { //only for the speficif dal to know what error to throw in case it needs to
   matched:boolean,
   updated:boolean,
   upserted:boolean

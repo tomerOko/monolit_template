@@ -1,4 +1,4 @@
-import { wrap } from "./function_wrapping";
+import { wrap, wrapSync } from "./function_wrapping";
 import { Document, Filter, FindOneAndUpdateOptions, OptionalId, OptionalUnlessRequiredId, Sort, UpdateFilter, UpdateOptions } from "mongodb";
 import { MongoInitializer } from "./monogo_connection";
 import { CreateManyQuery, CreateManyResult, CreateSingleQuery, CreateSinleResult, DeleteManyResult, DeleteQuery, DeleteSingleResult, ReadManyQuery, ReadManyResult, ReadSingleQuery, ReadSinleResult, UpdateManyResult, UpdateQuery, UpdateSinleResult } from "../types/mongo_generic_types";
@@ -44,11 +44,12 @@ return await wrap<This["readManyBy"]>({name: "MongoGenericQueris/readManyBy"}, a
 
 
   public static async readSingleBy<T extends Document>(query:ReadSingleQuery<T>):Promise<ReadSinleResult<T>> { 
-return await wrap<This["readSingleBy"], Promise<ReadSinleResult<T>>>({name: "MongoGenericQueris/readSingleBy"}, async()=>{
+  return await wrap<This["readSingleBy"], Promise<ReadSinleResult<T>>>({name: "MongoGenericQueris/readSingleBy"}, async()=>{
 
-  const collection = await MongoInitializer.getCollection<T>(query.collection_name)
-  const result = await collection.findOne<T>(query.filter)
-  return result
+    const collection = await MongoInitializer.getCollection<T>(query.collection_name)
+    const result = await collection.findOne<T>(query.filter)
+    if(!result) throw create_error("document was not found")
+    return result
 
   })}
 
@@ -66,8 +67,9 @@ return await wrap<This["readAll"]>({name: "MongoGenericQueris/readAll"}, async()
   public static async updateSingle<T extends Document>(query:UpdateQuery<T>):Promise<UpdateSinleResult>{
   return await wrap<This['updateSingle']>({name: "MongoGenericQueris/updateSingle"}, async () => {
 
-    const { collection, update_filter, options } = await MongoGenericQueris.paramsForUpdateOperation<T>(query);
-    const query_result = await collection.updateOne(query.filter, update_filter, options)
+    const collection = await MongoInitializer.getCollection<T>(query.collection_name);
+    const { update_values, options } = await MongoGenericQueris.parseUpdateValuesAndOptions<T>(query);
+    const query_result = await collection.updateOne(query.filter, update_values, options)
     const result: UpdateSinleResult = {
       matched:query_result.matchedCount>0,
       upserted:query_result.modifiedCount>0,
@@ -79,24 +81,28 @@ return await wrap<This["readAll"]>({name: "MongoGenericQueris/readAll"}, async()
 
   public static async updateMany<T extends Document>(query:UpdateQuery<T>):Promise<UpdateManyResult>{
   return await wrap<This['updateMany']>({name: "MongoGenericQueris/updateMany"}, async () => {
-    const { collection, update_filter, options } = await MongoGenericQueris.paramsForUpdateOperation<T>(query);
-    const query_result = await collection.updateMany(query.filter, update_filter,options)
+    
+    const collection = await MongoInitializer.getCollection<T>(query.collection_name);
+    const { update_values, options } = await MongoGenericQueris.parseUpdateValuesAndOptions<T>(query);
+    const query_result = await collection.updateMany(query.filter, update_values,options)
     const result:UpdateManyResult = {
       mutched: query_result.matchedCount,
       updated: query_result.modifiedCount,
       upserted: query_result.upsertedCount
     }
     return result
+    
   })}
 
-  private static async paramsForUpdateOperation<T extends Document>(query: UpdateQuery<T>) {
-    const collection = await MongoInitializer.getCollection<T>(query.collection_name);
+  private static async parseUpdateValuesAndOptions<T extends Document>(query: UpdateQuery<T>) {
+  return wrapSync<This["parseUpdateValuesAndOptions"]>({name:"MongoGenericQueris/parseUpdateValuesAndOptions"}, () => {
+
     const options: UpdateOptions = {};
-    if (query.upsert)
-      options.upsert = query.upsert;
-    const update_filter = { $set: query.update_values } as UpdateFilter<T>;
-    return { collection, update_filter, options };
-  }
+    if (query.upsert) options.upsert = query.upsert;
+    const update_values = { $set: query.update_values } as UpdateFilter<T>;
+    return {update_values, options };
+
+  })}
 
 
 
