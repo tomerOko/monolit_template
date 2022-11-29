@@ -2,20 +2,20 @@ import { wrap } from "./function_wrapping";
 import { Document, Filter, FindOneAndUpdateOptions, OptionalId, OptionalUnlessRequiredId, Sort, UpdateFilter, UpdateOptions } from "mongodb";
 import { MongoInitializer } from "./monogo_connection";
 import { CreateManyQuery, CreateManyResult, CreateSingleQuery, CreateSinleResult, DeleteManyResult, DeleteQuery, DeleteSingleResult, ReadManyQuery, ReadManyResult, ReadSingleQuery, ReadSinleResult, UpdateManyResult, UpdateQuery, UpdateSinleResult } from "../types/mongo_generic_types";
+import { create_error } from "../errors/error_factory";
 
 
 type This = typeof MongoGenericQueris
 export class MongoGenericQueris{
 
 
-  public static async createSinlge<T extends Document>(query: CreateSingleQuery<T>):Promise<CreateSinleResult<T>>{
+  public static async createSinlge<T extends Document>(query: CreateSingleQuery<T>):Promise<void>{
 return await wrap<This['createSinlge']>({name: "MongoGenericQueris/createSinlge"}, async()=>{
   
   const collection = await MongoInitializer.getCollection<T>(query.collection_name);
   const query_result = await collection.insertMany([query.value] as OptionalUnlessRequiredId<T>[]);
   const inserted = query_result.insertedCount==1
-  return {inserted}
-  
+  if(!inserted) throw create_error('document was not created')
   })}
 
 

@@ -1,17 +1,24 @@
 import { config } from "../../../config/confing_mock";
+import { create_error } from "../../../errors/error_factory";
+import { StructuedError } from "../../../errors/structured_error";
 import { wrap, wrapSync } from "../../../utilities/function_wrapping";
 import { MongoGenericQueris } from "../../../utilities/mongo_generic_queris";
-import { CreateManyUsersResult, DeleteUsersResult, User, UserFilter } from "../types/users_types";
+import { CreateManyUsersResult, CreateSingleUserResult, DeleteUsersResult, User, UserFilter } from "../types/users_types";
 
 type This = InstanceType<typeof UserDAL>
 export class UserDAL {
 
     private collection_name = config.system.mongo.collections.users
 
-    public createUser = async (user: User):Promise<CreateManyUsersResult> => {
+    public createUser = async (user: User):Promise<void> => { 
     return await wrap<This["createUser"]>({name: "UserDAL/createUser"}, async()=>{
-        const reslut = await MongoGenericQueris.createSinlge<User>({collection_name:this.collection_name, value:user})
-        return reslut
+        try {
+            const reslut = await MongoGenericQueris.createSinlge<User>({collection_name:this.collection_name, value:user})
+        } catch (error) {
+            if((error as StructuedError).type == "document was not created")
+                throw create_error("user allready exist")
+            throw error
+        }
     })}
 
     public getSinlgeUserBy = async (user_props: UserFilter):Promise<User | null> => {

@@ -14,7 +14,7 @@ export const validate =
       });
       return next();
     } catch (error) {
-      const structued_error = create_error("bad request properties error", error)
+      const structued_error = create_error("bad request properties error", error, true)
       return next(structued_error)
     }
   };

@@ -1,5 +1,6 @@
 import { z } from "zod"
 import { CountryCode } from "../../../types/coutries"
+import { CreateManyResult, CreateSinleResult, DeleteSingleResult, UpdateQuery } from "../../../types/mongo_generic_types"
 import { Community } from "../../communities____/types/community_types"
 import { create_user_schema, delete_user_by_id_schema, get_user_by_id_schema, update_user_changable_properties_schema } from "../validations/users_validations"
 
@@ -36,16 +37,16 @@ export type UpdateUserChangablePropertiesRequest = z.infer<typeof update_user_ch
 export type deleteUserByIdValidated = z.infer<typeof delete_user_by_id_schema>;
 //responses:
 export type CreateUserRespose = {
-    created?: User,
+    created: User,
 }
 export type GetUserResponse= {
-    user?: User,
+    user: User,
 }
 export type GetUsersResponse = {
     users: User[]
 }
 export type UpdateUserResponse= {
-    updated_user?: User,
+    updated_user: User,
 }
 export type UpdateUsersResponse= {
     found: number,
@@ -53,7 +54,7 @@ export type UpdateUsersResponse= {
     upserted: number
 }
 export type DeleteUserResponse= {
-    updated_user?: User,
+    deleted_user: User,
 }
 export type DeleteUsersResponse= {
     deleted: number,
@@ -62,7 +63,7 @@ export type DeleteUsersResponse= {
 
 //Logic types
 export type UserChangableProperties = UpdateUserChangablePropertiesRequest["body"]
-// export type UserUpdate  מה הסרביס מחזיר
+
 
 
 
@@ -71,10 +72,11 @@ export type UserChangableProperties = UpdateUserChangablePropertiesRequest["body
 //queries:
 export type UserFilter = Partial<User>
 export type UserFilterByID = {token: string}
-export type UpdateSingleUserQuery = UpdateOneQuer<User>
-export type UpdateManyUserQuery = UpdateManyQuery<User>
+export type UpdateSingleUserQuery = UpdateQuery<User>
+export type UpdateManyUserQuery = UpdateQuery<User>
 
 //results:
-export type DeleteUsersResult = DeleteResult
+export type CreateSingleUserResult = CreateSinleResult<User>
 export type CreateManyUsersResult = CreateManyResult
+export type DeleteUsersResult = DeleteSingleResult
 

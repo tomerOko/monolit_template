@@ -21,10 +21,9 @@ export class UserController {
      */
     public createUser = async (req: Request, res: Response):Promise<void>=>{
     await wrap<This['createUser']>({name: 'UserController/createUser'}, async() =>{    
-        const req_body:CreateUserRequestValidated["body"] = req.body
+        const create_user_params:CreateUserRequestValidated["body"] = req.body
         try {
-            const user:User=this.buildUserObjectBeforeCreate(req_body)
-            await this.create_user.createUser(user)
+            const user = await this.create_user.createUser(create_user_params)
             const respose_data: CreateUserRespose = { created: user }
             res.status(200).send(respose_data)
         } catch (error) {
@@ -49,21 +48,6 @@ export class UserController {
         }
         res.send(respose_data)
     })}
-
-
-    private buildUserObjectBeforeCreate(req_body: CreateUserRequestValidated["body"]): User {
-    return wrapSync<This["buildUserObjectBeforeCreate"]>({name:"UserController/buildUserObjectBeforeCreate"},()=>{
-        return {
-            token: genereateID(),
-            communities: [],
-            country: req_body.country as CountryCode,
-            name: req_body.name,
-            email: req_body.email,
-            image: req_body.image as URL | undefined,
-            role: req_body.role
-        }
-    })}
-
 
     public async updateUserChangableProperties(req: Request, res: Response):Promise<void>{
     return await wrap<This['updateUserChangableProperties']>({name: 'UserController/updateUserChangableProperties'}, async() =>{ 

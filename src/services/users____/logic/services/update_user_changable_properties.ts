@@ -10,11 +10,9 @@ export class UpdateUserChangebleProperties extends UserLogic {
 
     constructor() {super()}
 
-    //מקבל את
     public UpdateUserChangebleProperties = async (user: UserChangableProperties ):Promise<void> => {
     await wrap<This["UpdateUserChangebleProperties"]>({name:"UpdateUserChangebleProperties/UpdateUserChangebleProperties"}, async()=>{
         if(user.email) await UserUtils.validateMailNotExist(user.email)
-        const query_result = await UpdateUserChangebleProperties.user_dal.createUser(user)
     })}
 
 }
