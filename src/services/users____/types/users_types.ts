@@ -1,7 +1,7 @@
 import { z } from "zod"
 import { CountryCode } from "../../../types/coutries"
 import { CreateManyQuery, CreateManyResult, CreateSingleQuery, DeleteQuery, DeleteSingleResult, ReadManyQuery, ReadManyResult, ReadSingleQuery, UpdateManyResult, UpdateQuery, UpdateSinleResult } from "../../../types/mongo_generic_types"
-import { Community } from "../../communities____/types/community_types"
+import { Community } from "../../refactor/community_types"
 import { change_user_role_schema, create_user_schema, delete_user_by_id_schema, get_user_by_id_schema, update_user_changable_properties_schema } from "../validations/users_validations"
 
 

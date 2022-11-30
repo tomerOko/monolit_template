@@ -1,6 +1,6 @@
 import { wrap, wrapSync } from "../../../utilities/function_wrapping";
 import { logger } from "../../../utilities/logger";
-import { Post } from "../types/posts_types";
+import { Post } from "../posts_types";
 
 type This = typeof PostUtils
 export class PostUtils {

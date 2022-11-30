@@ -1,8 +1,8 @@
-import { wrap } from "../../../../utilities/function_wrapping";
-import { UserDAL } from "../../../users____/dal/users_dal";
-import { Post, PostIdFilter } from "../../types/posts_types";
-import { PostUtils } from "../../utilities/posts_utils";
-import { PostsLogic } from "../basic_posts_logic_class";
+import { wrap } from "../../utilities/function_wrapping";
+import { UserDAL } from "../users____/dal/users_dal";
+import { Post, PostIdFilter } from "./posts_types";
+import { PostUtils } from "./utilities/posts_utils";
+import { PostsLogic } from "../posts____/logic/basic_posts_logic_class";
 
 type This = InstanceType<typeof PostService>
 

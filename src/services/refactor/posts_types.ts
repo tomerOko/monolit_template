@@ -1,5 +1,5 @@
-import { Community } from "../../communities____/types/community_types"
-import { User } from "../../users____/types/users_types"
+import { Community } from "./community_types"
+import { User } from "../users____/types/users_types"
 
 export const approved = "approved" as const
 export const pending_approval = "pending_approval" as const
@@ -44,3 +44,48 @@ export type SinglePostRespose = {
     post?: Post,
     error?: any
 }
+
+
+
+/**
+ * 
+ *    public createPost = async (req: Request, res: Response):Promise<void>=>{
+    await wrap<This['createPost']>({name: 'PostController/createPost'}, async() =>{
+        let respose_data: SinglePostRespose
+        try {
+            const now = new Date()
+            const post:Post={
+                token: genereateID(),
+                author: req.body.author,
+                body: req.body.body,
+                community: req.body.community,
+                date_created: now,
+                date_updated: now,
+                date_verified: null,
+                likes: 0,
+                likes_from: [],
+                status: post_statuses.pending_approval,
+                summary: req.body.summary,
+                title: req.body.title
+            }
+            await this.post_serivce.createPost(post)
+            respose_data={post}
+            res.status(200)
+        } catch (error) {
+            respose_data={error}
+            res.status(500)
+        }
+        res.send(respose_data)
+    })
+}
+
+
+
+
+
+router.post('/changeCommunityOfPost', post_controller.changeCommunityOfPost)
+router.post('/approveOrRejectPost', admin_authentication, post_controller.approveOrRejectPost)
+//get relevant posts to user (FEED ) meybe another service?
+
+
+ */
