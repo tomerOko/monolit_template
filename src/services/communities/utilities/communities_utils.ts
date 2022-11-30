@@ -1,6 +1,6 @@
 import { create_error } from "../../../errors/error_factory";
 import { wrap, wrapSync } from "../../../utilities/function_wrapping";
-import { CommunityDAL } from "../dal/communities_dal";
+import { CommunityDAL } from "../dal/community_dal";
 
 type This = typeof CommunityUtils
 export class CommunityUtils {

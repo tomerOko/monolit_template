@@ -1,9 +1,9 @@
 import { Request, Response, Router } from "express"
 import { wrap, wrapSync } from "../../../utilities/function_wrapping"
-import { CreateCommunityService } from "../logic/services/create_community"
+import { CreateCommunityService } from "../logic/services/create_communities"
 import { DeleteCommunitiesService } from "../logic/services/delete_communities"
 import { GetCommunitiesService } from "../logic/services/get_communities"
-import { UpdateCommunityChangeblePropertiesService } from "../logic/services/update_community_changable_properties"
+import { UpdateCommunityChangeblePropertiesService } from "../logic/services/update_communities_changable_properties"
 import { ChangeCommunityRoleRequest, ChangeCommunityRoleResponse, CreateSingleCommunityRespose, CreateCommunityRequest, DeleteSingleCommunityResponse, deleteCommunityByIdRequest, GetSingleCommunityResponse, getCommunityByIdRequest, UpdateSingleCommunityResponse, UpdateCommunityChangablePropertiesRequest, Community } from "../types/communities_types"
 
 type This = InstanceType<typeof CommunityController>
