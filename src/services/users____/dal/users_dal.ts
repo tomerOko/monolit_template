@@ -3,7 +3,7 @@ import { create_error } from "../../../errors/error_factory";
 import { StructuedError } from "../../../errors/structured_error";
 import { wrap, wrapSync } from "../../../utilities/function_wrapping";
 import { MongoGenericQueris } from "../../../utilities/mongo_generic_queris";
-import { CreateManyUsersResult, CreateSingleUserQuery, DeleteUsersResult, ReadManyUserQuery, ReadSingleUserQuery, UpdateSingleUserQuery, UpdateSingleUserResult, User, UserFilter } from "../types/users_types";
+import { CreateManyUsersResult, CreateSingleUserQuery, DeleteUsersResult, ReadManyUserQuery, ReadSingleUserQuery, UpdateManyUserQuery, UpdateSingleUserQuery, UpdateSingleUserResult, User, UserFilter } from "../types/users_types";
 
 type This = InstanceType<typeof UserDAL>
 export class UserDAL {
@@ -42,16 +42,24 @@ export class UserDAL {
         return reslut as User[]
     })}
 
-    public UpdateSingleUserbByID = async (user_id: string, values_to_update: Partial<User>):Promise<UpdateSingleUserResult> => {
-        return await wrap<This["UpdateSingleUserbByID"]>({name: "UserDAL/UpdateSingleUserbByID"}, async()=>{
-            const query: UpdateSingleUserQuery = {collection_name: this.collection_name, filter: {token: user_id}, update_values:values_to_update, upsert: false}
-            const reslut = await MongoGenericQueris.updateSingle<User>(query)
-            return reslut
-        })}
 
-    public UpdateManyUsers = async (user: User):Promise<CreateManyUsersResult> => {
+    public UpdateSingleUserbByID = async (user_id: string, values_to_update: Partial<User>):Promise<UpdateSingleUserResult> => {
+    return await wrap<This["UpdateSingleUserbByID"]>({name: "UserDAL/UpdateSingleUserbByID"}, async()=>{
+        const query: UpdateSingleUserQuery = {collection_name: this.collection_name, filter: {token: user_id}, update_values:values_to_update, upsert: false}
+        const reslut = await MongoGenericQueris.updateSingle<User>(query)
+        return reslut
+    })}
+
+
+    public UpdateManyUsers = async (users_filter: Partial<User>, values_to_update: Partial<User>):Promise<CreateManyUsersResult> => {
     return await wrap<This["UpdateManyUsers"]>({name: "UserDAL/UpdateManyUsers"}, async()=>{
-        const reslut = await MongoGenericQueris.createMany<User>({collection_name:this.collection_name, values:[user]})
+        const query: UpdateManyUserQuery = {
+            collection_name: this.collection_name,
+            filter: users_filter,
+            update_values: values_to_update,
+            upsert: false 
+        }
+        const reslut = await MongoGenericQueris.updateMany<User>(query)
         return reslut
     })}
 

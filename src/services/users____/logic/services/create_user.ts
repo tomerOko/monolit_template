@@ -1,5 +1,4 @@
 
-import { CountryCode } from "../../../../types/coutries";
 import { wrap, wrapSync } from "../../../../utilities/function_wrapping";
 import { CreateUserRequest, User } from "../../types/users_types";
 import { UserUtils } from "../../utilities/users_utils";
@@ -23,15 +22,18 @@ export class CreateUserService extends UserLogic {
 
     private buildUserObjectBeforeCreate(req_body: CreateUserRequest): User {
     return wrapSync<This["buildUserObjectBeforeCreate"]>({name:"CreateUserService/buildUserObjectBeforeCreate"},()=>{
-        return {
+        const user_object: User = {
             token: genereateID(),
             communities: [],
-            country: req_body.country as CountryCode,
+            country: req_body.country,
             name: req_body.name,
             email: req_body.email,
             image: req_body.image as URL | undefined,
-            role: req_body.role
+            role: req_body.role,
+            created_at: new Date(),
+            updated_at: new Date()
         }
+        return user_object
     })}
 
 }

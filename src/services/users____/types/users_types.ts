@@ -1,6 +1,7 @@
 import { z } from "zod"
 import { CountryCode } from "../../../types/coutries"
-import { CreateManyQuery, CreateManyResult, CreateSingleQuery, CreateSinleResult, DeleteQuery, DeleteSingleResult, ReadManyQuery, ReadManyResult, ReadSingleQuery, UpdateManyResult, UpdateQuery, UpdateSinleResult } from "../../../types/mongo_generic_types"
+import { CreateManyQuery, CreateManyResult, CreateSingleQuery, DeleteQuery, DeleteSingleResult, ReadManyQuery, ReadManyResult, ReadSingleQuery, UpdateManyResult, UpdateQuery, UpdateSinleResult } from "../../../types/mongo_generic_types"
+import { Modify } from "../../../types/utility_types"
 import { Community } from "../../communities____/types/community_types"
 import { create_user_schema, delete_user_by_id_schema, get_user_by_id_schema, update_user_changable_properties_schema } from "../validations/users_validations"
 
@@ -10,9 +11,8 @@ import { create_user_schema, delete_user_by_id_schema, get_user_by_id_schema, up
 export const super_moderator = "super_moderator"
 export const moderator = "moderator"
 export const basic = "basic"
-export const roles = {super_moderator, moderator, basic}
+export const roles = {super_moderator, moderator, basic} as const
 export type Role = keyof typeof roles
-export const roles_array = [super_moderator, moderator, basic] as const
 
 /**
  * A user in the system
@@ -31,12 +31,15 @@ export const roles_array = [super_moderator, moderator, basic] as const
 }
 
 
+
+
 //HTTP types (controller level):
 //requests:
 export type CreateUserRequest = z.infer<typeof create_user_schema>["body"]
 export type getUserByIdRequest = z.infer<typeof get_user_by_id_schema>["params"]
-export type UpdateUserChangablePropertiesRequest = z.infer<typeof update_user_changable_properties_schema>;
+export type UpdateUserChangablePropertiesRequest = z.infer<typeof update_user_changable_properties_schema>
 export type deleteUserByIdRequest = z.infer<typeof delete_user_by_id_schema>;["params"]
+
 //responses:
 export type CreateUserRespose = {
     created: User,
@@ -63,18 +66,16 @@ export type DeleteUsersResponse= {
 }
 
 
-//Logic types
-export type UserChangableProperties = UpdateUserChangablePropertiesRequest["body"]
+
+//Logic types - any additional types needed through the service or helpers
+export type UserChangeableProperties = UpdateUserChangablePropertiesRequest["body"]
 
 
 
-
-
-//DB types - an customization of the generic types
+//DB types - an customization of the generic types (DAL level)
 //queries:
 export type UserFilter = Partial<User>
 export type UserFilterByID = {token: string}
-
 export type CreateSingleUserQuery = CreateSingleQuery<User>
 export type CreateManyUsersQuery = CreateManyQuery<User>
 export type ReadSingleUserQuery = ReadSingleQuery<User>
@@ -83,7 +84,6 @@ export type UpdateSingleUserQuery = UpdateQuery<User>
 export type UpdateManyUserQuery = UpdateQuery<User>
 export type DeleteSingleUserQuery = DeleteQuery<User>
 export type DeleteManyUserQuery = DeleteQuery<User>
-
 
 //results:
 //there are no types for single document createion and deletion because it will work correctly or throw error

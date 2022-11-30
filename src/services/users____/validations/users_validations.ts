@@ -1,8 +1,12 @@
 import { z } from "zod";
-import { roles_array } from "../types/users_types";
+import { country_codes_array, roles_array } from "./user_objects_as_arrays";
 
-const user_request_object = z.object({
-  country:z.string(),
+
+
+
+
+const basic_user_request = z.object({
+  country:z.enum(country_codes_array),
   email: z.string().optional(),
   image: z.string().url().optional(),
   name: z.string(),
@@ -15,7 +19,7 @@ const user_id_filter = z.object({
 
 
 export const create_user_schema = z.object({
-  body: user_request_object
+  body: basic_user_request.strict()
 });
 
 
@@ -25,7 +29,7 @@ export const get_user_by_id_schema = z.object({
 
 
 export const update_user_changable_properties_schema = z.object({
-  body: user_request_object.omit({role: true}).partial(),
+  body: basic_user_request.omit({role: true}).partial().strict(),
   params: user_id_filter 
 })
 
@@ -33,4 +37,5 @@ export const update_user_changable_properties_schema = z.object({
 export const delete_user_by_id_schema = z.object({
   params: user_id_filter
 });
+
 

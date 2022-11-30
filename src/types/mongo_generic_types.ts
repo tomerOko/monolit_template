@@ -1,4 +1,4 @@
-import { Filter, Sort, UpdateFilter } from "mongodb"
+import { Filter, Sort, UpdateFilter, UpdateOptions } from "mongodb"
 
 
 //generic queries
@@ -49,6 +49,10 @@ export type DeleteManyResult = {
   deleted_count:number
 } 
 
+
+
+//utility types: 
+export type UpdateParams<T> = { filter: Filter<T>, update: UpdateFilter<T>, options: UpdateOptions }
 
 
 

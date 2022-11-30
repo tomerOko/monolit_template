@@ -51,7 +51,7 @@ export class UserController {
     return await wrap<This['updateUserChangableProperties']>({name: 'UserController/updateUserChangableProperties'}, async() =>{ 
         const update_user_changable_properties_request:UpdateUserChangablePropertiesRequest = {params: req.params as {user_id: string}, body: req.body }
         try {
-            this.update_user_changeble_properties_service.UpdateUserChangebleProperties(update_user_changable_properties_request)
+            await this.update_user_changeble_properties_service.UpdateUserChangebleProperties(update_user_changable_properties_request)
             const user = await this.get_users_service.getSingleUserById(update_user_changable_properties_request.params)
             const respose_data: UpdateUserResponse ={ updated_user: user }
             res.status(200).send(respose_data)

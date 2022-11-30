@@ -12,7 +12,7 @@ router.use(user_authentication)
 // classic CRUDS
 router.post('/createUser',validate(create_user_schema),user_controller.createUser)  //todo: chack that it is working   //todo: add to one of the integration test flows
 router.get('/getUserById/:user_id',validate(get_user_by_id_schema),user_controller.getUserById) //todo: chack that it is working   //todo: add to one of the integration test flows
-router.post('/updateUserChangableProperties',validate(update_user_changable_properties_schema), user_controller.updateUserChangableProperties)
+router.post('/updateUserChangableProperties',validate(update_user_changable_properties_schema), user_controller.updateUserChangableProperties) 
 router.delete('/deleteUserById',validate(create_user_schema), user_controller.deleteUserById)
 
 // specific flows (mostly updates)

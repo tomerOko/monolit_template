@@ -1,5 +1,5 @@
 1) router: Are there any middlewares you want for that flow accept of body/params validations (such as authentication, authorization, etc..)
-2) if note exist, create a basic type of the entity/entites that this flow will use or manipulate
+2) if not exist, create a basic type of the entity/entites that this flow will use or manipulate
 2) write the logic (service) as pseudo-code
 3) think of all possible errors through the logic and create error structures for them.
 4) write the service params and result types
