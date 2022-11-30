@@ -18,12 +18,12 @@ const custom_error_types = {
     "email allready exist error": {status_code: 409, error_description: "client tried to perform an action that allowed only to nun existing emails"},
     "post does not belog to user error": {status_code: 409, error_description: "client tried to perform an action that allowed only to post owner"},
     "not moderator error": {status_code: 403, error_description: "this route is only allowed for registered users of type 'super moderator' or 'moderator' "},
-    "user role not allowed error": {status_code: 403, error_description: "this route is only allowed to users with speficif role "},
+    "not super moderator error": {status_code: 403, error_description: "this route is only allowed for registered users of type 'super moderator'"},
     "user allready exist": {status_code: 409, error_description: "tried to create a new user but user allready exists"},
     "no user found by ID": {status_code: 409, error_description: "no user exists with the provided ID"},
 } as const
 
-const handling_logic_error_types = {
+const logic_errors_that_shuold_be_handled = {
     "document was not created": {status_code: 409, error_description: "mongo communication went well but no new document created"},
     "some documents was not created": {status_code: 409, error_description: "mongo communication went well but not all of the provided objects created"},
     "document was not found": {status_code: 409, error_description: "mongo communication went well but no document found"},
@@ -34,10 +34,17 @@ const handling_logic_error_types = {
     "rounte for moderators only": {status_code: 403, error_description: "this route is only allowed for registered users of type 'super moderator' or 'moderator' "}
 } as const
 
+const system_errors_that_shuold_be_handled = {
+    "async storage not initialized":  {status_code: 500, error_description: "tried to use async local storage before it been initialized"}
+}
+
+
+
 export const structued_error_types = {
     ...general_error_types,
     ...custom_error_types,
-    ...handling_logic_error_types
+    ...logic_errors_that_shuold_be_handled,
+    ...system_errors_that_shuold_be_handled
 } as const
 
 

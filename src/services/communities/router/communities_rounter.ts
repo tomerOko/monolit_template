@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { community_authentication } from "../../../middleware/custom/authentication";
+import { user_authentication } from "../../../middleware/custom/authentication";
 import { validate } from "../../../middleware/packages/zod";
 import {CommunityController} from "../controllers/communities_controller"
 import { create_community_schema, delete_community_by_id_schema, get_community_by_id_schema, update_community_changable_properties_schema } from "../validations/communities_validations";
@@ -7,7 +7,6 @@ import { create_community_schema, delete_community_by_id_schema, get_community_b
 const community_controller: CommunityController = new CommunityController()
 const router:Router  = Router()
 
-router.use(community_authentication)
 
 //TODO: chack all routes are working   //TODO: use each of the routes in at least integration tests
 

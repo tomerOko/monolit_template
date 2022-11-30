@@ -20,13 +20,13 @@ export class UserRoleValidator extends UserLogic {
     })}
   
     
-    public validate_user_role = async (user_toke: string, specific_moderator_type:Role): Promise<void>=> {
-    return await wrap({name:'UserRoleValidator/validate_user_role'}, async () => {
+    public validate_super_moderator = async (user_toke: string): Promise<void>=> {
+    return await wrap({name:'UserRoleValidator/validate_super_moderator'}, async () => {
 
         const user_filter: UserFilterByID = {token: user_toke}
         const user = await UserRoleValidator.user_dal.getSinlgeUserByID(user_filter)
         const user_role = user.role
-        if(user_role!==specific_moderator_type) throw create_error("user role not allowed error")
+        if(user_role!==roles.super_moderator) throw create_error("not super moderator error")
 
     })}
 

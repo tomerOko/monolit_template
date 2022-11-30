@@ -1,5 +1,5 @@
-import { CommunityDAL } from "../dal/community_dal";
-import {community_helpers} from './helpers/community_helpers_index'
+import { CommunityDAL } from "../dal/communities_dal";
+import {community_helpers} from './helpers/communities_helpers_index'
 
 export class CommunityLogic{
     constructor(){}
