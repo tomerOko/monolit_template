@@ -1,8 +1,8 @@
 
 import { wrap, wrapSync } from "../../../../utilities/function_wrapping";
-import { CreateCommunityRequest, roles, Community } from "../../types/communitys_types";
-import { CommunityUtils } from "../../utilities/communitys_utils";
-import { CommunityLogic } from "../base_communitys_logic_class";
+import { CreateCommunityRequest, roles, Community } from "../../types/communities_types";
+import { CommunityUtils } from "../../utilities/communities_utils";
+import { CommunityLogic } from "../base_communities_logic_class";
 import {v4 as genereateID,} from 'uuid'
 
 

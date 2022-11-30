@@ -3,12 +3,12 @@ import { create_error } from "../../../errors/error_factory";
 import { StructuedError } from "../../../errors/structured_error";
 import { wrap, wrapSync } from "../../../utilities/function_wrapping";
 import { MongoGenericQueris } from "../../../utilities/mongo_generic_queris";
-import { CreateManyCommunitysResult, CreateSingleCommunityQuery, DeleteSingleCommunityQuery, DeleteCommunitysResult, ReadManyCommunityQuery, ReadManyCommunitysResult, ReadSingleCommunityQuery, ReadSingleCommunityResult, UpdatedManyCommunitysResult, UpdateManyCommunityQuery, UpdateSingleCommunityQuery, UpdateSingleCommunityResult, Community, CommunityFilter } from "../types/communitys_types";
+import { CreateManyCommunitiesResult, CreateSingleCommunityQuery, DeleteSingleCommunityQuery, DeleteCommunitiesResult, ReadManyCommunityQuery, ReadManyCommunitiesResult, ReadSingleCommunityQuery, ReadSingleCommunityResult, UpdatedManyCommunitiesResult, UpdateManyCommunityQuery, UpdateSingleCommunityQuery, UpdateSingleCommunityResult, Community, CommunityFilter } from "../types/communities_types";
 
 type This = InstanceType<typeof CommunityDAL>
 export class CommunityDAL {
 
-    private collection_name = config.system.mongo.collections.communitys
+    private collection_name = config.system.mongo.collections.communities
 
     public createCommunity = async (community: Community):Promise<void> => { 
     return await wrap<This["createCommunity"]>({name: "CommunityDAL/createCommunity"}, async()=>{
@@ -35,10 +35,10 @@ export class CommunityDAL {
         }
     })}
 
-    public getCommunitysBy = async (community_props: CommunityFilter):Promise<Community []> => {
-    return await wrap<This["getCommunitysBy"]>({name: "CommunityDAL/getCommunitysBy"}, async()=>{
+    public getCommunitiesBy = async (community_props: CommunityFilter):Promise<Community []> => {
+    return await wrap<This["getCommunitiesBy"]>({name: "CommunityDAL/getCommunitiesBy"}, async()=>{
         const query: ReadManyCommunityQuery = {collection_name:this.collection_name, filter:community_props}
-        const reslut:ReadManyCommunitysResult = await MongoGenericQueris.readManyBy<Community>(query)
+        const reslut:ReadManyCommunitiesResult = await MongoGenericQueris.readManyBy<Community>(query)
         return reslut as Community[]
     })}
 
@@ -51,11 +51,11 @@ export class CommunityDAL {
     })}
 
 
-    public UpdateManyCommunitys = async (communitys_filter: Partial<Community>, values_to_update: Partial<Community>):Promise<UpdatedManyCommunitysResult> => {
-    return await wrap<This["UpdateManyCommunitys"]>({name: "CommunityDAL/UpdateManyCommunitys"}, async()=>{
+    public UpdateManyCommunities = async (communities_filter: Partial<Community>, values_to_update: Partial<Community>):Promise<UpdatedManyCommunitiesResult> => {
+    return await wrap<This["UpdateManyCommunities"]>({name: "CommunityDAL/UpdateManyCommunities"}, async()=>{
         const query: UpdateManyCommunityQuery = {
             collection_name: this.collection_name,
-            filter: communitys_filter,
+            filter: communities_filter,
             update_values: values_to_update,
             upsert: false 
         }

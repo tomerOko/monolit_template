@@ -1,7 +1,7 @@
 import { create_error } from "../../../../errors/error_factory"
 import { wrap } from "../../../../utilities/function_wrapping"
-import { Role, roles, CommunityFilterByID } from "../../types/communitys_types"
-import { CommunityLogic } from "../base_communitys_logic_class"
+import { Role, roles, CommunityFilterByID } from "../../types/communities_types"
+import { CommunityLogic } from "../base_communities_logic_class"
 
 
 export class CommunityRoleValidator extends CommunityLogic {

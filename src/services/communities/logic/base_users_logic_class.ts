@@ -1,4 +1,4 @@
-import { CommunityDAL } from "../dal/communitys_dal";
+import { CommunityDAL } from "../dal/communities_dal";
 import {community_helpers} from './helpers/community_helpers_index'
 
 export class CommunityLogic{

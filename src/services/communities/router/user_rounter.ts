@@ -1,8 +1,8 @@
 import { Router } from "express";
 import { community_authentication } from "../../../middleware/custom/authentication";
 import { validate } from "../../../middleware/packages/zod";
-import {CommunityController} from "../controllers/communitys_controller"
-import { create_community_schema, delete_community_by_id_schema, get_community_by_id_schema, update_community_changable_properties_schema } from "../validations/communitys_validations";
+import {CommunityController} from "../controllers/communities_controller"
+import { create_community_schema, delete_community_by_id_schema, get_community_by_id_schema, update_community_changable_properties_schema } from "../validations/communities_validations";
 
 const community_controller: CommunityController = new CommunityController()
 const router:Router  = Router()

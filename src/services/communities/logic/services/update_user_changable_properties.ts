@@ -1,8 +1,8 @@
 
 import { wrap, wrapSync } from "../../../../utilities/function_wrapping";
-import { UpdateCommunityChangablePropertiesRequest, Community, CommunityChangeableProperties } from "../../types/communitys_types";
-import { CommunityUtils } from "../../utilities/communitys_utils";
-import { CommunityLogic } from "../base_communitys_logic_class";
+import { UpdateCommunityChangablePropertiesRequest, Community, CommunityChangeableProperties } from "../../types/communities_types";
+import { CommunityUtils } from "../../utilities/communities_utils";
+import { CommunityLogic } from "../base_communities_logic_class";
 
 type This = InstanceType<typeof UpdateCommunityChangeblePropertiesService>
 

@@ -1,5 +1,5 @@
 import { CountryCode, country_codes } from "../../../types/coutries";
-import { roles, Role } from "../types/communitys_types";
+import { roles, Role } from "../types/communities_types";
 
 export const country_codes_array : [CountryCode, ... CountryCode[]] = [
     Object.keys(country_codes)[0] as CountryCode,
