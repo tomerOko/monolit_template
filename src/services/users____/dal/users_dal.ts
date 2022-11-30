@@ -3,7 +3,7 @@ import { create_error } from "../../../errors/error_factory";
 import { StructuedError } from "../../../errors/structured_error";
 import { wrap, wrapSync } from "../../../utilities/function_wrapping";
 import { MongoGenericQueris } from "../../../utilities/mongo_generic_queris";
-import { CreateManyUsersResult, CreateSingleUserQuery, DeleteUsersResult, ReadManyUserQuery, ReadSingleUserQuery, UpdateManyUserQuery, UpdateSingleUserQuery, UpdateSingleUserResult, User, UserFilter } from "../types/users_types";
+import { CreateManyUsersResult, CreateSingleUserQuery, DeleteSingleUserQuery, DeleteUsersResult, ReadManyUserQuery, ReadManyUsersResult, ReadSingleUserQuery, ReadSingleUserResult, UpdatedManyUsersResult, UpdateManyUserQuery, UpdateSingleUserQuery, UpdateSingleUserResult, User, UserFilter } from "../types/users_types";
 
 type This = InstanceType<typeof UserDAL>
 export class UserDAL {
@@ -14,7 +14,7 @@ export class UserDAL {
     return await wrap<This["createUser"]>({name: "UserDAL/createUser"}, async()=>{
         try {
             const query: CreateSingleUserQuery = {collection_name:this.collection_name, value:user}
-            const reslut = await MongoGenericQueris.createSinlge<User>(query)
+            await MongoGenericQueris.createSinlge<User>(query)
         } catch (error) {
             if((error as StructuedError).type == "document was not created")
                 throw create_error("user allready exist") //TODO: this in not totaly wright, if no document created it might be for diffrent reason?
@@ -26,7 +26,7 @@ export class UserDAL {
     return await wrap<This["getSinlgeUserByID"]>({name: "UserDAL/getSinlgeUserBy"}, async()=>{
         try {
             const query: ReadSingleUserQuery = {collection_name:this.collection_name, filter:user_props}
-            const reslut = await MongoGenericQueris.readSingleBy<User>(query)
+            const reslut: ReadSingleUserResult = await MongoGenericQueris.readSingleBy<User>(query)
             return reslut
         } catch (error) {
             if((error as StructuedError).type == "document was not found")
@@ -38,7 +38,7 @@ export class UserDAL {
     public getUsersBy = async (user_props: UserFilter):Promise<User []> => {
     return await wrap<This["getUsersBy"]>({name: "UserDAL/getUsersBy"}, async()=>{
         const query: ReadManyUserQuery = {collection_name:this.collection_name, filter:user_props}
-        const reslut = await MongoGenericQueris.readManyBy<User>(query)
+        const reslut:ReadManyUsersResult = await MongoGenericQueris.readManyBy<User>(query)
         return reslut as User[]
     })}
 
@@ -51,7 +51,7 @@ export class UserDAL {
     })}
 
 
-    public UpdateManyUsers = async (users_filter: Partial<User>, values_to_update: Partial<User>):Promise<CreateManyUsersResult> => {
+    public UpdateManyUsers = async (users_filter: Partial<User>, values_to_update: Partial<User>):Promise<UpdatedManyUsersResult> => {
     return await wrap<This["UpdateManyUsers"]>({name: "UserDAL/UpdateManyUsers"}, async()=>{
         const query: UpdateManyUserQuery = {
             collection_name: this.collection_name,
@@ -63,10 +63,16 @@ export class UserDAL {
         return reslut
     })}
 
-    public deleteUsers = async (user_props: UserFilter):Promise<DeleteUsersResult> => {
-    return await wrap<This["deleteUsers"]>({name: "UserDAL/deleteUsers"}, async()=>{
-        const reslut = await MongoGenericQueris.delete<User>({collection_name:this.collection_name, filter:user_props, delete_many: true})
-        return reslut 
-    })}
+    public deleteSinlgeUserByID = async (user_props: UserFilter):Promise<void> => {
+        await wrap<This["deleteSinlgeUserByID"]>({name: "UserDAL/deleteSinlgeUserByID"}, async()=>{
+            try {
+                const query: DeleteSingleUserQuery = {collection_name:this.collection_name, filter:user_props}
+                const reslut = await MongoGenericQueris.deleteSingle<User>(query)
+            } catch (error) {
+                if((error as StructuedError).type == "document was not deleted")
+                    throw create_error("no user found by ID") //TODO: this in not totaly wright, if no document found it might be for diffrent reason?
+                throw error
+            }
+        })}
 
 }

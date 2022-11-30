@@ -38,30 +38,30 @@ export type Role = keyof typeof roles
 export type CreateUserRequest = z.infer<typeof create_user_schema>["body"]
 export type getUserByIdRequest = z.infer<typeof get_user_by_id_schema>["params"]
 export type UpdateUserChangablePropertiesRequest = z.infer<typeof update_user_changable_properties_schema>
-export type deleteUserByIdRequest = z.infer<typeof delete_user_by_id_schema>;["params"]
+export type deleteUserByIdRequest = z.infer<typeof delete_user_by_id_schema>["params"]
 
 //responses:
-export type CreateUserRespose = {
+export type CreateSingleUserRespose = {
     created: User,
 }
-export type GetUserResponse= {
+export type GetSingleUserResponse= {
     user: User,
 }
-export type GetUsersResponse = {
+export type GetManyUsersResponse = {
     users: User[]
 }
-export type UpdateUserResponse= {
+export type UpdateSingleUserResponse= {
     updated_user: User,
 }
-export type UpdateUsersResponse= {
+export type UpdateManyUsersResponse= {
     found: number,
     updated: number,
     upserted: number
 }
-export type DeleteUserResponse= {
+export type DeleteSingleUserResponse= {
     deleted_user: User,
 }
-export type DeleteUsersResponse= {
+export type DeleteManyUsersResponse= {
     deleted: number,
 }
 

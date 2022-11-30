@@ -42,23 +42,23 @@ export class MongoGenericQueris{
   })}
 
 
-  public static async readManyBy<T extends Document>(query:ReadManyQuery<T>):Promise<ReadManyResult<Document>> {
-  return await wrap<This["readManyBy"]>({name: "MongoGenericQueris/readManyBy"}, async()=>{
+  public static async readManyBy<T extends Document>(query:ReadManyQuery<T>):Promise<ReadManyResult<T>> {
+  return await wrap<This["readManyBy"], Promise<ReadManyResult<T>> >({name: "MongoGenericQueris/readManyBy"}, async()=>{
 
     const collection = await MongoInitializer.getCollection<T>(query.collection_name)
     if (!query.limit) query.limit = 0;
     if (!query.sort) query.sort = {}
     const result = await collection.find<T>(query.filter).toArray()
-    return result 
+    return result
 
   })}
 
 
-  public static async readAll<T extends Document> (collection_name:string): Promise<ReadManyResult<Document>>{ 
-  return await wrap<This["readAll"]>({name: "MongoGenericQueris/readAll"}, async() => {
+  public static async readAll<T extends Document> (collection_name:string): Promise<ReadManyResult<T>>{ 
+  return await wrap<This["readAll"], Promise<ReadManyResult<T>>>({name: "MongoGenericQueris/readAll"}, async() => {
 
     const collection = await MongoInitializer.getCollection<T>(collection_name);
-    const result = await collection.find().toArray();
+    const result = await collection.find<T>({}).toArray();
     return result;
 
   })}
@@ -81,7 +81,7 @@ export class MongoGenericQueris{
     
     const collection = await MongoInitializer.getCollection<T>(query.collection_name);
     const update_params = await MongoGenericQueris.parseUpdateQuery<T>(query);
-    const query_result = await collection.updateMany(update_params.filter, update_params.update, update_params.options)
+    const query_result = await collection.updateMany(update_params.filter, update_params.update, update_params.options) as UpdateResult
     const result:UpdateManyResult = MongoGenericQueris.buildUpdateManyResult(query_result)
     return result
     
@@ -97,7 +97,7 @@ export class MongoGenericQueris{
 
   })}
 
-  
+
   public static async deleteMany<T extends Document> (query:DeleteQuery<T>): Promise<DeleteManyResult>{
   return await wrap<This["deleteMany"]>({name: "MongoGenericQueris/deleteMany"}, async () => {
 

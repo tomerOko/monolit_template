@@ -21,13 +21,5 @@ export class GetUsersService extends UserLogic {
         const users = await GetUsersService.user_dal.getUsersBy({token: filter.token})
         return users
     })}
-
-
-    
-
-
-
-
-
     
 }
