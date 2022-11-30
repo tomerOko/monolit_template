@@ -1,6 +1,6 @@
 
 import { wrap, wrapSync } from "../../../../utilities/function_wrapping";
-import { CreateUserRequest, User } from "../../types/users_types";
+import { CreateUserRequest, roles, User } from "../../types/users_types";
 import { UserUtils } from "../../utilities/users_utils";
 import { UserLogic } from "../base_users_logic_class";
 import {v4 as genereateID,} from 'uuid'
@@ -29,7 +29,7 @@ export class CreateUserService extends UserLogic {
             name: req_body.name,
             email: req_body.email,
             image: req_body.image as URL | undefined,
-            role: req_body.role,
+            role: req_body.role ? req_body.role : roles.basic,
             created_at: new Date(),
             updated_at: new Date()
         }

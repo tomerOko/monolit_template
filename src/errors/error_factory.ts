@@ -17,7 +17,8 @@ const general_error_types = {
 const custom_error_types = {
     "email allready exist error": {status_code: 409, error_description: "client tried to perform an action that allowed only to nun existing emails"},
     "post does not belog to user error": {status_code: 409, error_description: "client tried to perform an action that allowed only to post owner"},
-    "rounte for moderators only": {status_code: 403, error_description: "this route is only allowed for registered users of type 'super moderator' or 'moderator' "},
+    "not moderator error": {status_code: 403, error_description: "this route is only allowed for registered users of type 'super moderator' or 'moderator' "},
+    "user role not allowed error": {status_code: 403, error_description: "this route is only allowed to users with speficif role "},
     "user allready exist": {status_code: 409, error_description: "tried to create a new user but user allready exists"},
     "no user found by ID": {status_code: 409, error_description: "no user exists with the provided ID"},
 } as const

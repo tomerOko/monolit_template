@@ -1,9 +1,8 @@
 import { z } from "zod"
 import { CountryCode } from "../../../types/coutries"
 import { CreateManyQuery, CreateManyResult, CreateSingleQuery, DeleteQuery, DeleteSingleResult, ReadManyQuery, ReadManyResult, ReadSingleQuery, UpdateManyResult, UpdateQuery, UpdateSinleResult } from "../../../types/mongo_generic_types"
-import { Modify } from "../../../types/utility_types"
 import { Community } from "../../communities____/types/community_types"
-import { create_user_schema, delete_user_by_id_schema, get_user_by_id_schema, update_user_changable_properties_schema } from "../validations/users_validations"
+import { change_user_role_schema, create_user_schema, delete_user_by_id_schema, get_user_by_id_schema, update_user_changable_properties_schema } from "../validations/users_validations"
 
 
 //BASE types:
@@ -25,7 +24,7 @@ export type Role = keyof typeof roles
     email?: string, // most moderators + super moderators have it but not all of them.
     image?: URL, 
     name: string,
-    role?: Role,
+    role: Role,
     created_at: Date,
     updated_at: Date
 }
@@ -39,6 +38,7 @@ export type CreateUserRequest = z.infer<typeof create_user_schema>["body"]
 export type getUserByIdRequest = z.infer<typeof get_user_by_id_schema>["params"]
 export type UpdateUserChangablePropertiesRequest = z.infer<typeof update_user_changable_properties_schema>
 export type deleteUserByIdRequest = z.infer<typeof delete_user_by_id_schema>["params"]
+export type ChangeUserRoleRequest = z.infer<typeof change_user_role_schema>
 
 //responses:
 export type CreateSingleUserRespose = {
@@ -64,6 +64,7 @@ export type DeleteSingleUserResponse= {
 export type DeleteManyUsersResponse= {
     deleted: number,
 }
+export type ChangeUserRoleResponse = UpdateSingleUserResponse
 
 
 

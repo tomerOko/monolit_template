@@ -9,15 +9,17 @@ const router:Router  = Router()
 
 router.use(user_authentication)
 
-// classic CRUDS //TODO: chack it is working   //TODO: add each of the flows to one of the integration tests
+//TODO: chack all routes are working   //TODO: use each of the routes in at least integration tests
+
+
+// classic CRUDS 
 router.post('/createUser',validate(create_user_schema),user_controller.createUser)  
 router.get('/getUserById/:user_id',validate(get_user_by_id_schema),user_controller.getUserById) 
 router.post('/updateUserChangableProperties',validate(update_user_changable_properties_schema), user_controller.updateUserChangableProperties) 
 router.delete('/deleteUserById',validate(delete_user_by_id_schema), user_controller.deleteUserById)
 
-// // specific flows (mostly updates) //TODO: build this
-// router.post('/changeUserRole',user_controller.changeUserRole)
-// router.post('/addUserToComunity',user_controller.addUserToComunity)
+// specific flows (mostly updates)
+router.post('/changeUserRole',user_controller.changeUserRole)
 
 
 

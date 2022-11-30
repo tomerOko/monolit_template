@@ -27,6 +27,5 @@ router.post('/removeUserFromCommunity',validate(create_community_schema),communi
 
 
 
-
 export {router as community_router}
 

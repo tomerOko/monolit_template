@@ -4,7 +4,7 @@ import { CreateUserService } from "../logic/services/create_user"
 import { DeleteUsersService } from "../logic/services/delete_users"
 import { GetUsersService } from "../logic/services/get_users"
 import { UpdateUserChangeblePropertiesService } from "../logic/services/update_user_changable_properties"
-import { CreateSingleUserRespose, CreateUserRequest, DeleteSingleUserResponse, deleteUserByIdRequest, GetSingleUserResponse, getUserByIdRequest, UpdateSingleUserResponse, UpdateUserChangablePropertiesRequest, User } from "../types/users_types"
+import { ChangeUserRoleRequest, ChangeUserRoleResponse, CreateSingleUserRespose, CreateUserRequest, DeleteSingleUserResponse, deleteUserByIdRequest, GetSingleUserResponse, getUserByIdRequest, UpdateSingleUserResponse, UpdateUserChangablePropertiesRequest, User } from "../types/users_types"
 
 type This = InstanceType<typeof UserController>
 
@@ -18,9 +18,6 @@ export class UserController {
     ){}
 
 
-    /**
-     * sends @type CreateUserRespose
-     */
     public createUser = async (req: Request, res: Response):Promise<void>=>{
     await wrap<This['createUser']>({name: 'UserController/createUser'}, async() =>{    
         const create_user_request:CreateUserRequest = req.body
@@ -33,9 +30,7 @@ export class UserController {
         }
     })}
 
-    /**
-     * sends @type GetUserResponse
-     */
+
     public getUserById = async (req: Request, res: Response):Promise<void> => {
     return await wrap<This['getUserById']>({name: 'UserController/getUserById'}, async() =>{
         const get_user_by_id_requst = req.params as getUserByIdRequest
@@ -76,5 +71,18 @@ export class UserController {
         }
     })}
 
+
+    public async changeUserRole(req: Request, res: Response):Promise<void>{
+    return await wrap<This['updateUserChangableProperties']>({name: 'UserController/updateUserChangableProperties'}, async() =>{ 
+        const update_user_changable_properties_request:ChangeUserRoleRequest = {params: req.params as {user_id: string}, body: req.body }
+        try {
+            await this.update_user_changeble_properties_service.UpdateUserChangebleProperties(update_user_changable_properties_request)
+            const user = await this.get_users_service.getSingleUserById({user_id:update_user_changable_properties_request.params.user_id})
+            const respose_data: ChangeUserRoleResponse ={ updated_user: user }
+            res.status(200).send(respose_data)
+        } catch (error) {
+            res.status(500).send(error)
+        }
+    })}
 
 }
