@@ -1,5 +1,5 @@
 import { wrap } from "../../utilities/function_wrapping";
-import { UserDAL } from "../users____/dal/users_dal";
+import { UserDAL } from "../users/dal/users_dal";
 import { Post, PostIdFilter } from "./posts_types";
 import { PostUtils } from "./utilities/posts_utils";
 import { PostsLogic } from "../posts____/logic/basic_posts_logic_class";

@@ -1,4 +1,4 @@
-import { User } from "../users____/types/users_types"
+import { User } from "../users/types/users_types"
 
 /**
  * the system needs to support hundreds of communities in the foreseeable future.

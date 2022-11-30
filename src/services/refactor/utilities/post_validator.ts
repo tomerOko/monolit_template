@@ -1,4 +1,4 @@
-import { User } from "../../users____/types/users_types"
+import { User } from "../../users/types/users_types"
 import { Post } from "../../post_/types"
 
 /**

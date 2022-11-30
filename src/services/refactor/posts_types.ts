@@ -1,5 +1,5 @@
 import { Community } from "./community_types"
-import { User } from "../users____/types/users_types"
+import { User } from "../users/types/users_types"
 
 export const approved = "approved" as const
 export const pending_approval = "pending_approval" as const
