@@ -1,35 +1,19 @@
 import { z } from "zod"
-import { CountryCode } from "../../../types/coutries"
 import { CreateManyQuery, CreateManyResult, CreateSingleQuery, DeleteQuery, DeleteSingleResult, ReadManyQuery, ReadManyResult, ReadSingleQuery, UpdateManyResult, UpdateQuery, UpdateSinleResult } from "../../../types/mongo_generic_types"
-import { Community } from "../../refactor/community_types"
+import { User } from "../../users/types/users_types"
 import { change_community_role_schema, create_community_schema, delete_community_by_id_schema, get_community_by_id_schema, update_community_changable_properties_schema } from "../validations/communities_validations"
 
 
-//BASE types:
-
-export const super_moderator = "super_moderator"
-export const moderator = "moderator"
-export const basic = "basic"
-export const roles = {super_moderator, moderator, basic} as const
-export type Role = keyof typeof roles
-
-/**
- * A community in the system
- * system needs to support hundreds of thousands of communities in the foreseeable future. 
- */
- export type Community= {
+export type Community= {
     token: string, // identifier key
-    communities: Community["token"][]
-    country: CountryCode// assume this is always defined.
-    email?: string, // most moderators + super moderators have it but not all of them.
-    image?: URL, 
-    name: string,
-    role: Role,
-    created_at: Date,
-    updated_at: Date
+    title: string, // text with up to 60 chars
+    image: URL, // For the purpose of this exercise, you don’t have to support image uploading and can assume it was already uploaded using a different system
+    description: string,
+    user_count: number, // number of users who joined this community
+    users: User["token"][], //user list of the Communtiy
+    date_created: Date,
+    date_updated: Date
 }
-
-
 
 
 //HTTP types (controller level):
@@ -94,3 +78,63 @@ export type ReadManyCommunitiesResult = ReadManyResult<Community>
 export type UpdateSingleCommunityResult = UpdateSinleResult
 export type UpdatedManyCommunitiesResult = UpdateManyResult
 export type DeleteCommunitiesResult = DeleteSingleResult
+
+
+
+/**
+ * the system needs to support hundreds of communities in the foreseeable future.
+ */
+
+
+/**
+ * import { wrap, wrapSync } from "../../../utilities/function_wrapping";
+import { logger } from "../../../utilities/logger";
+
+type This = typeof CommunityUtils
+export class CommunityUtils {
+
+    public static parseCommunityResponse():void{
+    return wrapSync<This["parseCommunityResponse"]>({name: "CommunityUtils/parseCommunityResponse"}, ()=>{
+
+        //some parsing machanism
+        
+    })}
+
+    public static validateCommunityTiltleLength():void{
+        return wrapSync<This["parseCommunityResponse"]>({name: "CommunityUtils/parseCommunityResponse"}, ()=>{
+    
+            //some parsing machanism
+            
+    })}
+}
+
+
+
+
+    public createCommunity = async (community: Community):Promise<void> => {
+    return await wrap<This["createCommunity"]>({name:"CommunityService/createCommunity"}, async()=>{
+
+        //logic: 
+        //validate title not exists
+        //validate title dose not ave watchlist words
+        //validate descriptrion dose not ave watchlist words
+        //create Community
+
+        //posible errors:
+        //community title exist
+        //community title contains watch list words
+        //community description contains watch list words
+
+        //object creation:
+        //create token,
+        //set date_created, date_updated to 'now'
+        //set user_cout to 0
+        //set users to []
+
+
+
+        //DAL: 
+        //create a function for createSingleCommunity
+        //create an index for community title
+
+ */
