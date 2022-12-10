@@ -6,14 +6,13 @@ import { UserService } from "../base_users_service_class";
 import {v4 as genereateID,} from 'uuid'
 
 
-type This = InstanceType<typeof CreateUserService>
 
 export class CreateUserService extends UserService {
 
     constructor() {super()}
 
     public createUser = async (create_user_params:  CreateUserRequest):Promise<User> => {
-    return await wrap<This["createUser"]>({name:"CreateUserService/createUser"}, async()=>{
+    return await wrap({name:"CreateUserService/createUser"}, async()=>{
         if(create_user_params.email) await UserUtils.validateMailNotExist(create_user_params.email)
         const user = this.buildUserObjectBeforeCreate(create_user_params)
         await UserService.user_dal.createUser(user)
@@ -21,7 +20,7 @@ export class CreateUserService extends UserService {
     })}
 
     private buildUserObjectBeforeCreate(req_body: CreateUserRequest): User {
-    return wrapSync<This["buildUserObjectBeforeCreate"]>({name:"CreateUserService/buildUserObjectBeforeCreate"},()=>{
+    return wrapSync({name:"CreateUserService/buildUserObjectBeforeCreate"},()=>{
         const user_object: User = {
             token: genereateID(),
             country: req_body.country,

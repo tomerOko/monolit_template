@@ -29,7 +29,7 @@ export class MongoInitializer {
    * if connections axist it dose not recreate
    */
   public static async connectOrGetActiveConnection (connection_props ? : ConnectionProps): Promise < Db > {
-  return await wrap<This['connectOrGetActiveConnection']>({name:'MongoInitializer/connectOrGetActiveConnection', options: {hide_result: true}}, async() => { 
+  return await wrap({name:'MongoInitializer/connectOrGetActiveConnection', options: {hide_result: true}}, async() => { 
       if (mongo.connection == undefined)
         await MongoInitializer.createConnection(connection_props)
       return mongo.db as Db
@@ -45,7 +45,7 @@ export class MongoInitializer {
 
 
   private static async createConnection (connection_props ? : ConnectionProps): Promise<void> {
-  return await wrap<This['createConnection']>({name:'MongoInitializer/createConnection', options: {hide_result: true}}, async() => { 
+  return await wrap({name:'MongoInitializer/createConnection', options: {hide_result: true}}, async() => { 
       const connection_string = MongoInitializer.checkConnectionString(connection_props?.connection_string)
       mongo.connection = await new MongoClient(connection_string, {connectTimeoutMS:1000}).connect()
       mongo.db = await mongo.connection.db(connection_props?.databse_name)
@@ -54,7 +54,7 @@ export class MongoInitializer {
 
 
   private static checkConnectionString(connection_string?: string): string {
-  return wrapSync <This['checkConnectionString']>({name:'MongoInitializer/checkConnectionString', options: {hide_result: true}}, () => { 
+  return wrapSync({name:'MongoInitializer/checkConnectionString', options: {hide_result: true}}, () => { 
     if (connection_string == undefined) {
       if (process.env.MONGO_URI == undefined)
         throw new Error("no mongo connection string supplied")
@@ -69,14 +69,14 @@ export class MongoInitializer {
    * @param collections - a list of collections our code expect
    */
   public static async createCollections (expected_collections: Array<string>, db:Db ): Promise < void > {
-  return await wrap<This['createCollections']>({name:'MongoInitializer/createCollections', options: {hide_result: true}},async() => { 
+  return await wrap({name:'MongoInitializer/createCollections', options: {hide_result: true}},async() => { 
     const collections_to_create = await MongoInitializer.missingCollections(expected_collections, db)
     await Promise.all(collections_to_create.map(collection_name => db.createCollection(collection_name)))
   })}
 
 
   private static async missingCollections (expected_collections: Array < string > , db: Db): Promise < Array < string >> {
-  return await wrap<This['missingCollections']>({name:'MongoInitializer/missingCollections', options: {hide_result: true}}, async() => { 
+  return await wrap({name:'MongoInitializer/missingCollections', options: {hide_result: true}}, async() => { 
     const existing_collections = await db.listCollections().toArray()
     const existing_collections_names = existing_collections.map(coll => coll.name);
     const names_as_set = new Set(existing_collections_names);

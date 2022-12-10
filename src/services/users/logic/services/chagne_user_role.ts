@@ -4,8 +4,6 @@ import { ChangeUserRoleRequest, roles, User, UserIDFilter, UserUpdateValues } fr
 import { UserUtils } from "../../utilities/users_utils";
 import { UserService } from "../base_users_service_class";
 
-type This = InstanceType<typeof ChangeUserRoleService>
-
 export class ChangeUserRoleService extends UserService {
 
     constructor() {super()}

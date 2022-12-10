@@ -9,7 +9,7 @@ type This = typeof MongoGenericQueris
 export class MongoGenericQueris{
 
   public static async createSinlge<T extends Document>(query: CreateSingleQuery<T>):Promise<void>{
-  return await wrap<This["createSinlge"]>({name: "MongoGenericQueris/createSinlge"}, async()=>{
+  return await wrap({name: "MongoGenericQueris/createSinlge"}, async()=>{
 
     const collection = await MongoInitializer.getCollection<T>(query.collection_name);
     const query_result = await collection.insertMany([query.value] as OptionalUnlessRequiredId<T>[]);
@@ -20,7 +20,7 @@ export class MongoGenericQueris{
 
 
   public static async createMany<T extends Document>(query: CreateManyQuery<T>):Promise<CreateManyResult>{
-  return await wrap<This["createMany"]>({name: "MongoGenericQueris/createMany"}, async()=>{
+  return await wrap({name: "MongoGenericQueris/createMany"}, async()=>{
 
     const collection = await MongoInitializer.getCollection<T>(query.collection_name);
     const query_result = await collection.insertMany(query.values as OptionalUnlessRequiredId<T>[]);
@@ -65,7 +65,7 @@ export class MongoGenericQueris{
 
 
   public static async updateSingle<T extends Document>(query:UpdateQuery<T>):Promise<UpdateSinleResult>{
-  return await wrap<This['updateSingle']>({name: "MongoGenericQueris/updateSingle"}, async () => {
+  return await wrap({name: "MongoGenericQueris/updateSingle"}, async () => {
 
     const collection = await MongoInitializer.getCollection<T>(query.collection_name);
     const update_params = await MongoGenericQueris.parseUpdateQuery<T>(query);
@@ -77,7 +77,7 @@ export class MongoGenericQueris{
 
 
   public static async updateMany<T extends Document>(query:UpdateQuery<T>):Promise<UpdateManyResult>{
-  return await wrap<This['updateMany']>({name: "MongoGenericQueris/updateMany"}, async () => {
+  return await wrap({name: "MongoGenericQueris/updateMany"}, async () => {
     
     const collection = await MongoInitializer.getCollection<T>(query.collection_name);
     const update_params = await MongoGenericQueris.parseUpdateQuery<T>(query);
@@ -89,7 +89,7 @@ export class MongoGenericQueris{
 
 
   public static async deleteSingle<T extends Document> (query:DeleteQuery<T>): Promise<DeleteSingleResult>{
-  return await wrap<This["deleteSingle"]>({name: "MongoGenericQueris/deleteSingle"}, async () => {
+  return await wrap({name: "MongoGenericQueris/deleteSingle"}, async () => {
 
     const delete_result = await this.delete(query, true)
     const result: DeleteSingleResult = {deleted: delete_result.deleted_count==1}
@@ -99,7 +99,7 @@ export class MongoGenericQueris{
 
 
   public static async deleteMany<T extends Document> (query:DeleteQuery<T>): Promise<DeleteManyResult>{
-  return await wrap<This["deleteMany"]>({name: "MongoGenericQueris/deleteMany"}, async () => {
+  return await wrap({name: "MongoGenericQueris/deleteMany"}, async () => {
 
     const delete_result =  await this.delete(query, false)
     return delete_result
@@ -144,7 +144,7 @@ export class MongoGenericQueris{
 
 
   private static async delete<T extends Document> (query:DeleteQuery<T>, is_single: boolean): Promise<{deleted_count:number}>{
-  return await wrap<This["delete"]>({name: "MongoGenericQueris/delete"}, async () => {
+  return await wrap({name: "MongoGenericQueris/delete"}, async () => {
   
     const collection = await MongoInitializer.getCollection<T>(query.collection_name);
     let query_result;

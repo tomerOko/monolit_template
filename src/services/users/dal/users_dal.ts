@@ -5,13 +5,12 @@ import { wrap } from "../../../utilities/function_wrapping";
 import { MongoGenericQueris } from "../../../utilities/mongo_generic_queris";
 import { CreateSingleUserQuery, DeleteSingleUserQuery, DeleteUsersResult, ReadManyUserQuery, ReadManyUsersResult, ReadSingleUserQuery, ReadSingleUserResult, UpdatedManyUsersResult, UpdateManyUserQuery, UpdateSingleUserQuery, UpdateSingleUserResult, User, UserFilter, UserIDFilter, UserUpdateValues } from "../types/users_types";
 
-type This = InstanceType<typeof UserDAL>
 export class UserDAL {
 
     private collection_name = config.system.mongo.collections.users
 
     public createUser = async (user: User):Promise<void> => { 
-    return await wrap<This["createUser"]>({name: "UserDAL/createUser"}, async()=>{
+    return await wrap({name: "UserDAL/createUser"}, async()=>{
         try {
             const query: CreateSingleUserQuery = {collection_name:this.collection_name, value:user}
             await MongoGenericQueris.createSinlge<User>(query)
@@ -23,7 +22,7 @@ export class UserDAL {
     })}
 
     public getSinlgeUserByID = async (user_id_filter: UserIDFilter):Promise<User> => {
-    return await wrap<This["getSinlgeUserByID"]>({name: "UserDAL/getSinlgeUserBy"}, async()=>{
+    return await wrap({name: "UserDAL/getSinlgeUserBy"}, async()=>{
         try {
             const query: ReadSingleUserQuery = {collection_name:this.collection_name, filter:user_id_filter}
             const reslut: ReadSingleUserResult = await MongoGenericQueris.readSingleBy<User>(query)
@@ -36,7 +35,7 @@ export class UserDAL {
     })}
 
     public getUsersBy = async (users_filter: UserFilter):Promise<User []> => {
-    return await wrap<This["getUsersBy"]>({name: "UserDAL/getUsersBy"}, async()=>{
+    return await wrap({name: "UserDAL/getUsersBy"}, async()=>{
         const query: ReadManyUserQuery = {collection_name:this.collection_name, filter:users_filter}
         const reslut:ReadManyUsersResult = await MongoGenericQueris.readManyBy<User>(query)
         return reslut as User[]
@@ -44,7 +43,7 @@ export class UserDAL {
 
 
     public UpdateSingleUserbByID = async (user_id_filter: UserIDFilter, values_to_update: UserUpdateValues):Promise<UpdateSingleUserResult> => {
-    return await wrap<This["UpdateSingleUserbByID"]>({name: "UserDAL/UpdateSingleUserbByID"}, async()=>{
+    return await wrap({name: "UserDAL/UpdateSingleUserbByID"}, async()=>{
         const query: UpdateSingleUserQuery = {collection_name: this.collection_name, filter: user_id_filter, update_values:values_to_update, upsert: false}
         const reslut = await MongoGenericQueris.updateSingle<User>(query)
         return reslut
@@ -52,7 +51,7 @@ export class UserDAL {
 
 
     public UpdateManyUsers = async (users_filter: UserFilter, values_to_update: UserUpdateValues):Promise<UpdatedManyUsersResult> => {
-    return await wrap<This["UpdateManyUsers"]>({name: "UserDAL/UpdateManyUsers"}, async()=>{
+    return await wrap({name: "UserDAL/UpdateManyUsers"}, async()=>{
         const query: UpdateManyUserQuery = {
             collection_name: this.collection_name,
             filter: users_filter,
@@ -64,7 +63,7 @@ export class UserDAL {
     })}
 
     public deleteSinlgeUserByID = async (user_id_filter: UserIDFilter):Promise<void> => {
-        await wrap<This["deleteSinlgeUserByID"]>({name: "UserDAL/deleteSinlgeUserByID"}, async()=>{
+        await wrap({name: "UserDAL/deleteSinlgeUserByID"}, async()=>{
             try {
                 const query: DeleteSingleUserQuery = {collection_name:this.collection_name, filter:user_id_filter}
                 const reslut = await MongoGenericQueris.deleteSingle<User>(query)
