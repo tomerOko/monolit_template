@@ -4,7 +4,7 @@ Responsibilities of:
 
 Routers: directions of requests and middlewares.
 
-
+ 
 
 Middlewares: logging, authentication, authorization, system-wide information such as request id (for logs that helps debug higher environments like production), and anything else that is not a pure logic of the flow the request is intended to go through
 
