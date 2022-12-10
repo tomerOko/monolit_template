@@ -1,7 +1,6 @@
 import { z } from "zod"
 import { CountryCode } from "../../../types/coutries"
 import { CreateManyQuery, CreateManyResult, CreateSingleQuery, DeleteQuery, DeleteSingleResult, ReadManyQuery, ReadManyResult, ReadSingleQuery, UpdateManyResult, UpdateQuery, UpdateSinleResult } from "../../../types/mongo_generic_types"
-import { Community } from "../../communities/types/communities_types"
 import { change_user_role_schema, create_user_schema, delete_user_by_id_schema, get_user_by_id_schema, update_user_changable_properties_schema } from "../validations/users_validations"
 
 
@@ -19,7 +18,6 @@ export type Role = keyof typeof roles
  */
  export type User= {
     token: string, // identifier key
-    communities: Community["token"][]
     country: CountryCode// assume this is always defined.
     email?: string, // most moderators + super moderators have it but not all of them.
     image?: URL, 

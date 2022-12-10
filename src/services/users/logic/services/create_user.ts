@@ -24,7 +24,6 @@ export class CreateUserService extends UserService {
     return wrapSync<This["buildUserObjectBeforeCreate"]>({name:"CreateUserService/buildUserObjectBeforeCreate"},()=>{
         const user_object: User = {
             token: genereateID(),
-            communities: [],
             country: req_body.country,
             name: req_body.name,
             email: req_body.email,
