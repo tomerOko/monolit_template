@@ -12,7 +12,7 @@ export class DeleteUsersService extends UserLogic {
     public DeleteSingleUserById = async (delete_user_by_id_requst: deleteUserByIdRequest):Promise<void> => {
     return await wrap<This["DeleteSingleUserById"]>({name:"DeleteUsersService/DeleteSingleUserById"}, async()=>{
         const user_id = delete_user_by_id_requst.user_id
-        await DeleteUsersService.user_dal.deleteSinlgeUserByID({token: user_id})
+        await UserLogic.user_dal.deleteSinlgeUserByID(user_id)
     })}
     
 }

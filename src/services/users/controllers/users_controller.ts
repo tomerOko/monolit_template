@@ -1,5 +1,6 @@
 import { Request, Response, Router } from "express"
 import { wrap, wrapSync } from "../../../utilities/function_wrapping"
+import { ChangeUserRoleService } from "../logic/services/chagne_user_role"
 import { CreateUserService } from "../logic/services/create_user"
 import { DeleteUsersService } from "../logic/services/delete_users"
 import { GetUsersService } from "../logic/services/get_users"
@@ -14,7 +15,8 @@ export class UserController {
         private create_user_service = new CreateUserService(),
         private get_users_service = new GetUsersService(),
         private update_user_changeble_properties_service = new UpdateUserChangeblePropertiesService(),
-        private delete_users_service = new DeleteUsersService()
+        private delete_users_service = new DeleteUsersService(),
+        private chage_user_role_service = new ChangeUserRoleService()
     ){}
 
 
@@ -76,8 +78,8 @@ export class UserController {
     return await wrap<This['updateUserChangableProperties']>({name: 'UserController/updateUserChangableProperties'}, async() =>{ 
         const change_user_role_request:ChangeUserRoleRequest = {params: req.params as {authorized_moderator_id: string}, body: req.body }
         try {
-            await this.update_user_changeble_properties_service.UpdateUserChangebleProperties(update_user_changable_properties_request)
-            const user = await this.get_users_service.getSingleUserById({user_id:update_user_changable_properties_request.params.user_id})
+            await this.chage_user_role_service.changeUserRole(change_user_role_request)
+            const user = await this.get_users_service.getSingleUserById({user_id:change_user_role_request.body.user_id})
             const respose_data: ChangeUserRoleResponse ={ updated_user: user }
             res.status(200).send(respose_data)
         } catch (error) {

@@ -4,8 +4,6 @@ import { UpdateUserChangablePropertiesRequest, User, UserChangeableProperties } 
 import { UserUtils } from "../../utilities/users_utils";
 import { UserLogic } from "../base_users_logic_class";
 
-type This = InstanceType<typeof UpdateUserChangeblePropertiesService>
-
 export class UpdateUserChangeblePropertiesService extends UserLogic {
 
     constructor() {super()}
@@ -14,8 +12,9 @@ export class UpdateUserChangeblePropertiesService extends UserLogic {
     await wrap({name:"UpdateUserChangeblePropertiesService/UpdateUserChangebleProperties"}, async()=>{
         const user_id = update_user_changable_properties_request.params.user_id;
         const user_changeable_params = update_user_changable_properties_request.body
-        const user_update_properties:Partial<User> = await this.parseChangeableProprtiesToUpdateProperties(user_changeable_params);
-        await UpdateUserChangeblePropertiesService.user_dal.UpdateSingleUserbByID(user_id, user_update_properties)
+        await this.verifiyEmailIfNeeded(user_changeable_params)
+        const user_update_properties:Partial<User> = await this.parseChangeableProprtiesToUpdateQueryData(user_changeable_params);
+        await UserLogic.user_dal.UpdateSingleUserbByID(user_id, user_update_properties)
     })}
 
 
@@ -27,8 +26,8 @@ export class UpdateUserChangeblePropertiesService extends UserLogic {
     })}
 
 
-    private parseChangeableProprtiesToUpdateProperties(user_changeable_params: UserChangeableProperties): Partial<User>{
-    return wrapSync({name: "UpdateUserChangeblePropertiesService/parseCangeableProprtiesToUpdateProperties"},()=>{
+    private parseChangeableProprtiesToUpdateQueryData(user_changeable_params: UserChangeableProperties): Partial<User>{
+    return wrapSync({name: "UpdateUserChangeblePropertiesService/parseChangeableProprtiesToUpdateQueryData"},()=>{
         const user_update_properties: Partial<User> = { updated_at: new Date() };
         for (const [key, value] of Object.entries((user_changeable_params))) {
             if (value)

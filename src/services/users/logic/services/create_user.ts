@@ -16,7 +16,7 @@ export class CreateUserService extends UserLogic {
     return await wrap<This["createUser"]>({name:"CreateUserService/createUser"}, async()=>{
         if(create_user_params.email) await UserUtils.validateMailNotExist(create_user_params.email)
         const user = this.buildUserObjectBeforeCreate(create_user_params)
-        await CreateUserService.user_dal.createUser(user)
+        await UserLogic.user_dal.createUser(user)
         return user
     })}
 

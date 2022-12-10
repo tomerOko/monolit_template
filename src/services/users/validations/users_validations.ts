@@ -41,7 +41,7 @@ export const delete_user_by_id_schema = z.object({
 
 export const change_user_role_schema = z.object({
   body: z.object({
-    user_to_update: z.string().uuid(),
+    user_id: z.string().uuid(),
     role: z.enum(roles_array)
   }),
   params: z.object({
