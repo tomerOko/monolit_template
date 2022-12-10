@@ -2,13 +2,13 @@
 import { wrap, wrapSync } from "../../../../utilities/function_wrapping";
 import { CreateUserRequest, roles, User } from "../../types/users_types";
 import { UserUtils } from "../../utilities/users_utils";
-import { UserLogic } from "../base_users_logic_class";
+import { UserService } from "../base_users_service_class";
 import {v4 as genereateID,} from 'uuid'
 
 
 type This = InstanceType<typeof CreateUserService>
 
-export class CreateUserService extends UserLogic {
+export class CreateUserService extends UserService {
 
     constructor() {super()}
 
@@ -16,7 +16,7 @@ export class CreateUserService extends UserLogic {
     return await wrap<This["createUser"]>({name:"CreateUserService/createUser"}, async()=>{
         if(create_user_params.email) await UserUtils.validateMailNotExist(create_user_params.email)
         const user = this.buildUserObjectBeforeCreate(create_user_params)
-        await UserLogic.user_dal.createUser(user)
+        await UserService.user_dal.createUser(user)
         return user
     })}
 

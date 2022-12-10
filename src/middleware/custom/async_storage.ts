@@ -17,9 +17,14 @@ export const addTransactionIdToRequestAsyncStorage = (req, res, next) => {
 };
 
 export const getTransactionId = (): string => {
-    const async_store = getAsyncStore();
-    const transacion_id = async_store.transactionId
-    return transacion_id as string
+    try {
+        const async_store = getAsyncStore();
+        const transacion_id = async_store.transactionId
+        return transacion_id as string
+    } catch (error) {
+        return "this opperation dose not have transactionID"
+    }
+
 }
 
 export const getAsyncStore = () => {

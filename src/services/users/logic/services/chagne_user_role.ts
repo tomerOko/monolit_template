@@ -2,11 +2,11 @@
 import { wrap, wrapSync } from "../../../../utilities/function_wrapping";
 import { ChangeUserRoleRequest, roles, User, UserIDFilter, UserUpdateValues } from "../../types/users_types";
 import { UserUtils } from "../../utilities/users_utils";
-import { UserLogic } from "../base_users_logic_class";
+import { UserService } from "../base_users_service_class";
 
 type This = InstanceType<typeof ChangeUserRoleService>
 
-export class ChangeUserRoleService extends UserLogic {
+export class ChangeUserRoleService extends UserService {
 
     constructor() {super()}
 
@@ -15,14 +15,14 @@ export class ChangeUserRoleService extends UserLogic {
 
         await this.validate_super_moderator(change_user_role_request);
         await this.paraseParamsAndCallDAL(change_user_role_request);
-        
+
     })}
 
     private async paraseParamsAndCallDAL(change_user_role_request: ChangeUserRoleRequest) {
     await wrap({name:"ChangeUserRoleService/paraseParamsAndCallDAL"}, async()=>{
 
         const { user_id_filter, user_update_properties } = this.parseParams(change_user_role_request);
-        await UserLogic.user_dal.UpdateSingleUserbByID(user_id_filter, user_update_properties);
+        await UserService.user_dal.UpdateSingleUserbByID(user_id_filter, user_update_properties);
 
     })}
 
@@ -43,7 +43,7 @@ export class ChangeUserRoleService extends UserLogic {
 
         const responsible_moderator_id = change_user_role_request.params.authorized_moderator_id;
         const user_id_filter: UserIDFilter = {token: responsible_moderator_id}
-        await UserLogic.user_helper.user_role_validator.validate_super_moderator(user_id_filter);
+        await UserService.user_helper.user_role_validator.validate_super_moderator(user_id_filter);
 
     })}
 
