@@ -74,7 +74,7 @@ export class UserController {
 
     public async changeUserRole(req: Request, res: Response):Promise<void>{
     return await wrap<This['updateUserChangableProperties']>({name: 'UserController/updateUserChangableProperties'}, async() =>{ 
-        const update_user_changable_properties_request:ChangeUserRoleRequest = {params: req.params as {user_id: string}, body: req.body }
+        const change_user_role_request:ChangeUserRoleRequest = {params: req.params as {authorized_moderator_id: string}, body: req.body }
         try {
             await this.update_user_changeble_properties_service.UpdateUserChangebleProperties(update_user_changable_properties_request)
             const user = await this.get_users_service.getSingleUserById({user_id:update_user_changable_properties_request.params.user_id})
