@@ -22,6 +22,7 @@ services:
     #create a two way data sync from this folder to the 'app' folder inside the container file system
     volumes: 
       - ./:/app
+      - ~/.ssh:/root/.ssh
     #environment variables
     environment:
       #this mongo user is created on the 'mongo-init.js' file (a file that the mongodb docker image run on the first initialization by its name and location)
