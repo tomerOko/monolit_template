@@ -44,7 +44,7 @@ services:
       - "0.0.0.0:27017:27017"
     volumes:
       # mount a local directory to the file system of the mongo container in order to not loose the data each time the container stops
-      - ./mongodb/data:/data/db
+      - ./$MONGO_LOCAL_STORAGE/data:/data/db
     environment:
       # administrator cradentials
       - MONGO_INITDB_ROOT_USERNAME=user

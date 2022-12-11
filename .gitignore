@@ -24,7 +24,7 @@ testem.log
 
 # repo specifics
 /mongodb
+/mongodb_test_storage
 /node_modules
 config.env
 todo.txt
-re_install_commands.md
