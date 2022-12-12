@@ -1,15 +1,16 @@
+import { NextFunction, Request, Response } from "express";
 import { AsyncLocalStorage } from 'async_hooks'
 import {v4 as genereateID} from 'uuid'
 import { create_error } from '../../errors/error_factory';
 
 const asyncLocalStorage = new AsyncLocalStorage<Record<string, any>>();
 
-export const initializeAsiyncLocalStorage =  (req, res, next) => {
+export const initializeAsiyncLocalStorage =  (req:Request, res: Response, next: NextFunction) => {
     asyncLocalStorage.enterWith({})
     next()
 }
 
-export const addTransactionIdToRequestAsyncStorage = (req, res, next) => {
+export const addTransactionIdToRequestAsyncStorage = (req:Request, res: Response, next: NextFunction) => {
     const transactionId = req.headers['transactionId'] || genereateID();
     const async_store = getAsyncStore();
     async_store.transactionId = transactionId

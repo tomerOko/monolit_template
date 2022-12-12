@@ -19,6 +19,9 @@ services:
     #ports to expose to the host network <host port>:<container port>
     ports: 
       - "0.0.0.0:3000:3000"
+    # expose port to other containers inside the docker compose default network
+    expose:
+      - 3000
     #create a two way data sync from this folder to the 'app' folder inside the container file system
     volumes: 
       - ./:/app
@@ -31,7 +34,7 @@ services:
     depends_on: 
       - mongo
     networks:
-      - MONGO
+      - MY_NETWORK
   
   mongo:
     # pool the latest mongodb image from dokcerhub
@@ -58,7 +61,7 @@ services:
     # TODO: what is this?
     command: --quiet
     networks:
-      - MONGO
+      - MY_NETWORK
 
 
   #mongo express is a web GUI for mongodb. open localhost:8081 to use it (have nothing to do with express.js)
@@ -80,12 +83,12 @@ services:
       - ME_CONFIG_MONGODB_SERVER=mongo
       - ME_CONFIG_MONGODB_PORT=27017
     networks:
-      - MONGO
+      - MY_NETWORK
     depends_on:
       - mongo
 
 networks:
-  MONGO:
-    name: MONGO
+  MY_NETWORK:
+    name: MY_NETWORK
     driver: bridge
 
