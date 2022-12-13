@@ -13,7 +13,7 @@ export class CreateUserService extends UserService {
 
     public createUser = async (create_user_params:  CreateUserRequest):Promise<User> => {
     return await wrap({name:"CreateUserService/createUser"}, async()=>{
-        if(create_user_params.email) await UserUtils.validateMailNotExist(create_user_params.email)
+        await UserUtils.validateMailNotExist(create_user_params.email)
         const user = this.buildUserObjectBeforeCreate(create_user_params)
         await UserService.user_dal.createUser(user)
         return user

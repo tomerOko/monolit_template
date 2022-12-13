@@ -23,6 +23,7 @@ const custom_error_types = {
     "no user found by ID": {status_code: 409, error_description: "no user exists with the provided ID"},
 } as const
 
+
 const logic_errors_that_shuold_be_handled = {
     "document was not created": {status_code: 409, error_description: "mongo communication went well but no new document created"},
     "some documents was not created": {status_code: 409, error_description: "mongo communication went well but not all of the provided objects created"},
@@ -35,7 +36,8 @@ const logic_errors_that_shuold_be_handled = {
 } as const
 
 const system_errors_that_shuold_be_handled = {
-    "async storage not initialized":  {status_code: 500, error_description: "tried to use async local storage before it been initialized"}
+    "async storage not initialized":  {status_code: 500, error_description: "tried to use async local storage before it been initialized"},
+    "rute for system management only": {status_code: 403, error_description: "a request from non 'system administrator' arrived at a system administration route"},
 }
 
 

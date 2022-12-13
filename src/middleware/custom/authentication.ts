@@ -14,13 +14,13 @@ export const user_authentication = async (req:Request, res: Response, next: Next
     })
 }
 
-export const admin_authentication = async (req:Request, res: Response, next: NextFunction) => {
+export const system_admin_authentication = async (req:Request, res: Response, next: NextFunction) => {
     const result = await wrap ({name: "auth"}, async () => {
         const is_authenticated = await authMockLogic(req) 
         if (is_authenticated) {
             next()
         }else{
-            const error = create_error("rounte for moderators only")
+            const error = create_error("rute for system management only")
             next(error)        
         }
     })

@@ -3,11 +3,9 @@ import { country_codes_array, roles_array } from "./user_objects_as_arrays";
 
 
 
-
-
 const basic_user_request = z.object({
   country:z.enum(country_codes_array),
-  email: z.string().optional(),
+  email: z.string().email(),
   image: z.string().url().optional(),
   name: z.string(),
   role: z.enum(roles_array).optional()

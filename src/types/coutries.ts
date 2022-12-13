@@ -243,19 +243,3 @@ export const country_codes = {
 export type CountryCode = keyof typeof country_codes
 
 
-
-// const properties = [
-//     { value: "entire_place", label: "The entire place" },
-//     { value: "private_room", label: "A private room" },
-//     { value: "shared_room", label: "A shared room" }
-//   ] as const;
-  
-//   type Property = typeof properties[number]["value"];
-//   // z.enum expects a non-empty array so to work around that
-//   // we pull the first value out explicitly
-//   const VALUES: [Property, ...Property[]] = [
-//     properties[0].value,
-//     // And then merge in the remaining values from `properties`
-//     ...properties.slice(1).map((p) => p.value)
-//   ];
-//   const Property = z.enum(VALUES);
