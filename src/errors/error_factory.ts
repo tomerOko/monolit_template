@@ -60,16 +60,21 @@ export const create_error = (error_type: StructuedErrorTypes, base_error?: unkno
     return new StructuedError (structued_error_params )
 }
 
-export const stuctureErrorIfNotStructuredYet = (error: unknown, error_structure?: StructuedErrorTypes): StructuedError => {
+export const stucture_an_existing_error = (error: unknown, error_structure?: StructuedErrorTypes): StructuedError => {
     if ((error as StructuedError).is_structured_error) {
         const structued_error = error as StructuedError;
         return structued_error
-    } else {
-        error_structure = error_structure ? error_structure : default_error_structure_type
+    } 
+    if (error_structure){
         const structued_error = create_error(error_structure);
         return structued_error
     }
+    const structued_error = create_error(default_error_structure_type);
+    return structued_error
 }
+
+
+
 
     
 

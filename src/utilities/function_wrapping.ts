@@ -1,4 +1,4 @@
-import { StructuedErrorTypes, stuctureErrorIfNotStructuredYet } from "../errors/error_factory";
+import { StructuedErrorTypes, stucture_an_existing_error } from "../errors/error_factory";
 import { getTransactionId } from "../middleware/custom/async_storage";
 import { logger } from "./logger";
 
@@ -45,7 +45,7 @@ const hanle_error = (props: WrapProps, error: unknown, log_prefix:string) => {
     if (props.options?.dont_trow_if_error) {
         return dontThrow(props);
     } else {
-        error = stuctureErrorIfNotStructuredYet(error, props.error_structure)
+        error = stucture_an_existing_error(error, props.error_structure)
         throw error
     }
 }

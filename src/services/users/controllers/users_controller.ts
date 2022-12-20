@@ -1,4 +1,5 @@
 import { Request, Response, Router } from "express"
+import { HttpErrorHandler } from "../../../middleware/custom/http_error_handler"
 import { wrap, wrapSync } from "../../../utilities/function_wrapping"
 import { ChangeUserRoleService } from "../logic/services/chagne_user_role"
 import { CreateUserService } from "../logic/services/create_user"
@@ -26,7 +27,7 @@ export class UserController {
             const respose_data: CreateSingleUserRespose = { created: user }
             res.status(200).send(respose_data)
         } catch (error) {
-            res.status(500).send(error)
+            HttpErrorHandler.send_error_respose(error, res)
         }
     })}
 
@@ -39,7 +40,7 @@ export class UserController {
             const respose_data: GetSingleUserResponse={user}
             res.status(200).send(respose_data)
         } catch (error) {
-            res.status(500).send(error)
+            HttpErrorHandler.send_error_respose(error, res)
         }
     })}
     
@@ -53,7 +54,7 @@ export class UserController {
             const respose_data: UpdateSingleUserResponse ={ updated_user: user }
             res.status(200).send(respose_data)
         } catch (error) {
-            res.status(500).send(error)
+            HttpErrorHandler.send_error_respose(error, res)
         }
     })}
 
@@ -67,7 +68,7 @@ export class UserController {
             const respose_data: DeleteSingleUserResponse = { deleted_user: user }
             res.status(200).send(respose_data)
         } catch (error) {
-            res.status(500).send(error)
+            HttpErrorHandler.send_error_respose(error, res)
         }
     })}
 
@@ -81,7 +82,7 @@ export class UserController {
             const respose_data: ChangeUserRoleResponse ={ updated_user: user }
             res.status(200).send(respose_data)
         } catch (error) {
-            res.status(500).send(error)
+            HttpErrorHandler.send_error_respose(error, res)
         }
     })}
 

@@ -1,0 +1,99 @@
+import express, { Request, Response } from 'express';
+import cors from 'cors';
+import passport from 'passport';
+import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
+import session from 'express-session';
+import { MongoClient, Db } from 'mongodb';
+
+const app = express();
+
+// Enable CORS for all routes
+app.use(cors());
+
+// Connect to the MongoDB database
+const client = new MongoClient(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+client.connect(err => {
+  if (err) {
+    console.error(err);
+    process.exit(1);
+  }
+});
+const db: Db = client.db();
+
+// Use the GoogleStrategy within Passport.
+//   Strategies in Passport require a `verify` function, which accept
+//   credentials (in this case, an accessToken, refreshToken, and Google
+//   profile), and invoke a callback with a user object.
+passport.use(new GoogleStrategy({
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    callbackURL: '/auth/google/callback'
+  },
+  function(accessToken, refreshToken, profile, cb) {
+    // Check if the user's Google profile is in the database
+    db.collection('users').findOne({ googleId: profile.id }, (err, user) => {
+      if (err) {
+        return cb(err);
+      }
+      if (user) {
+        // If the user is in the database, return their profile
+        return cb(null, user);
+      } else {
+        // If the user is not in the database, insert their profile and return it
+        db.collection('users').insertOne({ googleId: profile.id, name: profile.displayName }, (err, result) => {
+          if (err) {
+            return cb(err);
+          }
+          return cb(null, result.ops[0]);
+        });
+      }
+    });
+  }
+));
+
+// Configure Passport to serialize and deserialize user objects to and from the session.
+passport.serializeUser(function(user, cb) {
+  cb(null, user);
+});
+
+passport.deserializeUser(function(obj, cb) {
+  cb(null, obj);
+});
+
+// Use the session middleware to store the user's information
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: true,
+  saveUninitialized: true
+}));
+
+// Initialize Passport and restore authentication state, if any, from the
+// session.
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Set up a route to handle the Google login process
+app.get('/auth/google', passport.authenticate('google', { scope: ['profile'] }));
+
+app.get('/auth/google/callback',
+  passport.authenticate('
+
+
+
+
+
+////////////////////// react part
+
+import React from 'react';
+import GoogleLogin from 'react-google-login';
+
+const GoogleLoginButton = ({ onSuccess, onFailure }) => (
+  <GoogleLogin
+    clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+    buttonText="Login with Google"
+    onSuccess={onSuccess}
+    onFailure={onFailure}
+  />
+);
+
+

@@ -9,7 +9,7 @@ export class UserUtils {
     public static validateMailNotExist = async (email: string):Promise<void> => {
     return await wrap({name:"UserUtils/validateMailNotExist"}, async()=>{
         const email_exist = await this.user_dal.getUsersBy({email})
-        if (email_exist) throw create_error("email allready exist error");
+        if (email_exist[0]) throw create_error("email allready exist error");
     })}
 
 }
