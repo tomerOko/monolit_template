@@ -21,7 +21,8 @@ export const config = {
             collections: {
                 users:'users',
                 post: 'post',
-                communities: 'communities'
+                communities: 'communities',
+                auths: 'auths',
             }
         },
         error_handling:{ //used in development
