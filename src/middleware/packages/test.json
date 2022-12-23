@@ -1,0 +1,861 @@
+{
+    "data": {
+        "currIndexAdjustedNoOfSharesIans": 220000000,
+        "avgTurnover": 282472.14285714284,
+        "currTotalIndexes": 8,
+        "projectedTotalIndexes": 8,
+        "security": {
+            "_id": "637f7f87283155f5339195b3",
+            "tradeDate": "2022-11-10T00:00:00",
+            "securityNo": 3730504,
+            "securityFullTypeCode": "0501",
+            "isin": "IL0037305047",
+            "corporateNo": "520038274",
+            "issuerNo": 373,
+            "securityIsIncludedInContinuousIndices": "601,603,710,715,717,718,724,737,740",
+            "nameHebrew": "אאורה    אגח טו",
+            "symbolHebrew": "אארה.ק15",
+            "companySupersectorHebrew": "ריאלי",
+            "companySectorHebrew": "נדל\"ן ובנייה",
+            "companySubsectorHebrew": "בנייה",
+            "companyNameHeb": "אאורה",
+            "nameEnglish": "AURA       B 15",
+            "symbolEnglish": "AURA.B15",
+            "companySupersectorEnglish": "Real",
+            "companySectorEnglish": "Real-Estate &amp; Construction",
+            "companySubsectorEnglish": "Construction",
+            "companyNameEng": "AURA",
+            "taseDate": "2022-11-10T00:00:00.000Z",
+            "securityTypeHebrew": "אג\"ח קונצרנים",
+            "securityTypeEnglish": "Corporate bond",
+            "securityId": 3730504,
+            "firstTradingDate": "2019-12-05T00:00:00.000Z",
+            "closingPrice": 102.54,
+            "taseScanDate": "2022-11-24T00:00:00.000Z",
+            "basePrice": 102.54,
+            "priceChange": 0.006083202511774077,
+            "effectiveDateClosingPrice": 102.54,
+            "effectiveDateClosingPriceDate": "2022-11-23T00:00:00.000Z",
+            "avgPrice": 101.66100000000002,
+            "avgTurnover": 282472.14285714284,
+            "semiAnnualMedianTurnover": 334798,
+            "semiAnnualMedianPCT90": 1635052,
+            "semiAnnualAverageDailyTurnover": 846209.848,
+            "semiAnnualTurnoverCountAboveThreshold": 125,
+            "semiAnnualTurnoverCount": 125,
+            "nextTaseEffectiveDate": {
+                "payments": [
+                    {
+                        "_id": "637f796c4af7aedf0e1cbb6d",
+                        "exDate": "2022-12-25T00:00:00.000Z",
+                        "paymentDate": "2023-01-01T00:00:00.000Z",
+                        "paymentsDescription": {
+                            "corporateTax": 23,
+                            "personalTax": 15,
+                            "linkageStatusCd": 4
+                        },
+                        "paymentId": "4079-1-3730504",
+                        "securityId": 3730504,
+                        "eventTypeId": 7,
+                        "payment": 2.375,
+                        "currencyTypeCd": null,
+                        "paymentTypeCd": 2,
+                        "isBlockedPayment": false,
+                        "paymentStatus": "1",
+                        "securityNameHeb": "אאורה    אגח טו",
+                        "eventTypeHeb": "ריבית",
+                        "eventKey": "3730504_7_2023-01-01",
+                        "securityNameEng": "AURA       B 15",
+                        "eventTypeEng": "Interest Rate",
+                        "taseDate": "2022-11-10T00:00:00.000Z"
+                    },
+                    {
+                        "_id": "637f796c4af7aedf0e1cbb6e",
+                        "exDate": "2022-12-25T00:00:00.000Z",
+                        "paymentDate": "2023-01-01T00:00:00.000Z",
+                        "paymentsDescription": {
+                            "redemptionRate": 20,
+                            "linkageStatusCd": 4
+                        },
+                        "paymentId": "3768-1-3730504",
+                        "securityId": 3730504,
+                        "eventTypeId": 9,
+                        "payment": 20,
+                        "currencyTypeCd": null,
+                        "paymentTypeCd": 2,
+                        "isBlockedPayment": false,
+                        "paymentStatus": "1",
+                        "securityNameHeb": "אאורה    אגח טו",
+                        "eventTypeHeb": "פדיון חלקי",
+                        "eventKey": "3730504_9_2023-01-01",
+                        "securityNameEng": "AURA       B 15",
+                        "eventTypeEng": "Partial Redemption",
+                        "taseDate": "2022-11-10T00:00:00.000Z"
+                    }
+                ],
+                "redemptionPct": 0.8,
+                "redemptions": [
+                    "20%, 20% (From Balance)"
+                ],
+                "Ians": 176000000,
+                "adjustedPrice": 100.20625,
+                "interest": 2.375,
+                "linkageRate": null,
+                "marketValue": 176363000
+            },
+            "nextNextTaseEffectiveDate": {
+                "payments": [
+                    {
+                        "_id": "637f796c4af7aedf0e1cbb6d",
+                        "exDate": "2022-12-25T00:00:00.000Z",
+                        "paymentDate": "2023-01-01T00:00:00.000Z",
+                        "paymentsDescription": {
+                            "corporateTax": 23,
+                            "personalTax": 15,
+                            "linkageStatusCd": 4
+                        },
+                        "paymentId": "4079-1-3730504",
+                        "securityId": 3730504,
+                        "eventTypeId": 7,
+                        "payment": 2.375,
+                        "currencyTypeCd": null,
+                        "paymentTypeCd": 2,
+                        "isBlockedPayment": false,
+                        "paymentStatus": "1",
+                        "securityNameHeb": "אאורה    אגח טו",
+                        "eventTypeHeb": "ריבית",
+                        "eventKey": "3730504_7_2023-01-01",
+                        "securityNameEng": "AURA       B 15",
+                        "eventTypeEng": "Interest Rate",
+                        "taseDate": "2022-11-10T00:00:00.000Z"
+                    },
+                    {
+                        "_id": "637f796c4af7aedf0e1cbb6e",
+                        "exDate": "2022-12-25T00:00:00.000Z",
+                        "paymentDate": "2023-01-01T00:00:00.000Z",
+                        "paymentsDescription": {
+                            "redemptionRate": 20,
+                            "linkageStatusCd": 4
+                        },
+                        "paymentId": "3768-1-3730504",
+                        "securityId": 3730504,
+                        "eventTypeId": 9,
+                        "payment": 20,
+                        "currencyTypeCd": null,
+                        "paymentTypeCd": 2,
+                        "isBlockedPayment": false,
+                        "paymentStatus": "1",
+                        "securityNameHeb": "אאורה    אגח טו",
+                        "eventTypeHeb": "פדיון חלקי",
+                        "eventKey": "3730504_9_2023-01-01",
+                        "securityNameEng": "AURA       B 15",
+                        "eventTypeEng": "Partial Redemption",
+                        "taseDate": "2022-11-10T00:00:00.000Z"
+                    }
+                ],
+                "redemptionPct": 0.8,
+                "redemptions": [
+                    "20%, 20% (From Balance)"
+                ],
+                "Ians": 176000000,
+                "adjustedPrice": 100.20625,
+                "interest": 2.375,
+                "linkageRate": null,
+                "marketValue": 176363000
+            },
+            "nextNextNextTaseEffectiveDate": {
+                "payments": [
+                    {
+                        "_id": "637f796c4af7aedf0e1cbb6d",
+                        "exDate": "2022-12-25T00:00:00.000Z",
+                        "paymentDate": "2023-01-01T00:00:00.000Z",
+                        "paymentsDescription": {
+                            "corporateTax": 23,
+                            "personalTax": 15,
+                            "linkageStatusCd": 4
+                        },
+                        "paymentId": "4079-1-3730504",
+                        "securityId": 3730504,
+                        "eventTypeId": 7,
+                        "payment": 2.375,
+                        "currencyTypeCd": null,
+                        "paymentTypeCd": 2,
+                        "isBlockedPayment": false,
+                        "paymentStatus": "1",
+                        "securityNameHeb": "אאורה    אגח טו",
+                        "eventTypeHeb": "ריבית",
+                        "eventKey": "3730504_7_2023-01-01",
+                        "securityNameEng": "AURA       B 15",
+                        "eventTypeEng": "Interest Rate",
+                        "taseDate": "2022-11-10T00:00:00.000Z"
+                    },
+                    {
+                        "_id": "637f796c4af7aedf0e1cbb6e",
+                        "exDate": "2022-12-25T00:00:00.000Z",
+                        "paymentDate": "2023-01-01T00:00:00.000Z",
+                        "paymentsDescription": {
+                            "redemptionRate": 20,
+                            "linkageStatusCd": 4
+                        },
+                        "paymentId": "3768-1-3730504",
+                        "securityId": 3730504,
+                        "eventTypeId": 9,
+                        "payment": 20,
+                        "currencyTypeCd": null,
+                        "paymentTypeCd": 2,
+                        "isBlockedPayment": false,
+                        "paymentStatus": "1",
+                        "securityNameHeb": "אאורה    אגח טו",
+                        "eventTypeHeb": "פדיון חלקי",
+                        "eventKey": "3730504_9_2023-01-01",
+                        "securityNameEng": "AURA       B 15",
+                        "eventTypeEng": "Partial Redemption",
+                        "taseDate": "2022-11-10T00:00:00.000Z"
+                    }
+                ],
+                "redemptionPct": 0.8,
+                "redemptions": [
+                    "20%, 20% (From Balance)"
+                ],
+                "Ians": 176000000,
+                "adjustedPrice": 100.20625,
+                "interest": 2.375,
+                "linkageRate": null,
+                "marketValue": 176363000
+            },
+            "currTaseEffectiveDate": {
+                "payments": [],
+                "CapitalListedForTrading": 220000000,
+                "Ians": 220000000
+            },
+            "currRecordDate": {
+                "capitalListedForTrading": 220000000
+            },
+            "currTaseEffectiveDate_prices": {
+                "payments": []
+            },
+            "dayBeforeUpdate": {
+                "payments": [],
+                "Ians": 220000000
+            },
+            "dayBeforeUpdate_prices": {
+                "payments": []
+            },
+            "calculatedIndexes": [
+                601,
+                740,
+                715,
+                710,
+                720,
+                718,
+                737,
+                717,
+                724
+            ],
+            "projectedInIndexes": [
+                601,
+                740,
+                715,
+                710,
+                718,
+                737,
+                717,
+                724
+            ],
+            "validIndexes": [
+                601,
+                740,
+                715,
+                710,
+                720,
+                718,
+                737,
+                717,
+                724
+            ],
+            "currInIndexes": [
+                601,
+                740,
+                715,
+                710,
+                718,
+                737,
+                717,
+                724
+            ],
+            "outOfIndexes": [
+                {
+                    "indexNo": 604,
+                    "reasons": [
+                        {
+                            "t": "sector mismatch",
+                            "missing": null
+                        }
+                    ]
+                },
+                {
+                    "indexNo": 716,
+                    "reasons": [
+                        {
+                            "t": "sector mismatch",
+                            "missing": null
+                        }
+                    ]
+                },
+                {
+                    "indexNo": 711,
+                    "reasons": [
+                        {
+                            "t": "sector mismatch",
+                            "missing": null
+                        }
+                    ]
+                },
+                {
+                    "indexNo": 707,
+                    "reasons": [
+                        {
+                            "t": "sector mismatch",
+                            "missing": null
+                        },
+                        {
+                            "t": "requiredBaseIndex",
+                            "missing": [
+                                711
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "indexNo": 708,
+                    "reasons": [
+                        {
+                            "t": "sector mismatch",
+                            "missing": null
+                        },
+                        {
+                            "t": "requiredBaseIndex",
+                            "missing": [
+                                711
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "indexNo": 709,
+                    "reasons": [
+                        {
+                            "t": "requiredBaseIndex",
+                            "missing": [
+                                707,
+                                708
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "indexNo": 712,
+                    "reasons": [
+                        {
+                            "t": "requiredBaseIndex",
+                            "missing": [
+                                711
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "indexNo": 713,
+                    "reasons": [
+                        {
+                            "t": "not in required sector",
+                            "missing": null
+                        },
+                        {
+                            "t": "requiredBaseIndex",
+                            "missing": [
+                                711
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "indexNo": 714,
+                    "reasons": [
+                        {
+                            "t": "linkage mismatch",
+                            "missing": null
+                        }
+                    ]
+                },
+                {
+                    "indexNo": 733,
+                    "reasons": [
+                        {
+                            "t": "not in required sector",
+                            "missing": null
+                        }
+                    ]
+                },
+                {
+                    "indexNo": 719,
+                    "reasons": [
+                        {
+                            "t": "not foreign and only foreign allowed",
+                            "missing": null
+                        }
+                    ]
+                },
+                {
+                    "indexNo": 735,
+                    "reasons": [
+                        {
+                            "t": "requiredBaseIndex",
+                            "missing": [
+                                711
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "indexNo": 736,
+                    "reasons": [
+                        {
+                            "t": "requiredBaseIndex",
+                            "missing": [
+                                711
+                            ]
+                        },
+                        {
+                            "t": "minRatingRequired",
+                            "missing": 18
+                        }
+                    ]
+                },
+                {
+                    "indexNo": 738,
+                    "reasons": [
+                        {
+                            "t": "minRatingRequired",
+                            "missing": 18
+                        }
+                    ]
+                },
+                {
+                    "indexNo": 739,
+                    "reasons": [
+                        {
+                            "t": "sector mismatch",
+                            "missing": null
+                        },
+                        {
+                            "t": "linkage mismatch",
+                            "missing": null
+                        }
+                    ]
+                },
+                {
+                    "indexNo": 721,
+                    "reasons": [
+                        {
+                            "t": "linkage mismatch",
+                            "missing": null
+                        },
+                        {
+                            "t": "requiredBaseIndex",
+                            "missing": [
+                                711
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "indexNo": 722,
+                    "reasons": [
+                        {
+                            "t": "outOfIndexDurationRange",
+                            "missing": null
+                        },
+                        {
+                            "t": "linkage mismatch",
+                            "missing": null
+                        },
+                        {
+                            "t": "requiredBaseIndex",
+                            "missing": [
+                                711
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "indexNo": 723,
+                    "reasons": [
+                        {
+                            "t": "outOfIndexDurationRange",
+                            "missing": null
+                        },
+                        {
+                            "t": "linkage mismatch",
+                            "missing": null
+                        },
+                        {
+                            "t": "requiredBaseIndex",
+                            "missing": [
+                                711
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "indexNo": 725,
+                    "reasons": [
+                        {
+                            "t": "outOfIndexDurationRange",
+                            "missing": null
+                        }
+                    ]
+                },
+                {
+                    "indexNo": 726,
+                    "reasons": [
+                        {
+                            "t": "outOfIndexDurationRange",
+                            "missing": null
+                        }
+                    ]
+                },
+                {
+                    "indexNo": 602,
+                    "reasons": [
+                        {
+                            "t": "out of universe",
+                            "missing": 602
+                        }
+                    ]
+                },
+                {
+                    "indexNo": 605,
+                    "reasons": [
+                        {
+                            "t": "sector mismatch",
+                            "missing": null
+                        },
+                        {
+                            "t": "linkage mismatch",
+                            "missing": null
+                        },
+                        {
+                            "t": "out of universe",
+                            "missing": 602
+                        }
+                    ]
+                },
+                {
+                    "indexNo": 637,
+                    "reasons": [
+                        {
+                            "t": "outOfIndexDurationRange",
+                            "missing": null
+                        },
+                        {
+                            "t": "linkage mismatch",
+                            "missing": null
+                        },
+                        {
+                            "t": "out of universe",
+                            "missing": 602
+                        },
+                        {
+                            "t": "requiredBaseIndex",
+                            "missing": [
+                                605
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "indexNo": 646,
+                    "reasons": [
+                        {
+                            "t": "linkage mismatch",
+                            "missing": null
+                        },
+                        {
+                            "t": "out of universe",
+                            "missing": 602
+                        },
+                        {
+                            "t": "requiredBaseIndex",
+                            "missing": [
+                                605
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "indexNo": 658,
+                    "reasons": [
+                        {
+                            "t": "outOfIndexDurationRange",
+                            "missing": null
+                        },
+                        {
+                            "t": "linkage mismatch",
+                            "missing": null
+                        },
+                        {
+                            "t": "out of universe",
+                            "missing": 602
+                        },
+                        {
+                            "t": "requiredBaseIndex",
+                            "missing": [
+                                605
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "indexNo": 727,
+                    "reasons": [
+                        {
+                            "t": "outOfIndexDurationRange",
+                            "missing": null
+                        },
+                        {
+                            "t": "linkage mismatch",
+                            "missing": null
+                        },
+                        {
+                            "t": "out of universe",
+                            "missing": 602
+                        },
+                        {
+                            "t": "requiredBaseIndex",
+                            "missing": [
+                                605
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "indexNo": 728,
+                    "reasons": [
+                        {
+                            "t": "outOfIndexDurationRange",
+                            "missing": null
+                        },
+                        {
+                            "t": "linkage mismatch",
+                            "missing": null
+                        },
+                        {
+                            "t": "out of universe",
+                            "missing": 602
+                        },
+                        {
+                            "t": "requiredBaseIndex",
+                            "missing": [
+                                605
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "indexNo": 690,
+                    "reasons": [
+                        {
+                            "t": "out of universe",
+                            "missing": 602
+                        }
+                    ]
+                },
+                {
+                    "indexNo": 700,
+                    "reasons": [
+                        {
+                            "t": "out of universe",
+                            "missing": 602
+                        },
+                        {
+                            "t": "requiredBaseIndex",
+                            "missing": [
+                                690
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "indexNo": 701,
+                    "reasons": [
+                        {
+                            "t": "sector mismatch",
+                            "missing": null
+                        },
+                        {
+                            "t": "out of universe",
+                            "missing": 602
+                        },
+                        {
+                            "t": "requiredBaseIndex",
+                            "missing": [
+                                690
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "indexNo": 702,
+                    "reasons": [
+                        {
+                            "t": "outOfIndexDurationRange",
+                            "missing": null
+                        },
+                        {
+                            "t": "out of universe",
+                            "missing": 602
+                        },
+                        {
+                            "t": "requiredBaseIndex",
+                            "missing": [
+                                700
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "indexNo": 703,
+                    "reasons": [
+                        {
+                            "t": "out of universe",
+                            "missing": 602
+                        },
+                        {
+                            "t": "requiredBaseIndex",
+                            "missing": [
+                                700
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "indexNo": 729,
+                    "reasons": [
+                        {
+                            "t": "outOfIndexDurationRange",
+                            "missing": null
+                        },
+                        {
+                            "t": "out of universe",
+                            "missing": 602
+                        },
+                        {
+                            "t": "requiredBaseIndex",
+                            "missing": [
+                                700
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "indexNo": 704,
+                    "reasons": [
+                        {
+                            "t": "outOfIndexDurationRange",
+                            "missing": null
+                        },
+                        {
+                            "t": "out of universe",
+                            "missing": 602
+                        },
+                        {
+                            "t": "requiredBaseIndex",
+                            "missing": [
+                                700
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "indexNo": 730,
+                    "reasons": [
+                        {
+                            "t": "outOfIndexDurationRange",
+                            "missing": null
+                        },
+                        {
+                            "t": "out of universe",
+                            "missing": 602
+                        },
+                        {
+                            "t": "requiredBaseIndex",
+                            "missing": [
+                                700
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "suspended": false,
+            "issuerNameHebrew": "אאורה השקעות בע\"מ",
+            "issuerNameEnglish": "AURA INVESTMENTS LTD.",
+            "earlyRedemptionDateBankAndInsurance": null,
+            "averageSeniorityPerRedemption": 1.34082,
+            "maturityDate": "2024-12-31T00:00:00.000Z",
+            "linkage": "Unlinked",
+            "interestType": "Fixed",
+            "minMaturityDate": "2024-12-31T00:00:00.000Z",
+            "yearsToRedemption": 2.138888888888889,
+            "indexAdjustedNoOfSharesIans": 220000000,
+            "currRecordDateCapitalListedForTrading": 220000000,
+            "dayBeforeUpdateIans": 220000000,
+            "currTaseEffectiveDateCapitalListedForTrading": 220000000,
+            "currTaseEffectiveDateIans": 220000000,
+            "nextTaseEffectiveDateIans": 176000000,
+            "nextNextTaseEffectiveDateIans": 176000000,
+            "nextNextNextTaseEffectiveDateIans": 176000000,
+            "recordDatePrice": 101.92,
+            "dayBeforeUpdateAdjustedPrice": 102.54,
+            "taseEffectiveDateAdjustedPrice": 102.54,
+            "ratingMidroog": 15,
+            "ratingMidroogDate": "2022-05-15T00:00:00.000Z",
+            "ratingLevel": 15,
+            "ratingMaalotGlobes": null,
+            "ratingMidroogGlobes": 15,
+            "calculatedAvgMarketValue": 223654200.00000006,
+            "avgMarketValue": 223654200.00000006,
+            "dayBeforeUpdateMarketValue": 225588000.00000003,
+            "taseEffectiveDateMarketValue": 225588000.00000003,
+            "currMarketValue": 225588000.00000003,
+            "baseMarketValue": 224224000.00000003,
+            "nextTaseEffectiveDateAvgMarketValue": 178923360.00000003,
+            "marketValueForRanking": 178923360.00000003,
+            "exitFromTelBond": null,
+            "avgMarketValueFromTaseApi": 223564000,
+            "totalPayment": 0,
+            "foreignSecurity": false,
+            "currInUniverseDetailed": {
+                "allBond": true,
+                "telBond": true,
+                "telGov": false
+            },
+            "projectedInUniverse": true,
+            "currTotalIndexes": 8,
+            "projectedTotalIndexes": 8,
+            "calcDesc": {
+                "algoType": "components",
+                "secType": "allBond",
+                "taseEffectiveDate": "2022-11-29T00:00:00.000Z",
+                "effectiveDate": "2022-11-24T00:00:00.000Z"
+            },
+            "calcDescId": "637f7e011e9f99f0a0a4e5ad"
+        },
+        "_id": null,
+        "totalIndexes": 8,
+        "sumCurrFundsMarketValue": 22178722.7904642,
+        "sumProjectedFundsMarketValue": 22152548.488647714,
+        "sumProjectedFundsChange": -26056.643902029376,
+        "sumProjectedPayment": 0
+    }
+}</p>
