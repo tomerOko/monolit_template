@@ -1,13 +1,10 @@
 import { Router } from "express";
-import {AuthController} from "../controllers/auth_controller"
+import { AuthController } from "../controllers/auth_controller"
 
 const auth_controller: AuthController = new AuthController()
 const router:Router  = Router()
 
-router.get('/auth/google', auth_controller.google);
-  
-router.get('/auth/google/callback', auth_controller.google_callback, auth_controller.after_google_callbeack)
-  
+router.get('/one-tap/callback', auth_controller.passport_authenticate, auth_controller.post_succseful_authentication);
 
 export {router as auth_router}
 

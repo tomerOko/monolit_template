@@ -22,14 +22,17 @@ export const config = {
                 users:'users',
                 post: 'post',
                 communities: 'communities',
-                auths: 'auths',
             }
         },
         error_handling:{ //used in development
             return_error_stack_to_client: true, 
             return_native_error_to_client: true, 
             report_unhandled_errors_to_client: true 
-        }
+        },
+        envirnment: {
+            GOOGLE_CLIENT_ID:"secret",
+            GOOGLE_CLIENT_SECRET:"sercret"
+        },
     },
     bussines:{
         users:{

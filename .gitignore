@@ -29,3 +29,4 @@ testem.log
 config.env
 todo.txt
 tests_needed.txt
+src/config/secret_config.ts

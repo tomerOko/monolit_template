@@ -1,14 +1,16 @@
 import { logger } from "./utilities/logger";
-import {wrap} from './utilities/function_wrapping'
+import {wrap, wrapSync} from './utilities/function_wrapping'
 import { MongoInitializer } from "./utilities/monogo_connection";
 import { Server } from "./server";
 import { config } from "./config/confing_mock";
+import { secret_config } from "./config/secret_config_example";
 
 
 class Index {
 
 
-    static async boot():Promise<void>{await wrap({name: 'Index/boot'} ,async() =>{ 
+    static async boot():Promise<void>{
+    await wrap({name: 'Index/boot'} ,async() =>{
         await Index.initizalizeMongo(); 
         Server.initizalize()
     })}
@@ -19,6 +21,14 @@ class Index {
         const db = await MongoInitializer.connectOrGetActiveConnection(config.system.mongo.connection_props);
         await MongoInitializer.createCollections(Object.values(config.system.mongo.collections), db);
     })}
+
+
+    static loadConfig():void{
+    wrapSync({name: 'Index/loadConfig'},() =>{
+        config.system.envirnment = secret_config
+    })}
+
+
 }
 
 
