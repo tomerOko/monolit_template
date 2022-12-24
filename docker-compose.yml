@@ -18,7 +18,7 @@ services:
     hostname: 0.0.0.0
     #ports to expose to the host network <host port>:<container port>
     ports: 
-      - "0.0.0.0:3000:3000"
+      - "0.0.0.0:3001:3000"
     # expose port to other containers inside the docker compose default network
     expose:
       - 3000
@@ -63,9 +63,7 @@ services:
     networks:
       - MY_NETWORK
 
-
-  #mongo express is a web GUI for mongodb. open localhost:8081 to use it (have nothing to do with express.js)
-  mongo-express:
+  mongo-express:  #mongo express is a web GUI for mongodb. open localhost:8081 to use it (have nothing to do with express.js)
     # pool the latest mongo-express image from dokcerhub
     image: mongo-express
     #container bame for 'docker exec -it <container name>' as an example
@@ -87,8 +85,34 @@ services:
     depends_on:
       - mongo
 
+  nginx:
+    #docker run -i
+    stdin_open: true  
+    #docker run -t
+    tty: true         
+    # pool the latest nginx image from dokcerhub
+    image: nginx
+    #container bame for 'docker exec -it <container name>' as an example
+    container_name: nginx
+    #ports to expose to the host network <host port>:<container port>
+    # specify the IP address of the host machine to bind to explicitly. (localhost can some time be 127.0.0.1 and some time 0.0.0.0 and more)
+    hostname: 0.0.0.0
+    #expose container port 3000 to the host network port 3000
+    ports:
+      - "0.0.0.0:80:80"
+    volumes: # being load after build phase but before entrypoint script/command
+      - ./nginx/configs/:/etc/nginx  # the configuration of the server have to be in a specific addres in the linux file system
+      - ./nginx/logs/:/var/log/nginx  # in order to see the files nginx logging to. meaning see them here insted of cli into the container
+      - ./nginx/scripts/:/app   # it did more sence to me to seperate to entrypoint script and docker-file from the nginx config / assets
+    networks:
+      - MY_NETWORK
+    entrypoint: sh /app/entrypoint.sh
+
+      # - ./nginx/assets/:/var/nginx_assests  # in case of serving local assets from the nginx container insted of the one of the apps container, the config directory is banned for serving, so we need another location, i think it have to be specificaly inside the 'var' directory
+    
+
 networks:
   MY_NETWORK:
     name: MY_NETWORK
-    driver: bridge
+    driver: host
 

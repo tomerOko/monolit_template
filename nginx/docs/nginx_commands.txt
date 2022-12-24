@@ -1,0 +1,6 @@
+
+nginx commands:
+    netstat -ntlp           //check the ports status
+    service nginx status    //just check if nginx runing
+    nginx -t                //run syntax check on all nginx config
+    service nginx restart   //restart nginx and load new config rules if there is any 

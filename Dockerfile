@@ -1,7 +1,7 @@
 # NODE DEV IMAGE:
 
 #a basic image to start from
-FROM node:17-alpine3.14
+FROM node:19-alpine
 
 # best practie is to update apk before instalations
 RUN apk update
