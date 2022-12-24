@@ -30,3 +30,5 @@ config.env
 todo.txt
 tests_needed.txt
 src/config/secret_config.ts
+nginx/logs/access.log
+nginx/logs
