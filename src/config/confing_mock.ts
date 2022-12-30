@@ -1,4 +1,6 @@
-export const config = {
+import { secret_config } from "./secret_config"
+
+const config = {
     system:{
         api_server:{
             port: 3000,
@@ -31,7 +33,8 @@ export const config = {
         },
         envirnment: {
             GOOGLE_CLIENT_ID:"secret",
-            GOOGLE_CLIENT_SECRET:"sercret"
+            GOOGLE_CLIENT_SECRET:"sercret",
+            JWT_SECRET:"ercret"
         },
     },
     bussines:{
@@ -51,3 +54,7 @@ export const config = {
         }
     }
 }
+
+config.system.envirnment = secret_config
+
+export {config}

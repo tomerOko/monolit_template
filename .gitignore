@@ -26,9 +26,10 @@ testem.log
 /mongodb
 /mongodb_test_storage
 /node_modules
+/nginx
 config.env
 todo.txt
 tests_needed.txt
 src/config/secret_config.ts
-nginx/logs/access.log
-nginx/logs
+secrets.json
+

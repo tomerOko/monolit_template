@@ -22,13 +22,6 @@ class Index {
         await MongoInitializer.createCollections(Object.values(config.system.mongo.collections), db);
     })}
 
-
-    static loadConfig():void{
-    wrapSync({name: 'Index/loadConfig'},() =>{
-        config.system.envirnment = secret_config
-    })}
-
-
 }
 
 
