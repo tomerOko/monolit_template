@@ -26,7 +26,7 @@ testem.log
 /mongodb
 /mongodb_test_storage
 /node_modules
-/nginx
+/nginx/logs/*
 config.env
 todo.txt
 tests_needed.txt

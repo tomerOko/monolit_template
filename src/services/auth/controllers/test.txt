@@ -1,2 +1,0 @@
-בסוף יש יטוסר על req.user
-זה מה שמכניס אותו לשם   passport.authenticate("google-one-tap", 
